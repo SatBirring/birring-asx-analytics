@@ -39,15 +39,15 @@ export default function LookupPage() {
               <div key={index} style={{ marginBottom: "40px" }}>
                 {groups.map((group, gIndex) => (
                   <div
-                    key={gIndex}
-                    style={{
-                      padding: "20px",
-                      border: "1px solid "#ddd",
-                      borderRadius: "8px",
-                      marginBottom: "20px",
-                      background: "#fafafa",
-                    }}
-                  >
+  key={gIndex}
+  style={{
+    padding: "20px",
+    border: "1px solid #ddd",
+    borderRadius: "8px",
+    marginBottom: "20px",
+    background: "#fafafa",
+  }}
+>
                     {group.map(([key, value]) => (
                       <div key={key} style={{ marginBottom: "6px" }}>
                         <strong>{key}:</strong> {String(value ?? "")}
