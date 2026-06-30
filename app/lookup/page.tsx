@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import SearchBar from "@/components/SearchBar";
+import HeroBlock from "@/components/HeroBlock";
 
 export default function LookupPage() {
   const [results, setResults] = useState<any[]>([]);
@@ -19,47 +20,53 @@ export default function LookupPage() {
   };
 
   return (
-    <div style={{ padding: "40px", fontFamily: "Arial" }}>
-      <h1>ASX Stock Lookup</h1>
+    <div style={{ fontFamily: "Arial" }}>
+      {/* Hero Section */}
+      <HeroBlock />
 
-      <SearchBar onResult={setResults} />
+      {/* Main Content */}
+      <div style={{ padding: "40px" }}>
+        <h1>ASX Stock Lookup</h1>
 
-      {results.length === 0 && (
-        <p style={{ marginTop: "20px" }}>No results yet. Try searching.</p>
-      )}
+        <SearchBar onResult={setResults} />
 
-      {results.length > 0 && (
-        <div style={{ marginTop: "20px" }}>
-          <h2>Results</h2>
+        {results.length === 0 && (
+          <p style={{ marginTop: "20px" }}>No results yet. Try searching.</p>
+        )}
 
-          {results.map((row, index) => {
-            const groups = groupColumns(row, 10); // group size = 10
+        {results.length > 0 && (
+          <div style={{ marginTop: "20px" }}>
+            <h2>Results</h2>
 
-            return (
-              <div key={index} style={{ marginBottom: "40px" }}>
-                {groups.map((group, gIndex) => (
-                  <div
-  key={gIndex}
-  style={{
-    padding: "20px",
-    border: "1px solid #ddd",
-    borderRadius: "8px",
-    marginBottom: "20px",
-    background: "#fafafa",
-  }}
->
-                    {group.map(([key, value]) => (
-                      <div key={key} style={{ marginBottom: "6px" }}>
-                        <strong>{key}:</strong> {String(value ?? "")}
-                      </div>
-                    ))}
-                  </div>
-                ))}
-              </div>
-            );
-          })}
-        </div>
-      )}
+            {results.map((row, index) => {
+              const groups = groupColumns(row, 10); // group size = 10
+
+              return (
+                <div key={index} style={{ marginBottom: "40px" }}>
+                  {groups.map((group, gIndex) => (
+                    <div
+                      key={gIndex}
+                      style={{
+                        padding: "20px",
+                        border: "1px solid #ddd",
+                        borderRadius: "8px",
+                        marginBottom: "20px",
+                        background: "#fafafa",
+                      }}
+                    >
+                      {group.map(([key, value]) => (
+                        <div key={key} style={{ marginBottom: "6px" }}>
+                          <strong>{key}:</strong> {String(value ?? "")}
+                        </div>
+                      ))}
+                    </div>
+                  ))}
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
