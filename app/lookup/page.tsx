@@ -4,20 +4,19 @@ import { useState } from "react";
 import SearchBar from "@/components/SearchBar";
 import HeroBlock from "@/components/HeroBlock";
 
+// NEW BLOCK IMPORTS
+import StockInfoBlock from "@/components/blocks/StockInfoBlock";
+import PriceProfileBlock from "@/components/blocks/PriceProfileBlock";
+// The rest will be added as we build them:
+import PriceLimitsBlock from "@/components/blocks/PriceLimitsBlock";
+import MainVerdictBlock from "@/components/blocks/MainVerdictBlock";
+import SupportingIndicatorsBlock from "@/components/blocks/SupportingIndicatorsBlock";
+import RiskBlock from "@/components/blocks/RiskBlock";
+import MacroMicroBlock from "@/components/blocks/MacroMicroBlock";
+import SecondarySupportSignalsBlock from "@/components/blocks/SecondarySupportSignalsBlock";
+
 export default function LookupPage() {
   const [results, setResults] = useState<any[]>([]);
-
-  // Helper: group columns into blocks of N
-  const groupColumns = (obj: any, size: number) => {
-    const entries = Object.entries(obj);
-    const groups = [];
-
-    for (let i = 0; i < entries.length; i += size) {
-      groups.push(entries.slice(i, i + size));
-    }
-
-    return groups;
-  };
 
   return (
     <div style={{ fontFamily: "Arial" }}>
@@ -38,32 +37,35 @@ export default function LookupPage() {
           <div style={{ marginTop: "20px" }}>
             <h2>Results</h2>
 
-            {results.map((row, index) => {
-              const groups = groupColumns(row, 10); // group size = 10
+            {results.map((row, index) => (
+              <div key={index} style={{ marginBottom: "40px" }}>
+                
+                {/* BLOCK 1 — Stock Info */}
+                <StockInfoBlock row={row} />
 
-              return (
-                <div key={index} style={{ marginBottom: "40px" }}>
-                  {groups.map((group, gIndex) => (
-                    <div
-                      key={gIndex}
-                      style={{
-                        padding: "20px",
-                        border: "1px solid #ddd",
-                        borderRadius: "8px",
-                        marginBottom: "20px",
-                        background: "#fafafa",
-                      }}
-                    >
-                      {group.map(([key, value]) => (
-                        <div key={key} style={{ marginBottom: "6px" }}>
-                          <strong>{key}:</strong> {String(value ?? "")}
-                        </div>
-                      ))}
-                    </div>
-                  ))}
-                </div>
-              );
-            })}
+                {/* BLOCK 2 — Price Profile */}
+                <PriceProfileBlock row={row} />
+
+                {/* BLOCK 3 — Price Limits (coming next) */}
+                <PriceLimitsBlock row={row} />
+
+                {/* BLOCK 4 — Main Verdict */}
+                <MainVerdictBlock row={row} /> 
+
+                {/* BLOCK 5 — Supporting Indicators */}
+                <SupportingIndicatorsBlock row={row} />
+
+                {/* BLOCK 6 — Risk */}
+                <RiskBlock row={row} />
+
+                {/* BLOCK 7 — Macro/Micro */}
+                <MacroMicroBlock row={row} />
+
+                {/* BLOCK 8 — Secondary Support Signals */}
+                <SecondarySupportSignalsBlock row={row} /> 
+
+              </div>
+            ))}
           </div>
         )}
       </div>
