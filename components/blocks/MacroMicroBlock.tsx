@@ -1,6 +1,6 @@
 "use client";
 
-export default function MacroMicroBlock({ row }) {
+export default function MacroMicroBlock({ row }: { row: any }) {
   if (!row) return null;
 
   return (

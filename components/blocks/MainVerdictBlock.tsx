@@ -1,6 +1,6 @@
 "use client";
 
-export default function MainVerdictBlock({ row }) {
+export default function MainVerdictBlock({ row }: { row: any }) {
   if (!row) return null;
 
   return (

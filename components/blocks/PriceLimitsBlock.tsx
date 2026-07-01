@@ -1,6 +1,6 @@
 "use client";
 
-export default function PriceLimitsBlock({ row }) {
+export default function PriceLimitsBlock({ row }: { row: any }) {
   if (!row) return null;
 
   return (

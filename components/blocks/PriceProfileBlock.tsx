@@ -1,6 +1,6 @@
 "use client";
 
-export default function PriceProfileBlock({ row }) {
+export default function PriceProfileBlock({ row }: { row: any }) {
   if (!row) return null;
 
   return (

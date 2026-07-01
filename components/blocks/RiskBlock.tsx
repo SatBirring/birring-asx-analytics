@@ -1,6 +1,6 @@
 "use client";
 
-export default function RiskBlock({ row }) {
+export default function RiskBlock({ row }: { row: any }) {
   if (!row) return null;
 
   return (

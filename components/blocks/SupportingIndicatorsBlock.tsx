@@ -1,6 +1,6 @@
 "use client";
 
-export default function SupportingIndicatorsBlock({ row }) {
+export default function SupportingIndicatorsBlock({ row }: { row: any }) {
   if (!row) return null;
 
   return (

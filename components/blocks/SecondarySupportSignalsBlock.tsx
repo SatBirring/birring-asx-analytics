@@ -1,6 +1,6 @@
 "use client";
 
-export default function SecondarySupportSignalsBlock({ row }) {
+export default function SecondarySupportSignalsBlock({ row }: { row: any }) {
   if (!row) return null;
 
   return (

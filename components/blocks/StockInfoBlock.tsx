@@ -1,6 +1,6 @@
 "use client";
 
-export default function StockInfoBlock({ row }) {
+export default function StockInfoBlock({ row }: { row: any }) {
   if (!row) return null;
 
   return (
