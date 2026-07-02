@@ -1,33 +1,55 @@
 "use client";
 
+interface SecProps {
+  label: string;
+  value: string | number;
+}
+
 export default function SecondarySupportSignalsBlock({ row }: { row: any }) {
   if (!row) return null;
+
+  const Row = ({ label, value }: SecProps) => (
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "space-between",
+        padding: "8px 0",
+        fontSize: "18px",
+        fontWeight: 600,
+      }}
+    >
+      <div>{label}</div>
+      <div style={{ textAlign: "right" }}>{value}</div>
+    </div>
+  );
 
   return (
     <div
       style={{
-        padding: "16px",
-        marginBottom: "20px",
+        padding: "14px",
         borderRadius: "10px",
-        backgroundColor: "#f8f9fa",
-        boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
+        backgroundColor: "#becff6",   // same premium blue as other blocks
+        boxShadow: "0 1px 3px rgba(0,0,0,0.12)",
+        color: "#061126",
+        width: "100%",
+        maxWidth: "380px",
+        minWidth: "260px",
+        marginBottom: "20px",
       }}
     >
       <h2
         style={{
           marginBottom: "12px",
           fontSize: "20px",
-          fontWeight: "600",
-          color: "#333",
+          fontWeight: "700",
+          color: "#061126",
         }}
       >
         Secondary Support Signals
       </h2>
 
-      <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
-        <div><strong>RSI (14):</strong> {row["RSI (14)"]}</div>
-        <div><strong>MACD:</strong> {row["MACD"]}</div>
-      </div>
+      <Row label="RSI (14)" value={row["RSI (14)"]} />
+      <Row label="MACD" value={row["MACD"]} />
     </div>
   );
 }

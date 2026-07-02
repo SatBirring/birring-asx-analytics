@@ -8,12 +8,12 @@ export default function PriceProfileBlock({ row }: { row: any }) {
       style={{
         padding: "14px",
         borderRadius: "10px",
-        backgroundColor: "#d2efa3", // light premium
+        backgroundColor: "#dff2d2", // light premium
         boxShadow: "0 1px 3px rgba(0,0,0,0.12)",
         color: "#333",
         width: "100%",            
-        maxWidth: "380px",        
-        minWidth: "260px",        
+        maxWidth: "600px",        
+        minWidth: "550px",        
       }}
     >
       <div

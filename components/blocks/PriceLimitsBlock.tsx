@@ -8,12 +8,12 @@ export default function PriceLimitsBlock({ row }: { row: any }) {
       style={{
         padding: "14px",
         borderRadius: "10px",
-        backgroundColor: "#becff6", // light premium
+        backgroundColor: "#c0e8ef", // light premium
         boxShadow: "0 1px 3px rgba(0,0,0,0.12)",
-        color: "#333",
+        color: "#012521",
         width: "100%",
-        maxWidth: "380px",        // button-sized
-        minWidth: "260px",
+        maxWidth: "500px",        // button-sized
+        minWidth: "450px",
       }}
     >
       <div
@@ -21,7 +21,7 @@ export default function PriceLimitsBlock({ row }: { row: any }) {
           fontSize: "24px",
           fontWeight: "600",
           marginBottom: "10px",
-          color: "#091326",
+          color: "#021b4a",
         }}
       >
         Price Limits
