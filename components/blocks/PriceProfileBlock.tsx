@@ -6,34 +6,80 @@ export default function PriceProfileBlock({ row }: { row: any }) {
   return (
     <div
       style={{
-        padding: "16px",
-        marginBottom: "20px",
+        padding: "14px",
         borderRadius: "10px",
-        backgroundColor: "#f8f9fa",
-        boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
+        backgroundColor: "#d2efa3", // light premium
+        boxShadow: "0 1px 3px rgba(0,0,0,0.12)",
+        color: "#333",
+        width: "100%",            
+        maxWidth: "380px",        
+        minWidth: "260px",        
       }}
     >
-      <h2
+      <div
         style={{
-          marginBottom: "12px",
-          fontSize: "20px",
+          fontSize: "28px",
           fontWeight: "600",
-          color: "#333",
+          marginBottom: "10px",
+          color: "#061126",
         }}
       >
         Price Profile
-      </h2>
+      </div>
 
-      <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
-        <div><strong>Close Price:</strong> {row["Close Price"]}</div>
-        <div><strong>Price Close Today:</strong> {row["Price Close Today"]}</div>
-        <div><strong>Price 1 Week:</strong> {row["Price 1 Week"]}</div>
-        <div><strong>Price 2 Weeks:</strong> {row["Price 2 Weeks"]}</div>
-        <div><strong>Price 3 Weeks:</strong> {row["Price 3 Weeks"]}</div>
-        <div><strong>Price 1 Month:</strong> {row["Price 1 Month"]}</div>
-        <div><strong>Price 3 Month:</strong> {row["Price 3 Month"]}</div>
-        <div><strong>Price 6 Month:</strong> {row["Price 6 Month"]}</div>
-        <div><strong>Price 1 Year:</strong> {row["Price 1 Year"]}</div>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "8px",
+          fontSize: "20px",
+        }}
+      >
+        {/* ⭐ Label left — Value right */}
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <strong>Close Price:</strong>
+          <span>{row["Close Price"]}</span>
+        </div>
+
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <strong>Price Close Today:</strong>
+          <span>{row["Price Close Today"]}</span>
+        </div>
+
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <strong>Price 1 Week:</strong>
+          <span>{row["Price 1 Week"]}</span>
+        </div>
+
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <strong>Price 2 Weeks:</strong>
+          <span>{row["Price 2 Weeks"]}</span>
+        </div>
+
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <strong>Price 3 Weeks:</strong>
+          <span>{row["Price 3 Weeks"]}</span>
+        </div>
+
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <strong>Price 1 Month:</strong>
+          <span>{row["Price 1 Month"]}</span>
+        </div>
+
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <strong>Price 3 Month:</strong>
+          <span>{row["Price 3 Month"]}</span>
+        </div>
+
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <strong>Price 6 Month:</strong>
+          <span>{row["Price 6 Month"]}</span>
+        </div>
+
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <strong>Price 1 Year:</strong>
+          <span>{row["Price 1 Year"]}</span>
+        </div>
       </div>
     </div>
   );
