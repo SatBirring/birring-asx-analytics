@@ -1,30 +1,29 @@
 "use client";
 
+interface RowProps {
+  label: string;
+  score?: string | number;
+  verdict: string;
+  big?: boolean;
+}
+
 export default function MainVerdictBlock({ row }: { row: any }) {
   if (!row) return null;
 
-  // ⭐ Parse Final Score safely
   const rawScore = row["Final Score"];
   const numericScore =
-    typeof rawScore === "string"
-      ? parseFloat(rawScore)
-      : Number(rawScore);
+    typeof rawScore === "string" ? parseFloat(rawScore) : Number(rawScore);
 
-  // ⭐ Dynamic background color (Red → Yellow → Green)
   const getBackgroundColor = (score: number) => {
     const pct = Math.max(0, Math.min(100, score)) / 100;
-
-    // 0 = red (0deg), 0.5 = yellow (60deg), 1 = green (120deg)
     const hue = 0 + 120 * pct;
 
-    // ⭐ YOU CAN ADJUST THESE VALUES:
-    const saturation = 90; // stronger color
-    const lightness = 70;  // darker color
+    const saturation = 90;
+    const lightness = 70;
 
     return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
   };
 
-  // ⭐ Purple override when Final Verdict is "Extended"
   const extendedPurple = "hsl(270, 60%, 70%)";
 
   const bgColor =
@@ -32,8 +31,7 @@ export default function MainVerdictBlock({ row }: { row: any }) {
       ? extendedPurple
       : getBackgroundColor(numericScore);
 
-  // ⭐ Generic row component
-  const Row = ({ label, score, verdict, big = false }) => (
+  const Row = ({ label, score, verdict, big = false }: RowProps) => (
     <div
       style={{
         display: "grid",
@@ -57,14 +55,13 @@ export default function MainVerdictBlock({ row }: { row: any }) {
       style={{
         width: "100%",
         padding: "20px 0",
-        paddingLeft: "20px",     // ⭐ left spacing
-        paddingRight: "20px",    // ⭐ right spacing
+        paddingLeft: "20px",
+        paddingRight: "20px",
         backgroundColor: bgColor,
-        borderRadius: "12px",    // ⭐ premium rounded edges
+        borderRadius: "12px",
         transition: "background-color 0.3s ease",
       }}
     >
-      {/* ⭐ Centered Title */}
       <h2
         style={{
           marginBottom: "22px",
@@ -77,7 +74,6 @@ export default function MainVerdictBlock({ row }: { row: any }) {
         Core Signals – Multiple Horizons & Data Sets
       </h2>
 
-      {/* ⭐ Final Verdict — BIGGER */}
       <Row
         big={true}
         label="Final Verdict & Score"
@@ -85,21 +81,18 @@ export default function MainVerdictBlock({ row }: { row: any }) {
         verdict={row["Final Verdict"]}
       />
 
-      {/* ⭐ EMA + CFS */}
       <Row
         label="EMA Verdict, Score and Move"
         score={`${row["CFS Smooth"]} | ${row["CFS Move"]}`}
         verdict={row["EMA Final Verdict"]}
       />
 
-      {/* ⭐ Momentum */}
       <Row
         label="Momentum Score and Category"
         score={row["Overall Momentum Score"]}
         verdict={row["Momentum Category"]}
       />
 
-      {/* ⭐ Behavioural */}
       <Row
         label="Behavioural Classifier"
         score="—"
