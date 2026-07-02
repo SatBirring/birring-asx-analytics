@@ -30,6 +30,12 @@ function LookupContent() {
     autoSearch();
   }, [autoCode]);
 
+  // Dynamic block wrapper style
+  const blockStyle = {
+    flex: "1 1 350px",   // minimum width → ensures max 2 per row
+    width: "100%",
+  };
+
   return (
     <>
       <SearchBar onResult={setResults} prefill={autoCode || ""} />
@@ -47,48 +53,46 @@ function LookupContent() {
               key={index}
               style={{
                 marginTop: "20px",
-                display: "grid",
-                gridTemplateColumns: "repeat(2, 1fr)",
+                display: "flex",
+                flexWrap: "wrap",
                 gap: "20px",
                 padding: "20px",
-                justifyItems: "center",
+                justifyContent: "center",
               }}
             >
-              {/* FULL-WIDTH STOCK INFO */}
-              <div style={{ gridColumn: "1 / -1", width: "100%" }}>
+              {/* FULL-WIDTH BLOCKS */}
+              <div style={{ width: "100%" }}>
                 <StockInfoBlock row={row} />
               </div>
 
-              {/* MAX 2 PER ROW — EACH BLOCK LOCKED TO 380px */}
-              <div style={{ width: "100%", maxWidth: "700px" }}>
-                <PriceProfileBlock row={row} />
-              </div>
-
-              <div style={{ width: "100%", maxWidth: "500px" }}>
-                <PriceLimitsBlock row={row} />
-              </div>
-
-              <div style={{ gridColumn: "1 / -1", width: "100%" }}>
+              <div style={{ width: "100%" }}>
                 <MainVerdictBlock row={row} />
               </div>
 
-              <div style={{ width: "100%", maxWidth: "700px" }}>
+              {/* DYNAMIC 2-COLUMN BLOCKS */}
+              <div style={{ ...blockStyle, maxWidth: "600px" }}>
+                <PriceProfileBlock row={row} />
+              </div>
+              
+              <div style={{ ...blockStyle, maxWidth: "600px" }}>
                 <SupportingIndicatorsBlock row={row} />
               </div>
 
-               <div style={{ width: "100%", maxWidth: "500px" }}>
-                <SecondarySupportSignalsBlock row={row} />
+              <div style={{ ...blockStyle, maxWidth: "500px" }}>
+                <PriceLimitsBlock row={row} />
               </div>
-
-              <div style={{ width: "100%", maxWidth: "600px" }}>
+              
+              <div style={{ ...blockStyle, maxWidth: "600px" }}>
                 <RiskBlock row={row} />
               </div>
 
-              <div style={{ width: "100%", maxWidth: "600px" }}>
+              <div style={{ ...blockStyle, maxWidth: "600px" }}>
                 <MacroMicroBlock row={row} />
               </div>
-
-             
+              
+              <div style={{ ...blockStyle, maxWidth: "500px" }}>
+                <SecondarySupportSignalsBlock row={row} />
+              </div>
             </div>
           ))}
         </div>
