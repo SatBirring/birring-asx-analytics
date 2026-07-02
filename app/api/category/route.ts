@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";   // ⭐ REQUIRED FOR VERCEL
+
 import { NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
@@ -33,16 +35,6 @@ export async function GET(request: Request) {
         score: parseFloat(row[idxScore]) || 0,
       });
     }
-  }
-
-  // ⭐ Sorting logic based on verdict type
-  const highToLowVerdicts = ["Extended", "Strong", "Positive"];
-  const lowToHighVerdicts = ["Weak", "Recheck", "Monitor"];
-
-  if (highToLowVerdicts.includes(verdict)) {
-    rows.sort((a, b) => b.score - a.score); // High → Low
-  } else if (lowToHighVerdicts.includes(verdict)) {
-    rows.sort((a, b) => a.score - b.score); // Low → High
   }
 
   return NextResponse.json({ results: rows });
