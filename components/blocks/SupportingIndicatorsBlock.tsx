@@ -3,7 +3,7 @@
 interface BarProps {
   label: string;
   value: number | string;
-  type: "trend" | "move" | "liq" | "vol";
+  type: "trend" | "tmove"  | "move" | "liq" | "vol";
 }
 
 export default function SupportingIndicatorsBlock({ row }: { row: any }) {

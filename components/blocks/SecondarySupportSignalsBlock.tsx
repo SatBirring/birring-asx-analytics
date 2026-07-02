@@ -32,8 +32,8 @@ export default function SecondarySupportSignalsBlock({ row }: { row: any }) {
         boxShadow: "0 1px 3px rgba(0,0,0,0.12)",
         color: "#061126",
         width: "100%",
-        maxWidth: "380px",
-        minWidth: "260px",
+        maxWidth: "500px",
+        minWidth: "450px",
         marginBottom: "20px",
       }}
     >
