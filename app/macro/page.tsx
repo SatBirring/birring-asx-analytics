@@ -15,7 +15,7 @@ export default function MacroPage() {
         alt="Macro Signal"
         style={{
           width: "100%",
-          maxWidth: "600px",
+          maxWidth: "1000px",
           height: "auto",
           margin: "20px auto",
           display: "block",
