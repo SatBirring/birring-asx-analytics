@@ -1,11 +1,17 @@
- "use client";
+"use client";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
-export default function SearchBar({ onResult }: { onResult: (data: any[]) => void }) {
-  const [query, setQuery] = useState("");
+export default function SearchBar({
+  onResult,
+  prefill = "",
+}: {
+  onResult: (data: any[]) => void;
+  prefill?: string;
+}) {
+  const [query, setQuery] = useState(prefill);
   const router = useRouter();
 
   async function handleSearch() {
@@ -57,7 +63,6 @@ export default function SearchBar({ onResult }: { onResult: (data: any[]) => voi
         }}
       />
 
-      {/* ⭐ WRAPPING BUTTON CONTAINER */}
       <div
         style={{
           display: "flex",
@@ -78,20 +83,6 @@ export default function SearchBar({ onResult }: { onResult: (data: any[]) => voi
           }}
         >
           Search
-        </button>
-
-        <button
-          onClick={handleReset}
-          style={{
-            padding: "10px 20px",
-            fontSize: "16px",
-            cursor: "pointer",
-            backgroundColor: "#ddd",
-            border: "1px solid #ccc",
-            borderRadius: "6px",
-          }}
-        >
-          Reset
         </button>
 
         <button
@@ -125,7 +116,6 @@ export default function SearchBar({ onResult }: { onResult: (data: any[]) => voi
           </button>
         </Link>
 
-        {/* ⭐ CATEGORY BUTTON — NOW VISIBLE */}
         <Link href="/categories">
           <button
             style={{
