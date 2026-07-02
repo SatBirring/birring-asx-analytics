@@ -44,7 +44,6 @@ export default function LookupPage() {
       <div style={{ padding: "40px" }}>
         <h1>ASX Stock Lookup</h1>
 
-        {/* ⭐ SearchBar with auto-filled code */}
         <div style={{ width: "100%", overflow: "visible" }}>
           <SearchBar onResult={setResults} prefill={autoCode || ""} />
         </div>
