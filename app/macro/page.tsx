@@ -6,8 +6,17 @@ export default function MacroPage() {
   const router = useRouter();
 
   return (
-    <div style={{ padding: "20px", textAlign: "center" }}>
-      <h1 style={{ marginBottom: "20px" }}>Macro Data Overview</h1>
+    <div
+      style={{
+        backgroundColor: "#e8ebff",   // ⭐ Light blue background
+        minHeight: "100vh",           // ⭐ Full page height
+        padding: "20px",
+        textAlign: "center",
+      }}
+    >
+      <h1 style={{ marginBottom: "20px", fontSize: "32px", fontWeight: "bold" }}>
+        Macro Data Overview
+      </h1>
 
       {/* Responsive Macro Image */}
       <img

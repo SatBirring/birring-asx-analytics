@@ -85,6 +85,21 @@ export default function SearchBar({
           Search
         </button>
 
+        {/* ⭐ CLEAR BUTTON RESTORED */}
+        <button
+          onClick={handleReset}
+          style={{
+            padding: "10px 20px",
+            fontSize: "16px",
+            cursor: "pointer",
+            backgroundColor: "#ddd",
+            border: "1px solid #ccc",
+            borderRadius: "6px",
+          }}
+        >
+          Clear
+        </button>
+
         <button
           onClick={goHome}
           style={{
