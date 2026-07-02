@@ -1,8 +1,6 @@
 "use client";
-export const dynamic = "force-dynamic";
 
-import { useState, useEffect } from "react";
-import { useSearchParams } from "next/navigation";
+import { useState } from "react";
 
 import SearchBar from "@/components/SearchBar";
 import HeroBlock from "@/components/HeroBlock";
@@ -18,25 +16,6 @@ import SecondarySupportSignalsBlock from "@/components/blocks/SecondarySupportSi
 
 export default function LookupPage() {
   const [results, setResults] = useState<any[]>([]);
-  const searchParams = useSearchParams();
-  const autoCode = searchParams.get("code");
-
-  // ⭐ Auto-search when coming from Categories page
-  useEffect(() => {
-    async function autoSearch() {
-      if (!autoCode) return;
-
-      const res = await fetch(`/api/stock?query=${autoCode}`);
-      const data = await res.json();
-
-      const best =
-        data.results && data.results.length > 0 ? [data.results[0]] : [];
-
-      setResults(best);
-    }
-
-    autoSearch();
-  }, [autoCode]);
 
   return (
     <div style={{ fontFamily: "Arial" }}>
@@ -46,7 +25,7 @@ export default function LookupPage() {
         <h1>ASX Stock Lookup</h1>
 
         <div style={{ width: "100%", overflow: "visible" }}>
-          <SearchBar onResult={setResults} prefill={autoCode || ""} />
+          <SearchBar onResult={setResults} />
         </div>
 
         {results.length === 0 && (
