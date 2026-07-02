@@ -1,4 +1,4 @@
-"use client";
+ "use client";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -28,7 +28,15 @@ export default function SearchBar({ onResult }: { onResult: (data: any[]) => voi
   }
 
   return (
-    <div style={{ marginBottom: "20px" }}>
+    <div
+      style={{
+        marginBottom: "20px",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "flex-start",
+        width: "100%",
+      }}
+    >
       <input
         type="text"
         placeholder="Search ASX stock (code or name)"
@@ -42,61 +50,23 @@ export default function SearchBar({ onResult }: { onResult: (data: any[]) => voi
           padding: "10px",
           width: "300px",
           fontSize: "16px",
-          marginRight: "10px",
+          marginBottom: "10px",
           border: "1px solid #ccc",
           borderRadius: "6px",
           outline: "none",
         }}
       />
 
-      <button
-        onClick={handleSearch}
+      {/* ⭐ WRAPPING BUTTON CONTAINER */}
+      <div
         style={{
-          padding: "10px 20px",
-          fontSize: "16px",
-          cursor: "pointer",
-          marginRight: "10px",
-          backgroundColor: "#0070f3",
-          color: "white",
-          border: "none",
-          borderRadius: "6px",
+          display: "flex",
+          flexWrap: "wrap",
+          gap: "10px",
         }}
       >
-        Search
-      </button>
-
-      <button
-        onClick={handleReset}
-        style={{
-          padding: "10px 20px",
-          fontSize: "16px",
-          cursor: "pointer",
-          marginRight: "10px",
-          backgroundColor: "#ddd",
-          border: "1px solid #ccc",
-          borderRadius: "6px",
-        }}
-      >
-        Reset
-      </button>
-
-      <button
-        onClick={goHome}
-        style={{
-          padding: "10px 20px",
-          fontSize: "16px",
-          cursor: "pointer",
-          backgroundColor: "#444",
-          color: "white",
-          border: "none",
-          borderRadius: "6px",
-        }}
-      >
-        Home
-      </button>
-
-      <Link href="/macro">
         <button
+          onClick={handleSearch}
           style={{
             padding: "10px 20px",
             fontSize: "16px",
@@ -105,12 +75,73 @@ export default function SearchBar({ onResult }: { onResult: (data: any[]) => voi
             color: "white",
             border: "none",
             borderRadius: "6px",
-            marginLeft: "10px",
           }}
         >
-          Macro & Sector Data
+          Search
         </button>
-      </Link>
+
+        <button
+          onClick={handleReset}
+          style={{
+            padding: "10px 20px",
+            fontSize: "16px",
+            cursor: "pointer",
+            backgroundColor: "#ddd",
+            border: "1px solid #ccc",
+            borderRadius: "6px",
+          }}
+        >
+          Reset
+        </button>
+
+        <button
+          onClick={goHome}
+          style={{
+            padding: "10px 20px",
+            fontSize: "16px",
+            cursor: "pointer",
+            backgroundColor: "#444",
+            color: "white",
+            border: "none",
+            borderRadius: "6px",
+          }}
+        >
+          Home
+        </button>
+
+        <Link href="/macro">
+          <button
+            style={{
+              padding: "10px 20px",
+              fontSize: "16px",
+              cursor: "pointer",
+              backgroundColor: "#0070f3",
+              color: "white",
+              border: "none",
+              borderRadius: "6px",
+            }}
+          >
+            Macro & Sector Data
+          </button>
+        </Link>
+
+        {/* ⭐ CATEGORY BUTTON — NOW VISIBLE */}
+        <Link href="/categories">
+          <button
+            style={{
+              padding: "10px 20px",
+              fontSize: "16px",
+              cursor: "pointer",
+              backgroundColor: "#0070f3",
+              color: "white",
+              border: "none",
+              borderRadius: "6px",
+            }}
+          >
+            Category View
+          </button>
+        </Link>
+      </div>
     </div>
   );
 }
