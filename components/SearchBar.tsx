@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function SearchBar({ onResult }: { onResult: (data: any[]) => void }) {
   const [query, setQuery] = useState("");
@@ -13,18 +14,17 @@ export default function SearchBar({ onResult }: { onResult: (data: any[]) => voi
     const res = await fetch(`/api/stock?query=${query}`);
     const data = await res.json();
 
-    // Return only the single best match (first row)
     const best = data.results && data.results.length > 0 ? [data.results[0]] : [];
     onResult(best);
   }
 
   function handleReset() {
     setQuery("");
-    onResult([]); // clear results
+    onResult([]);
   }
 
   function goHome() {
-    router.push("/"); // navigate to main page
+    router.push("/");
   }
 
   return (
@@ -94,6 +94,23 @@ export default function SearchBar({ onResult }: { onResult: (data: any[]) => voi
       >
         Home
       </button>
+
+      <Link href="/macro">
+        <button
+          style={{
+            padding: "10px 20px",
+            fontSize: "16px",
+            cursor: "pointer",
+            backgroundColor: "#0070f3",
+            color: "white",
+            border: "none",
+            borderRadius: "6px",
+            marginLeft: "10px",
+          }}
+        >
+          Macro & Sector Data
+        </button>
+      </Link>
     </div>
   );
 }
