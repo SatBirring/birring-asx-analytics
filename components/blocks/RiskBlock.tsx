@@ -80,6 +80,7 @@ export default function RiskBlock({ row }: { row: any }) {
           fontSize: "20px",
           fontWeight: "700",
           color: "#270311",
+          textAlign: "center",
         }}
       >
         Risk Indicators

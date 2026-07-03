@@ -87,22 +87,23 @@ export default function PriceProfileBlock({ row }: { row: any }) {
       }}
     >
       <div
-        style={{
-          fontSize: "28px",
-          fontWeight: "600",
-          marginBottom: "10px",
-          color: "#061126",
-        }}
-      >
-        Price Profile
-      </div>
+  style={{
+    fontSize: "28px",
+    fontWeight: "600",
+    marginBottom: "10px",
+    color: "#0c2105",
+    textAlign: "center",   // ⭐ FIX: center the header
+  }}
+>
+  Price Profile
+</div>
 
       <div
         style={{
           display: "flex",
           flexDirection: "column",
           gap: "10px",
-          fontSize: "24px",
+          fontSize: "28px",
         }}
       >
         {/* ⭐ Close Price (anchor) */}
