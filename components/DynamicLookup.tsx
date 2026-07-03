@@ -13,6 +13,8 @@ import RiskBlock from "@/components/blocks/RiskBlock";
 import MacroMicroBlock from "@/components/blocks/MacroMicroBlock";
 import SecondarySupportSignalsBlock from "@/components/blocks/SecondarySupportSignalsBlock";
 
+import styles from "./lookup.module.css";   // ✅ Step 2
+
 function LookupContent() {
   const [results, setResults] = useState<any[]>([]);
   const searchParams = useSearchParams();
@@ -43,31 +45,20 @@ function LookupContent() {
           <h2>Results</h2>
 
           {results.map((row, index) => (
-            <div
-              key={index}
-              style={{
-                marginTop: "20px",
-                display: "grid",
-                gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
-                gap: "20px",
-                padding: "20px",
-                alignItems: "start",
-              }}
-            >
-              {/* FULL-WIDTH BLOCKS */}
-              <div style={{ gridColumn: "1 / -1" }}>
+            <div key={index} className={styles.gridContainer}>   {/* ✅ Step 3 */}
+
+              <div className={styles.fullWidth}>                 {/* ✅ Step 4 */}
                 <StockInfoBlock row={row} />
               </div>
 
-              <div style={{ gridColumn: "1 / -1" }}>
+              <div className={styles.fullWidth}>                 {/* ✅ Step 4 */}
                 <MainVerdictBlock row={row} />
               </div>
 
-              {/* STRICT 2-COLUMN BLOCKS */}
               <div style={{ maxWidth: "700px", width: "100%" }}>
                 <PriceProfileBlock row={row} />
               </div>
-              
+
               <div style={{ maxWidth: "600px", width: "100%" }}>
                 <SupportingIndicatorsBlock row={row} />
               </div>
@@ -75,10 +66,9 @@ function LookupContent() {
               <div style={{ maxWidth: "500px", width: "100%" }}>
                 <PriceLimitsBlock row={row} />
               </div>
-            
 
               <div style={{ maxWidth: "500px", width: "100%" }}>
-              <SecondarySupportSignalsBlock row={row} />
+                <SecondarySupportSignalsBlock row={row} />
               </div>
 
               <div style={{ maxWidth: "600px", width: "100%" }}>
@@ -88,6 +78,7 @@ function LookupContent() {
               <div style={{ maxWidth: "600px", width: "100%" }}>
                 <MacroMicroBlock row={row} />
               </div>
+
             </div>
           ))}
         </div>
@@ -103,4 +94,3 @@ export default function DynamicLookup() {
     </Suspense>
   );
 }
-

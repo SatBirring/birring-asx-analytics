@@ -1,0 +1,25 @@
+.gridContainer {
+  display: grid;
+  gap: 20px;
+  padding: 20px;
+  grid-template-columns: 1fr; /* mobile */
+}
+
+/* Tablet */
+@media (min-width: 768px) {
+  .gridContainer {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Desktop */
+@media (min-width: 1200px) {
+  .gridContainer {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Full-width blocks */
+.fullWidth {
+  grid-column: 1 / -1;
+}
