@@ -75,11 +75,10 @@ function LookupContent() {
               <div style={{ maxWidth: "500px", width: "100%" }}>
                 <PriceLimitsBlock row={row} />
               </div>
-
-              
+            
 
               <div style={{ maxWidth: "500px", width: "100%" }}>
-                <SecondarySupportSignalsBlock row={row} />
+              <SecondarySupportSignalsBlock row={row} />
               </div>
 
               <div style={{ maxWidth: "600px", width: "100%" }}>
