@@ -18,10 +18,11 @@ export default function PriceLimitsBlock({ row }: { row: any }) {
     >
       <div
         style={{
-          fontSize: "24px",
+          fontSize: "28px",
           fontWeight: "600",
           marginBottom: "10px",
           color: "#021b4a",
+          textAlign: "center",
         }}
       >
         Price Limits

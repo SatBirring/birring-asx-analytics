@@ -43,6 +43,7 @@ export default function SecondarySupportSignalsBlock({ row }: { row: any }) {
           fontSize: "20px",
           fontWeight: "700",
           color: "#061126",
+          textAlign: "center",
         }}
       >
         Secondary Support Signals

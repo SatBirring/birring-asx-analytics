@@ -112,9 +112,10 @@ if (type === "tmove") {
       <h2
         style={{
           marginBottom: "12px",
-          fontSize: "20px",
+          fontSize: "32px",
           fontWeight: "700",
-          color: "#021230",
+          color: "#020c57",
+          textAlign: "center",
         }}
       >
         Supporting Indicators — Calculated & Measured
