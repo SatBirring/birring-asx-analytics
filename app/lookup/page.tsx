@@ -12,6 +12,7 @@ export default function LookupPage() {
         <h1>ASX Stock Lookup</h1>
 
         <DynamicLookup />
+        
       </div>
     </div>
   );
