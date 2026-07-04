@@ -17,9 +17,9 @@ export default function MacroPage() {
       <h1 style={{ marginBottom: "20px", fontSize: "32px", fontWeight: "bold" }}>
         Macro Data Overview
       </h1>
+
       <h2 style={{ marginBottom: "20px", fontSize: "20px", fontWeight: "bold" }}>
         Macro data is systematically measured and compiled across the market and individual sectors, providing a unified view of directional momentum, trend development, and volatility behaviour.
-      
       </h2>
 
       {/* Responsive Macro Image */}
@@ -85,6 +85,22 @@ export default function MacroPage() {
           }}
         >
           Back to Lookup
+        </button>
+
+        {/* ⭐ NEW BUTTON — Go to Categories */}
+        <button
+          onClick={() => router.push("/categories")}
+          style={{
+            padding: "10px 20px",
+            fontSize: "16px",
+            cursor: "pointer",
+            backgroundColor: "#fe8940",
+            color: "white",
+            border: "none",
+            borderRadius: "6px",
+          }}
+        >
+          Categories →
         </button>
       </div>
     </div>

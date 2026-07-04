@@ -97,12 +97,12 @@ export default function CategoriesPage() {
           }}
         >
           {[
-            { file: "Extended.png", label: "Trend Direction" },
-            { file: "Strong.png", label: "Price Behaviour" },
-            { file: "Positive.png", label: "Volatility Regime" },
-            { file: "Monitor.png", label: "Liquidity Conditions" },
-            { file: "Recheck.png", label: "Macro‑Micro Alignment" },
-            { file: "Weak.png", label: "Risk Profile" },
+            { file: "Extended.png", label: "Extended" },
+            { file: "Strong.png", label: "Strong" },
+            { file: "Positive.png", label: "Positive" },
+            { file: "Monitor.png", label: "Monitor" },
+            { file: "Recheck.png", label: "Recheck" },
+            { file: "Weak.png", label: "Weak" },
           ].map((icon) => (
             <div
               key={icon.file}
