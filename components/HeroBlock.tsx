@@ -7,7 +7,7 @@ export default function HeroBlock() {
     <div className="heroBlock">
       <div className="heroImage">
         <Image
-          src="/hero.png"
+          src="/Main Logo.png"
           alt="Birring Data Analytics Hero"
           width={380}
           height={380}

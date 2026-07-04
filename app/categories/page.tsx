@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 const VERDICTS = [
   "Extended",
@@ -20,7 +21,9 @@ export default function CategoriesPage() {
   async function loadCategory(verdict: string) {
     setSelected(verdict);
 
-    const res = await fetch(`/api/category?verdict=${encodeURIComponent(verdict)}`);
+    const res = await fetch(
+      `/api/category?verdict=${encodeURIComponent(verdict)}`
+    );
     const data = await res.json();
 
     setStocks(data.results || []);
@@ -34,47 +37,162 @@ export default function CategoriesPage() {
     router.push("/lookup");
   }
 
+  function goMacro() {
+    router.push("/macro");
+  }
+
   return (
-    <div style={{ padding: "20px" }}>
-      <h1 style={{ marginBottom: "20px" }}>Stock Categories by Final Verdict</h1>
-
-      {/* Dropdown */}
-      <select
-        value={selected}
-        onChange={(e) => loadCategory(e.target.value)}
+    <div
+      style={{
+        padding: "20px",
+        backgroundColor: "#0b1e39",
+        minHeight: "100vh",
+        color: "white",
+        fontFamily: "Arial",
+      }}
+    >
+      {/* HERO BLOCK */}
+      <div
         style={{
-          padding: "8px",
-          fontSize: "16px",
-          marginBottom: "20px",
-          width: "250px",
+          textAlign: "center",
+          marginBottom: "40px",
+          padding: "20px",
+          borderRadius: "10px",
+          backgroundColor: "#102544",
         }}
       >
-        <option value="">Select a category...</option>
-        {VERDICTS.map((v) => (
-          <option key={v} value={v}>
-            {v}
-          </option>
-        ))}
-      </select>
+        <h1
+          style={{
+            fontSize: "42px",
+            marginBottom: "10px",
+            background: "linear-gradient(90deg, #e4f71d, #4db8ff, #9cc9ff)",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            fontWeight: 700,
+          }}
+        >
+          ASX Behavioural Categories
+        </h1>
 
-      {/* Back Button BELOW dropdown */}
-      <button
-        onClick={goBack}
+        <p
+          style={{
+            fontSize: "24px",
+            color: "#30f998",
+            maxWidth: "800px",
+            margin: "0 auto 30px auto",
+            lineHeight: "1.6",
+          }}
+        >
+          The FINAL VERDICT Signals are derived from multi‑angle analytics that measure trend behaviour, market conditions, and the structural health of each stock. Together, these Final Signals classify how ASX stocks are behaving right now — consistently, neutrally, and without subjective interpretation.
+        </p>
+
+        {/* ICON ROW */}
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "center",
+            gap: "25px",
+            marginTop: "20px",
+          }}
+        >
+          {[
+            { file: "Extended.png", label: "Trend Direction" },
+            { file: "Strong.png", label: "Price Behaviour" },
+            { file: "Positive.png", label: "Volatility Regime" },
+            { file: "Monitor.png", label: "Liquidity Conditions" },
+            { file: "Recheck.png", label: "Macro‑Micro Alignment" },
+            { file: "Weak.png", label: "Risk Profile" },
+          ].map((icon) => (
+            <div
+              key={icon.file}
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                color: "#e7eaef",
+                fontSize: "14px",
+              }}
+            >
+              <Image
+                src={`/${icon.file}`}
+                alt={icon.label}
+                width={60}
+                height={60}
+                style={{ borderRadius: "8px" }}
+              />
+              <span style={{ marginTop: "8px" }}>{icon.label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* CONTROLS */}
+      <div
         style={{
-          padding: "10px 20px",
-          fontSize: "16px",
-          cursor: "pointer",
-          backgroundColor: "#444",
-          color: "white",
-          border: "none",
-          borderRadius: "6px",
-          marginBottom: "25px",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: "20px",
+          marginBottom: "30px",
         }}
       >
-        ← Back to Lookup
-      </button>
+        {/* Dropdown */}
+        <select
+          value={selected}
+          onChange={(e) => loadCategory(e.target.value)}
+          style={{
+            padding: "12px 16px",
+            fontSize: "18px",
+            borderRadius: "6px",
+            border: "none",
+            width: "260px",
+            backgroundColor: "#123",
+            color: "white",
+          }}
+        >
+          <option value="">Select a category...</option>
+          {VERDICTS.map((v) => (
+            <option key={v} value={v}>
+              {v}
+            </option>
+          ))}
+        </select>
 
-      {/* Results */}
+        {/* Back Button */}
+        <button
+          onClick={goBack}
+          style={{
+            padding: "10px 20px",
+            fontSize: "16px",
+            cursor: "pointer",
+            backgroundColor: "#444",
+            color: "white",
+            border: "none",
+            borderRadius: "6px",
+          }}
+        >
+          ← Back to Lookup
+        </button>
+
+        {/* Macro Button */}
+        <button
+          onClick={goMacro}
+          style={{
+            padding: "10px 20px",
+            fontSize: "16px",
+            cursor: "pointer",
+            backgroundColor: "#0070f3",
+            color: "white",
+            border: "none",
+            borderRadius: "6px",
+          }}
+        >
+          Macro & Sector Data →
+        </button>
+      </div>
+
+      {/* RESULTS */}
       <div style={{ marginTop: "10px" }}>
         {stocks.length === 0 && selected && (
           <p>No stocks found for {selected}.</p>
@@ -88,7 +206,7 @@ export default function CategoriesPage() {
               flexDirection: "row",
               gap: "20px",
               padding: "10px 12px",
-              borderBottom: "1px solid #eee",
+              borderBottom: "1px solid #345",
               cursor: "pointer",
             }}
             onClick={() => goToLookup(s.code)}
