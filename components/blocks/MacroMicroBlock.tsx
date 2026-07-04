@@ -32,8 +32,8 @@ export default function MacroMicroBlock({ row }: { row: any }) {
         boxShadow: "0 1px 3px rgba(0,0,0,0.12)",
         color: "#061126",
         width: "100%",
-        maxWidth: "600px",            // button-sized
-        minWidth: "500px",
+        maxWidth: "550px",            // button-sized
+        minWidth: "400px",
         marginBottom: "20px",
       }}
     >

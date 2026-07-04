@@ -104,8 +104,8 @@ if (type === "tmove") {
         boxShadow: "0 1px 3px rgba(0,0,0,0.12)",
         color: "#061126",
         width: "100%",
-        maxWidth: "800px",
-        minWidth: "600px",
+        maxWidth: "550px",
+        minWidth: "400px",
         marginBottom: "20px",
       }}
     >

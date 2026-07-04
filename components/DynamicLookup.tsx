@@ -3,6 +3,8 @@
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 
+import styles from "./LookupGrid.module.css";
+
 import SearchBar from "@/components/SearchBar";
 import StockInfoBlock from "@/components/blocks/StockInfoBlock";
 import PriceProfileBlock from "@/components/blocks/PriceProfileBlock";
@@ -12,8 +14,6 @@ import SupportingIndicatorsBlock from "@/components/blocks/SupportingIndicatorsB
 import RiskBlock from "@/components/blocks/RiskBlock";
 import MacroMicroBlock from "@/components/blocks/MacroMicroBlock";
 import SecondarySupportSignalsBlock from "@/components/blocks/SecondarySupportSignalsBlock";
-
-import styles from "./lookup.module.css";   // ✅ Step 2
 
 function LookupContent() {
   const [results, setResults] = useState<any[]>([]);
@@ -45,37 +45,40 @@ function LookupContent() {
           <h2>Results</h2>
 
           {results.map((row, index) => (
-            <div key={index} className={styles.gridContainer}>   {/* ✅ Step 3 */}
-
-              <div className={styles.fullWidth}>                 {/* ✅ Step 4 */}
+            <div key={index} className={styles.grid}>
+              
+              {/* FULL WIDTH */}
+              <div className={styles.fullWidth}>
                 <StockInfoBlock row={row} />
               </div>
 
-              <div className={styles.fullWidth}>                 {/* ✅ Step 4 */}
+              <div className={styles.fullWidth}>
                 <MainVerdictBlock row={row} />
               </div>
 
-              <div style={{ maxWidth: "700px", width: "100%" }}>
+              {/* FIRST PAIR */}
+              <div className={styles.block550}>
                 <PriceProfileBlock row={row} />
               </div>
 
-              <div style={{ maxWidth: "600px", width: "100%" }}>
+              <div className={styles.block550}>
                 <SupportingIndicatorsBlock row={row} />
               </div>
 
-              <div style={{ maxWidth: "500px", width: "100%" }}>
+              {/* AUTO-FIT REMAINING */}
+              <div className={styles.block500}>
                 <PriceLimitsBlock row={row} />
               </div>
 
-              <div style={{ maxWidth: "500px", width: "100%" }}>
+              <div className={styles.block500}>
                 <SecondarySupportSignalsBlock row={row} />
               </div>
 
-              <div style={{ maxWidth: "600px", width: "100%" }}>
+              <div className={styles.block550}>
                 <RiskBlock row={row} />
               </div>
 
-              <div style={{ maxWidth: "600px", width: "100%" }}>
+              <div className={styles.block550}>
                 <MacroMicroBlock row={row} />
               </div>
 
