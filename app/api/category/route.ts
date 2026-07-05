@@ -16,14 +16,22 @@ export async function GET(request: Request) {
   const fileContent = fs.readFileSync(filePath, "utf8");
 
   const lines = fileContent.split("\n").map((l) => l.trim());
-  const header = lines[0].split(",");
+  const header = lines[0].split(",").map((h) => h.trim().toLowerCase()); // normalize
 
-  const idxCode = header.indexOf("Code");
-  const idxCompany = header.indexOf("Company");
-  const idxVerdict = header.indexOf("Final Verdict");
-  const idxScore = header.indexOf("Final Score");
+  const idxCode = header.indexOf("code");
+  const idxCompany = header.indexOf("company");
+  const idxVerdict = header.indexOf("final verdict");
+  const idxScore = header.indexOf("final score");
+  const idxMomentum = header.indexOf("momentum category"); // ✅ matches your CSV
+  const idxType = header.indexOf("type");                  // ✅ handles TYPE uppercase
 
-  const rows: { code: string; name: string; score: number }[] = [];
+  const rows: {
+    code: string;
+    name: string;
+    score: number;
+    momentum?: string;
+    type?: string;
+  }[] = [];
 
   for (let i = 1; i < lines.length; i++) {
     const row = lines[i].split(",");
@@ -33,6 +41,8 @@ export async function GET(request: Request) {
         code: row[idxCode],
         name: row[idxCompany],
         score: parseFloat(row[idxScore]) || 0,
+        momentum: idxMomentum >= 0 ? row[idxMomentum] : "",
+        type: idxType >= 0 ? row[idxType] : "",
       });
     }
   }

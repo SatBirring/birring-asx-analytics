@@ -1,29 +1,26 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
-const VERDICTS = [
-  "Extended",
-  "Strong",
-  "Positive",
-  "Monitor",
-  "Recheck",
-  "Weak",
-];
+const VERDICTS = ["Extended", "Strong", "Positive", "Monitor", "Recheck", "Weak"];
+const MOMENTUM_OPTIONS = ["Peak", "Soaring", "Rising", "Climbing", "Stable", "Fading", "Drop phase"];
+const TYPE_OPTIONS = ["Bond", "CDI", "EFT", "Option", "Ordinary", "Other"];
 
 export default function CategoriesPage() {
   const [selected, setSelected] = useState<string>("");
-  const [stocks, setStocks] = useState<{ code: string; name: string }[]>([]);
+  const [momentumFilter, setMomentumFilter] = useState<string>("");
+  const [typeFilter, setTypeFilter] = useState<string>("");
+  const [stocks, setStocks] = useState<
+    { code: string; name: string; momentum?: string; type?: string }[]
+  >([]);
   const router = useRouter();
 
   async function loadCategory(verdict: string) {
     setSelected(verdict);
 
-    const res = await fetch(
-      `/api/category?verdict=${encodeURIComponent(verdict)}`
-    );
+    const res = await fetch(`/api/category?verdict=${encodeURIComponent(verdict)}`);
     const data = await res.json();
 
     setStocks(data.results || []);
@@ -39,6 +36,26 @@ export default function CategoriesPage() {
 
   function goMacro() {
     router.push("/macro");
+  }
+
+  // Default load on mount
+  useEffect(() => {
+    loadCategory("Strong"); // preload one category so page isn’t empty
+  }, []);
+
+  // Filtering logic
+  function filterStocks(list: typeof stocks) {
+    let filtered = [...list];
+
+    if (momentumFilter) {
+      filtered = filtered.filter((s) => s.momentum === momentumFilter);
+    }
+
+    if (typeFilter) {
+      filtered = filtered.filter((s) => s.type === typeFilter);
+    }
+
+    return filtered;
   }
 
   return (
@@ -96,16 +113,9 @@ export default function CategoriesPage() {
             marginTop: "20px",
           }}
         >
-          {[
-            { file: "Extended.png", label: "Extended" },
-            { file: "Strong.png", label: "Strong" },
-            { file: "Positive.png", label: "Positive" },
-            { file: "Monitor.png", label: "Monitor" },
-            { file: "Recheck.png", label: "Recheck" },
-            { file: "Weak.png", label: "Weak" },
-          ].map((icon) => (
+          {VERDICTS.map((label) => (
             <div
-              key={icon.file}
+              key={label}
               style={{
                 display: "flex",
                 flexDirection: "column",
@@ -115,13 +125,13 @@ export default function CategoriesPage() {
               }}
             >
               <Image
-                src={`/${icon.file}`}
-                alt={icon.label}
+                src={`/${label}.png`}
+                alt={label}
                 width={60}
                 height={60}
                 style={{ borderRadius: "8px" }}
               />
-              <span style={{ marginTop: "8px" }}>{icon.label}</span>
+              <span style={{ marginTop: "8px" }}>{label}</span>
             </div>
           ))}
         </div>
@@ -137,7 +147,7 @@ export default function CategoriesPage() {
           marginBottom: "30px",
         }}
       >
-        {/* Dropdown */}
+        {/* Category Dropdown */}
         <select
           value={selected}
           onChange={(e) => loadCategory(e.target.value)}
@@ -155,6 +165,50 @@ export default function CategoriesPage() {
           {VERDICTS.map((v) => (
             <option key={v} value={v}>
               {v}
+            </option>
+          ))}
+        </select>
+
+        {/* Momentum Filter */}
+        <select
+          value={momentumFilter}
+          onChange={(e) => setMomentumFilter(e.target.value)}
+          style={{
+            padding: "12px 16px",
+            fontSize: "18px",
+            borderRadius: "6px",
+            border: "none",
+            width: "260px",
+            backgroundColor: "#123",
+            color: "white",
+          }}
+        >
+          <option value="">Filter by Momentum...</option>
+          {MOMENTUM_OPTIONS.map((m) => (
+            <option key={m} value={m}>
+              {m}
+            </option>
+          ))}
+        </select>
+
+        {/* Type Filter */}
+        <select
+          value={typeFilter}
+          onChange={(e) => setTypeFilter(e.target.value)}
+          style={{
+            padding: "12px 16px",
+            fontSize: "18px",
+            borderRadius: "6px",
+            border: "none",
+            width: "260px",
+            backgroundColor: "#123",
+            color: "white",
+          }}
+        >
+          <option value="">Filter by Type...</option>
+          {TYPE_OPTIONS.map((t) => (
+            <option key={t} value={t}>
+              {t}
             </option>
           ))}
         </select>
@@ -194,11 +248,9 @@ export default function CategoriesPage() {
 
       {/* RESULTS */}
       <div style={{ marginTop: "10px" }}>
-        {stocks.length === 0 && selected && (
-          <p>No stocks found for {selected}.</p>
-        )}
+        {stocks.length === 0 && selected && <p>No stocks found for {selected}.</p>}
 
-        {stocks.map((s) => (
+        {filterStocks(stocks).map((s) => (
           <div
             key={s.code}
             style={{
@@ -213,6 +265,8 @@ export default function CategoriesPage() {
           >
             <span style={{ fontWeight: 600, width: "80px" }}>{s.code}</span>
             <span style={{ flexGrow: 1 }}>{s.name}</span>
+            <span style={{ width: "120px", color: "#30f998" }}>{s.momentum}</span>
+            <span style={{ width: "120px", color: "#9cc9ff" }}>{s.type}</span>
           </div>
         ))}
       </div>
