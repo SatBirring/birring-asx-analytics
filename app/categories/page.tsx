@@ -6,7 +6,7 @@ import Image from "next/image";
 
 const VERDICTS = ["Extended", "Strong", "Positive", "Monitor", "Recheck", "Weak"];
 const MOMENTUM_OPTIONS = ["Peak", "Soaring", "Rising", "Climbing", "Stable", "Fading", "Drop phase"];
-const TYPE_OPTIONS = ["Bond", "CDI", "EFT", "Option", "Ordinary", "Other"];
+const TYPE_OPTIONS = ["Bond", "CDI", "ETF", "Option", "Ordinary", "Other"];
 
 export default function CategoriesPage() {
   const [selected, setSelected] = useState<string>("");
