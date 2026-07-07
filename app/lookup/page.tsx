@@ -8,8 +8,8 @@ export default function LookupPage() {
     <div style={{ fontFamily: "Arial" }}>
       <HeroBlock />
 
-      <div style={{ padding: "45px" }}>
-        <h1> ASX Stock Lookup</h1>
+      <div style={{ padding: "60px" }}>
+        <h1> Type ASX Stock Code to Search</h1>
 
         <DynamicLookup />
       

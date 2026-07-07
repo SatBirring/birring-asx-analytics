@@ -55,12 +55,12 @@ export default function Home() {
 
         .lookup {
           background-color: #0070f3;
-          color: white;
+          color: yellow;
         }
 
         .macroCategories {
           background-color: #fe8940;
-          color: white;
+          color: black;
         }
 
         .macroPages {
@@ -101,17 +101,20 @@ export default function Home() {
       </p>
 
       <div className="buttonGroup">
-        <a href="/lookup" className="lookup">
-          Go to Lookup
-        </a>
+        
         <a href="/categories" className="macroCategories">
-          Final Desision Categories
+          Stock Categories
         </a>
-        <a href="/macro" className="macroPages">
-          Macro Pages
-        </a>
-      </div>
 
+        <a href="/macro" className="macroPages">
+          Market Macro Snapshot
+        </a>
+
+        <a href="/lookup" className="lookup">
+          Stock Lookup
+        </a>
+
+      </div>
       <footer
         style={{
           marginTop: "60px",

@@ -140,13 +140,32 @@ export default function CategoriesPage() {
       {/* CONTROLS */}
       <div
         style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
+        display: "flex",
+        flexWrap: "wrap",
+        justifyContent: "center",
+         alignItems: "center",
           gap: "20px",
           marginBottom: "30px",
-        }}
-      >
+
+           // Responsive behaviour
+           flexDirection: typeof window !== "undefined" && window.innerWidth > 768 
+           ? "row" 
+            : "column",
+  }}
+>
+        <p
+          style={{
+            fontSize: "20px",
+            color: "#30f998",
+            maxWidth: "800px",
+            margin: "0 auto 20px auto",
+            lineHeight: "1.6",
+          }}
+        >
+          Dropdown search for Stock Categories Momentum and type.
+        </p>
+
+
         {/* Category Dropdown */}
         <select
           value={selected}
@@ -157,8 +176,8 @@ export default function CategoriesPage() {
             borderRadius: "6px",
             border: "none",
             width: "260px",
-            backgroundColor: "#123",
-            color: "white",
+            backgroundColor: "rgb(64, 122, 180)",
+            color: "rgb(255, 242, 3)",
           }}
         >
           <option value="">Select a category...</option>
@@ -179,8 +198,8 @@ export default function CategoriesPage() {
             borderRadius: "6px",
             border: "none",
             width: "260px",
-            backgroundColor: "#123",
-            color: "white",
+            backgroundColor: "rgb(125, 238, 20)",
+            color: "rgb(12, 85, 241)",
           }}
         >
           <option value="">Filter by Momentum...</option>
@@ -190,6 +209,7 @@ export default function CategoriesPage() {
             </option>
           ))}
         </select>
+        
 
         {/* Type Filter */}
         <select
@@ -201,8 +221,8 @@ export default function CategoriesPage() {
             borderRadius: "6px",
             border: "none",
             width: "260px",
-            backgroundColor: "#123",
-            color: "white",
+            backgroundColor: "rgb(95, 51, 92)",
+            color: "rgb(125, 238, 20)",
           }}
         >
           <option value="">Filter by Type...</option>
@@ -226,7 +246,7 @@ export default function CategoriesPage() {
             borderRadius: "6px",
           }}
         >
-          ← Back to Lookup
+          Stock Lookup
         </button>
 
         {/* Macro Button */}
@@ -242,7 +262,7 @@ export default function CategoriesPage() {
             borderRadius: "6px",
           }}
         >
-          Macro & Sector Data →
+          Markrt & Sector Data
         </button>
       </div>
 

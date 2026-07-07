@@ -45,7 +45,7 @@ export default function SearchBar({
     >
       <input
         type="text"
-        placeholder="Search ASX stock (code or name)"
+        placeholder="Search ASX stock (Code)"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         onKeyDown={(e) => {
@@ -57,7 +57,7 @@ export default function SearchBar({
           width: "300px",
           fontSize: "16px",
           marginBottom: "10px",
-          border: "1px solid #ccc",
+          border: "3px solid #000000",
           borderRadius: "6px",
           outline: "none",
         }}
@@ -74,10 +74,10 @@ export default function SearchBar({
           onClick={handleSearch}
           style={{
             padding: "10px 20px",
-            fontSize: "16px",
+            fontSize: "24px",
             cursor: "pointer",
-            backgroundColor: "#0070f3",
-            color: "white",
+            backgroundColor: "#caff37",
+            color: "blue",
             border: "none",
             borderRadius: "6px",
           }}
@@ -90,21 +90,22 @@ export default function SearchBar({
           onClick={handleReset}
           style={{
             padding: "10px 20px",
-            fontSize: "16px",
+            fontSize: "24px",
             cursor: "pointer",
             backgroundColor: "#ddd",
-            border: "1px solid #ccc",
+            border: "3px solid #ccc",
             borderRadius: "6px",
           }}
         >
           Clear
+
         </button>
 
         <button
           onClick={goHome}
           style={{
             padding: "10px 20px",
-            fontSize: "16px",
+            fontSize: "24px",
             cursor: "pointer",
             backgroundColor: "#444",
             color: "white",
@@ -119,15 +120,15 @@ export default function SearchBar({
           <button
             style={{
               padding: "10px 20px",
-              fontSize: "16px",
+              fontSize: "20px",
               cursor: "pointer",
-              backgroundColor: "#0070f3",
-              color: "white",
+              backgroundColor: "#ebf300",
+              color: "blue",
               border: "none",
               borderRadius: "6px",
             }}
           >
-            Macro & Sector Data
+            Market & Sector Data
           </button>
         </Link>
 
@@ -135,15 +136,15 @@ export default function SearchBar({
           <button
             style={{
               padding: "10px 20px",
-              fontSize: "16px",
+              fontSize: "20px",
               cursor: "pointer",
-              backgroundColor: "#0070f3",
-              color: "white",
+              backgroundColor: "#f79f23",
+              color: "black",
               border: "none",
               borderRadius: "6px",
             }}
           >
-            Category View
+            Stock Categories
           </button>
         </Link>
       </div>
