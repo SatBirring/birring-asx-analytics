@@ -63,7 +63,7 @@ export default function MacroPage() {
             padding: "10px 20px",
             fontSize: "16px",
             cursor: "pointer",
-            backgroundColor: "#444",
+            backgroundColor: "#272727",
             color: "white",
             border: "none",
             borderRadius: "6px",
@@ -79,12 +79,12 @@ export default function MacroPage() {
             fontSize: "16px",
             cursor: "pointer",
             backgroundColor: "#0070f3",
-            color: "white",
+            color: "yellow",
             border: "none",
             borderRadius: "6px",
           }}
         >
-          Back to Lookup
+          Stock Lookup
         </button>
 
         {/* ⭐ NEW BUTTON — Go to Categories */}
@@ -95,12 +95,12 @@ export default function MacroPage() {
             fontSize: "16px",
             cursor: "pointer",
             backgroundColor: "#fe8940",
-            color: "white",
+            color: "blue",
             border: "none",
             borderRadius: "6px",
           }}
         >
-          Categories →
+          Stock Categories
         </button>
       </div>
     </div>

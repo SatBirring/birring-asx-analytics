@@ -40,7 +40,7 @@ export default function CategoriesPage() {
 
   // Default load on mount
   useEffect(() => {
-    loadCategory("Strong"); // preload one category so page isn’t empty
+    loadCategory("Extended"); // preload one category so page isn’t empty
   }, []);
 
   // Filtering logic
