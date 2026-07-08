@@ -125,7 +125,7 @@ export default function CategoriesPage() {
               }}
             >
               <Image
-                src="/Recheck1.png"
+                src={`/${label}.png`}
                 alt={label}
                 width={60}
                 height={60}
