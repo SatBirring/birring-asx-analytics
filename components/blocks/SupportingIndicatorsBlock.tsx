@@ -3,7 +3,7 @@
 interface BarProps {
   label: string;
   value: number | string;
-  type: "trend" | "tmove"  | "move" | "liq" | "vol";
+  type: "trend" | "tmove" | "move" | "liq" | "vol";
 }
 
 export default function SupportingIndicatorsBlock({ row }: { row: any }) {
@@ -14,43 +14,47 @@ export default function SupportingIndicatorsBlock({ row }: { row: any }) {
 
   const Bar = ({ label, value, type }: BarProps) => {
     const num = parseNum(value);
+    const isPositive = num >= 0;
 
     let pct = 0;
     let barColor = "#ccc";
-    let isCentered = false;
-    let isPositive = num >= 0;
+    let symmetric = false; // ⭐ NEW: symmetric bar flag
 
+    // ⭐ TREND: range -3 to 3 → symmetric
     if (type === "trend") {
-      // Range -3 to 3 → convert to 0–100%
-      pct = Math.abs((num / 3) * 100);
+      pct = Math.min(Math.abs((num / 3) * 100), 100);
       barColor = isPositive ? "#4CAF50" : "#d9534f";
-      isCentered = true;
+      symmetric = true;
     }
 
+    // ⭐ MOVE: range -1 to 1 → symmetric
     if (type === "move") {
-      // Range -1 to 1 → convert to 0–100%
-      pct = Math.abs((num / 1) * 100);   // ✔ FIXED
+      pct = Math.min(Math.abs((num / 1) * 100), 100);
       barColor = isPositive ? "#4CAF50" : "#d9534f";
-      isCentered = true;
-    }
-if (type === "tmove") {
-      // Range -1 to 1 → convert to 0–100%
-      pct = Math.abs((num / 3) * 100);   // ✔ FIXED
-      barColor = isPositive ? "#4CAF50" : "#d9534f";
-      isCentered = true;
+      symmetric = true;
     }
 
+    // ⭐ TMOVE: range -3 to 3 → symmetric
+    if (type === "tmove") {
+      pct = Math.min(Math.abs((num / 3) * 100), 100);
+      barColor = isPositive ? "#4CAF50" : "#d9534f";
+      symmetric = true;
+    }
+
+    // ⭐ LIQUIDITY: range 1–5 → left‑anchored
     if (type === "liq") {
-      // Range 1–5 → convert to 0–100%
       pct = ((num - 1) / 4) * 100;
-      barColor = "#7cd992"; // light green
+      barColor = "#7cd992";
     }
 
+    // ⭐ VOLATILITY: range 1–5 → left‑anchored
     if (type === "vol") {
-      // Range 1–5 → convert to 0–100%
       pct = ((num - 1) / 4) * 100;
-      barColor = "#f0a04b"; // orange
+      barColor = "#f0a04b";
     }
+
+    // ⭐ For symmetric bars: convert pct → half‑width
+    const sideWidth = symmetric ? pct / 2 : pct;
 
     return (
       <div style={{ padding: "8px 0" }}>
@@ -67,7 +71,7 @@ if (type === "tmove") {
           <div>{value}</div>
         </div>
 
-        {/* Data Bar */}
+        {/* ⭐ Data Bar */}
         <div
           style={{
             marginTop: "6px",
@@ -79,15 +83,30 @@ if (type === "tmove") {
             position: "relative",
           }}
         >
+          {/* ⭐ Center line for symmetric bars */}
+          {symmetric && (
+            <div
+              style={{
+                position: "absolute",
+                left: "50%",
+                top: 0,
+                bottom: 0,
+                width: "1px",
+                backgroundColor: "rgba(0,0,0,0.25)",
+              }}
+            />
+          )}
+
+          {/* ⭐ Bar */}
           <div
             style={{
               height: "100%",
-              width: `${pct}%`,
+              width: `${sideWidth}%`,
               backgroundColor: barColor,
               transition: "width 0.3s ease",
               position: "absolute",
-              left: isCentered && isPositive ? "0" : undefined,
-              right: isCentered && !isPositive ? "0" : undefined,
+              left: symmetric && isPositive ? "50%" : symmetric ? undefined : "0",
+              right: symmetric && !isPositive ? "50%" : undefined,
             }}
           />
         </div>
@@ -121,22 +140,16 @@ if (type === "tmove") {
         Supporting Indicators — Calculated & Measured
       </h2>
 
-      {/* Trend */}
+      {/* ⭐ Symmetric bars */}
       <Bar label="Trend Score" value={row["Trend Score"]} type="trend" />
       <Bar label="Trend Move" value={row["Trend Move"]} type="tmove" />
-
-      {/* Liquidity */}
-      <Bar label="Liquidity Score" value={row["Liquidity Score"]} type="liq" />
       <Bar label="Liquidity Move" value={row["Liquidity Move"]} type="move" />
 
-      {/* Volatility */}
-      <Bar
-        label="Volatility Score"
-        value={row["Volatility Score"]}
-        type="vol"
-      />
+      {/* ⭐ Left‑anchored bars */}
+      <Bar label="Liquidity Score" value={row["Liquidity Score"]} type="liq" />
+      <Bar label="Volatility Score" value={row["Volatility Score"]} type="vol" />
 
-      {/* Category rows — NO bars */}
+      {/* Categories (no bars) */}
       <div style={{ padding: "8px 0", fontSize: "18px", fontWeight: 600 }}>
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <div>Trend Category</div>

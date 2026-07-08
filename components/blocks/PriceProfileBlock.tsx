@@ -6,7 +6,7 @@ export default function PriceProfileBlock({ row }: { row: any }) {
   const parseNum = (v: any) =>
     typeof v === "string" ? parseFloat(v) : Number(v);
 
-  // Helper to render each row: Label | % | Price | Bar
+  // ⭐ Unified symmetric bar renderer (-100 .. 0 .. +100)
   const PercentPriceRow = (
     label: string,
     pctValue: any,
@@ -16,12 +16,13 @@ export default function PriceProfileBlock({ row }: { row: any }) {
     if (isNaN(num)) return null;
 
     const isPositive = num >= 0;
-    const pct = Math.min(Math.abs(num), 100);
+    const pct = Math.min(Math.abs(num), 100);     // 0..100
+    const sideWidth = pct / 2;                    // max 50%
     const barColor = isPositive ? "#4CAF50" : "#d9534f";
 
     return (
       <div style={{ marginTop: "12px" }}>
-        {/* ⭐ Label | % | Price — EXACT SAME GRID AS MainVerdictBlock */}
+        {/* Label | % | Price */}
         <div
           style={{
             display: "grid",
@@ -45,7 +46,7 @@ export default function PriceProfileBlock({ row }: { row: any }) {
           </div>
         </div>
 
-        {/* ⭐ Bar */}
+        {/* ⭐ Symmetric bar: -100 .. 0 .. +100 */}
         <div
           style={{
             marginTop: "6px",
@@ -57,14 +58,27 @@ export default function PriceProfileBlock({ row }: { row: any }) {
             position: "relative",
           }}
         >
+          {/* Center zero line */}
+          <div
+            style={{
+              position: "absolute",
+              left: "50%",
+              top: 0,
+              bottom: 0,
+              width: "1px",
+              backgroundColor: "rgba(0,0,0,0.25)",
+            }}
+          />
+
+          {/* Bar growing from center */}
           <div
             style={{
               height: "100%",
-              width: `${pct}%`,
+              width: `${sideWidth}%`,                 // max 50%
               backgroundColor: barColor,
               position: "absolute",
-              left: isPositive ? "0" : undefined,
-              right: !isPositive ? "0" : undefined,
+              left: isPositive ? "50%" : undefined,   // positive → right side
+              right: !isPositive ? "50%" : undefined, // negative → left side
               transition: "width 0.3s ease",
             }}
           />
@@ -87,16 +101,16 @@ export default function PriceProfileBlock({ row }: { row: any }) {
       }}
     >
       <div
-  style={{
-    fontSize: "28px",
-    fontWeight: "600",
-    marginBottom: "10px",
-    color: "#0c2105",
-    textAlign: "center",   // ⭐ FIX: center the header
-  }}
->
-  Price Profile
-</div>
+        style={{
+          fontSize: "28px",
+          fontWeight: "600",
+          marginBottom: "10px",
+          color: "#0c2105",
+          textAlign: "center",
+        }}
+      >
+        Price Profile
+      </div>
 
       <div
         style={{
@@ -106,16 +120,16 @@ export default function PriceProfileBlock({ row }: { row: any }) {
           fontSize: "28px",
         }}
       >
-        {/* ⭐ Close Price (anchor) */}
+        {/* Close Price */}
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <strong>Close Price:</strong>
           <span>{row["Close Price"]}</span>
         </div>
 
-        {/* ⭐ 1 Day — same price as today */}
+        {/* 1 Day */}
         {PercentPriceRow("Price 1 Day", row["1 Day"], row["Price Close Today"])}
 
-        {/* ⭐ All other periods */}
+        {/* All other periods */}
         {PercentPriceRow("Price 1 Week", row["1 Week"], row["Price 1 Week"])}
         {PercentPriceRow("Price 2 Week", row["2 Week"], row["Price 2 Weeks"])}
         {PercentPriceRow("Price 3 Week", row["3 Week"], row["Price 3 Weeks"])}
