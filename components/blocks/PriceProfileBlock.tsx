@@ -1,12 +1,33 @@
 "use client";
 
+import { useState, useEffect } from "react";
+
 export default function PriceProfileBlock({ row }: { row: any }) {
   if (!row) return null;
 
+  // ⭐ ADD THIS BLOCK HERE
+  const [eodClose, setEodClose] = useState<number | null>(null);
+
+  useEffect(() => {
+    async function loadEOD() {
+      try {
+        const res = await fetch(`/api/eod-csv?code=${row["Code"]}`);
+        const data = await res.json();
+
+        if (data.close) {
+          setEodClose(data.close);
+        }
+      } catch (err) {
+        console.error("EOD CSV error:", err);
+      }
+    }
+
+    loadEOD();
+  }, [row]);
+  // ⭐ END OF BLOCK
   const parseNum = (v: any) =>
     typeof v === "string" ? parseFloat(v) : Number(v);
 
-  // ⭐ Unified symmetric bar renderer (-100 .. 0 .. +100)
   const PercentPriceRow = (
     label: string,
     pctValue: any,
@@ -16,13 +37,12 @@ export default function PriceProfileBlock({ row }: { row: any }) {
     if (isNaN(num)) return null;
 
     const isPositive = num >= 0;
-    const pct = Math.min(Math.abs(num), 100);     // 0..100
-    const sideWidth = pct / 2;                    // max 50%
+    const pct = Math.min(Math.abs(num), 100);
+    const sideWidth = pct / 2;
     const barColor = isPositive ? "#4CAF50" : "#d9534f";
 
     return (
       <div style={{ marginTop: "12px" }}>
-        {/* Label | % | Price */}
         <div
           style={{
             display: "grid",
@@ -46,7 +66,6 @@ export default function PriceProfileBlock({ row }: { row: any }) {
           </div>
         </div>
 
-        {/* ⭐ Symmetric bar: -100 .. 0 .. +100 */}
         <div
           style={{
             marginTop: "6px",
@@ -58,7 +77,6 @@ export default function PriceProfileBlock({ row }: { row: any }) {
             position: "relative",
           }}
         >
-          {/* Center zero line */}
           <div
             style={{
               position: "absolute",
@@ -70,15 +88,14 @@ export default function PriceProfileBlock({ row }: { row: any }) {
             }}
           />
 
-          {/* Bar growing from center */}
           <div
             style={{
               height: "100%",
-              width: `${sideWidth}%`,                 // max 50%
+              width: `${sideWidth}%`,
               backgroundColor: barColor,
               position: "absolute",
-              left: isPositive ? "50%" : undefined,   // positive → right side
-              right: !isPositive ? "50%" : undefined, // negative → left side
+              left: isPositive ? "50%" : undefined,
+              right: !isPositive ? "50%" : undefined,
               transition: "width 0.3s ease",
             }}
           />
@@ -117,19 +134,16 @@ export default function PriceProfileBlock({ row }: { row: any }) {
           display: "flex",
           flexDirection: "column",
           gap: "10px",
-          fontSize: "28px",
+          fontSize: "24px",
         }}
       >
-        {/* Close Price */}
         <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <strong>Close Price:</strong>
+          <strong>Price Last Friday close:</strong>
           <span>{row["Close Price"]}</span>
         </div>
 
-        {/* 1 Day */}
-        {PercentPriceRow("Price 1 Day", row["1 Day"], row["Price Close Today"])}
+        {PercentPriceRow("Last updated price", row["1 Day"],eodClose ?? row["Price Close Today"])}
 
-        {/* All other periods */}
         {PercentPriceRow("Price 1 Week", row["1 Week"], row["Price 1 Week"])}
         {PercentPriceRow("Price 2 Week", row["2 Week"], row["Price 2 Weeks"])}
         {PercentPriceRow("Price 3 Week", row["3 Week"], row["Price 3 Weeks"])}
