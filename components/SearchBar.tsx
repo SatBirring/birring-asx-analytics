@@ -15,14 +15,35 @@ export default function SearchBar({
   const router = useRouter();
 
   async function handleSearch() {
-    if (!query.trim()) return;
+  if (!query.trim()) return;
 
-    const res = await fetch(`/api/stock?query=${query}`);
-    const data = await res.json();
+  const res = await fetch(`/api/stock?query=${query}`);
+  const data = await res.json();
 
-    const best = data.results && data.results.length > 0 ? [data.results[0]] : [];
-    onResult(best);
-  }
+  const results = Array.isArray(data.results) ? data.results : [];
+
+  const q = query.trim().toUpperCase();
+
+  const sorted = results.slice().sort((a, b) => {
+    const aCode = String(a?.code ?? a?.Code ?? "").toUpperCase();
+    const bCode = String(b?.code ?? b?.Code ?? "").toUpperCase();
+
+    // 1) Exact match first
+    const aExact = aCode === q;
+    const bExact = bCode === q;
+    if (aExact !== bExact) return aExact ? -1 : 1;
+
+    // 2) Then codes starting with query (SIG before FSIGA)
+    const aStarts = aCode.startsWith(q);
+    const bStarts = bCode.startsWith(q);
+    if (aStarts !== bStarts) return aStarts ? -1 : 1;
+
+    // 3) Finally, alphabetical
+    return aCode.localeCompare(bCode);
+  });
+
+  onResult(sorted);
+}
 
   function handleReset() {
     setQuery("");

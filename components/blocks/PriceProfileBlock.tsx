@@ -142,7 +142,7 @@ export default function PriceProfileBlock({ row }: { row: any }) {
           <span>{row["Close Price"]}</span>
         </div>
 
-        {PercentPriceRow("Last updated price", row["1 Day"],eodClose ?? row["Price Close Today"])}
+        {PercentPriceRow("Last updated EOD price", row["1 Day"],eodClose ?? row["Price Close Today"])}
 
         {PercentPriceRow("Price 1 Week", row["1 Week"], row["Price 1 Week"])}
         {PercentPriceRow("Price 2 Week", row["2 Week"], row["Price 2 Weeks"])}
