@@ -57,16 +57,7 @@ export default function CategoriesPage() {
 
     return filtered;
   }
-<style jsx>{`
-  .hover-info {
-    opacity: 0;
-    pointer-events: none;
-  }
-  div:hover > .hover-info {
-    opacity: 1;
-    pointer-events: auto;
-  }
-`}</style>
+
   return (
     <div
       style={{
@@ -280,7 +271,7 @@ export default function CategoriesPage() {
             borderRadius: "6px",
           }}
         >
-          Markrt & Sector Data
+          Market & Sector Data
         </button>
       </div>
 
@@ -289,55 +280,24 @@ export default function CategoriesPage() {
         {stocks.length === 0 && selected && <p>No stocks found for {selected}.</p>}
 
         {filterStocks(stocks).map((s) => (
-  <div
-    key={s.code}
-    style={{
-      position: "relative",
-      display: "flex",
-      flexDirection: "row",
-      gap: "20px",
-      padding: "10px 12px",
-      borderBottom: "1px solid #345",
-      cursor: "pointer",
-    }}
-    onClick={() => goToLookup(s.code)}
-  >
-    <span style={{ fontWeight: 600, width: "80px" }}>{s.code}</span>
-    <span style={{ flexGrow: 1 }}>{s.name}</span>
-    <span style={{ width: "120px", color: "#30f998" }}>{s.momentum}</span>
-    <span style={{ width: "120px", color: "#9cc9ff" }}>{s.type}</span>
-
-    {/* HOVER INFO CARD */}
-    <div
-      className="hover-info"
-      style={{
-        position: "absolute",
-        top: "0",
-        left: "100%",
-        marginLeft: "10px",
-        padding: "12px",
-        width: "240px",
-        backgroundColor: "#102544",
-        border: "1px solid #345",
-        borderRadius: "8px",
-        color: "white",
-        fontSize: "14px",
-        opacity: 0,
-        pointerEvents: "none",
-        transition: "opacity 0.2s ease",
-      }}
-    >
-      <div><strong>{s.code}</strong> — {s.name}</div>
-      <div>Category: {selected}</div>
-      <div>Momentum: {s.momentum || "N/A"}</div>
-      <div>Type: {s.type || "N/A"}</div>
-      <div>Market Cap: {s.marketCap || "N/A"}</div>
-      <div>Rank: {s.rank || "N/A"}</div>
-      <div>Latest Price: {s.price || "N/A"}</div>
-    </div>
-  </div>
-))}
-
+          <div
+            key={s.code}
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              gap: "20px",
+              padding: "10px 12px",
+              borderBottom: "1px solid #345",
+              cursor: "pointer",
+            }}
+            onClick={() => goToLookup(s.code)}
+          >
+            <span style={{ fontWeight: 600, width: "80px" }}>{s.code}</span>
+            <span style={{ flexGrow: 1 }}>{s.name}</span>
+            <span style={{ width: "120px", color: "#30f998" }}>{s.momentum}</span>
+            <span style={{ width: "120px", color: "#9cc9ff" }}>{s.type}</span>
+          </div>
+        ))}
       </div>
     </div>
   );
