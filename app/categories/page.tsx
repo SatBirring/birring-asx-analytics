@@ -57,7 +57,6 @@ export default function CategoriesPage() {
 
     return filtered;
   }
-
 <style jsx>{`
   .hover-info {
     opacity: 0;
@@ -68,7 +67,6 @@ export default function CategoriesPage() {
     pointer-events: auto;
   }
 `}</style>
-
   return (
     <div
       style={{
@@ -330,18 +328,12 @@ export default function CategoriesPage() {
       }}
     >
       <div><strong>{s.code}</strong> — {s.name}</div>
-<div>Category: {selected}</div>
-<div>Momentum: {s["Momentum Category"] || "N/A"}</div>
-<div>Type: {s.type || s.TYPE || "N/A"}</div>
-<div>Market Cap: {s["Market cap Measured"] || "N/A"}</div>
-<div>Market Cap Rank: {s["Market Cap Rank"] || "N/A"}</div>
-<div>Ranking: {s.Ranking || "N/A"}</div>
-<div>Latest Price: {s["Close Price"] || s["Price Close Today"] || "N/A"}</div>
-<div>Sector: {s.Sector || "N/A"}</div>
-<div>Trend: {s["Trend Category"] || "N/A"}</div>
-<div>Liquidity: {s["Liquidity Category"] || "N/A"}</div>
-<div>Volatility: {s["Volatility Category"] || "N/A"}</div>
-
+      <div>Category: {selected}</div>
+      <div>Momentum: {s.momentum || "N/A"}</div>
+      <div>Type: {s.type || "N/A"}</div>
+      <div>Market Cap: {s.marketCap || "N/A"}</div>
+      <div>Rank: {s.rank || "N/A"}</div>
+      <div>Latest Price: {s.price || "N/A"}</div>
     </div>
   </div>
 ))}
