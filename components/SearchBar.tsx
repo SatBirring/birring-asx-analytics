@@ -14,36 +14,42 @@ export default function SearchBar({
   const [query, setQuery] = useState(prefill);
   const router = useRouter();
 
-  async function handleSearch() {
+ async function handleSearch() {
   if (!query.trim()) return;
 
-  const res = await fetch(`/api/stock?query=${query}`);
+  const res = await fetch(`/api/stock?query=${encodeURIComponent(query.trim())}`);
   const data = await res.json();
 
-  const results = Array.isArray(data.results) ? data.results : [];
+  const results: Array<{ code?: string; Code?: string }> = Array.isArray(data.results)
+    ? data.results
+    : [];
 
   const q = query.trim().toUpperCase();
 
-  const sorted = results.slice().sort((a, b) => {
-    const aCode = String(a?.code ?? a?.Code ?? "").toUpperCase();
-    const bCode = String(b?.code ?? b?.Code ?? "").toUpperCase();
+  const sorted = results.slice().sort((a: any, b: any) => {
+    const aRaw = typeof a.code === "string" ? a.code : typeof a.Code === "string" ? a.Code : "";
+    const bRaw = typeof b.code === "string" ? b.code : typeof b.Code === "string" ? b.Code : "";
+
+    const aCode = aRaw.toUpperCase();
+    const bCode = bRaw.toUpperCase();
 
     // 1) Exact match first
     const aExact = aCode === q;
     const bExact = bCode === q;
     if (aExact !== bExact) return aExact ? -1 : 1;
 
-    // 2) Then codes starting with query (SIG before FSIGA)
+    // 2) Then codes starting with query
     const aStarts = aCode.startsWith(q);
     const bStarts = bCode.startsWith(q);
     if (aStarts !== bStarts) return aStarts ? -1 : 1;
 
-    // 3) Finally, alphabetical
+    // 3) Alphabetical fallback
     return aCode.localeCompare(bCode);
   });
 
   onResult(sorted);
 }
+
 
   function handleReset() {
     setQuery("");
