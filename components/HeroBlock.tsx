@@ -9,8 +9,8 @@ export default function HeroBlock() {
         <Image
           src="/Main Logo.png"
           alt="Birring Data Analytics Hero"
-          width={380}
-          height={380}
+          width={250}
+          height={250}
           style={{ borderRadius: "12px", width: "100%", height: "auto" }}
         />
       </div>
@@ -38,12 +38,12 @@ export default function HeroBlock() {
 
         .heroImage {
           width: 100%;
-          max-width: 380px;
+          max-width: 250px;
         }
 
         .heroText {
           text-align: center;
-          max-width: 500px;
+          max-width: 400px;
         }
 
         .heroText h1 {
@@ -67,7 +67,7 @@ export default function HeroBlock() {
         @media (min-width: 900px) {
           .heroBlock {
             flex-direction: row;
-            text-align: left;
+            text-align: middle;
           }
 
           .heroText {
