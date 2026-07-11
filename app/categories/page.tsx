@@ -9,22 +9,22 @@ const MOMENTUM_OPTIONS = ["Peak", "Soaring", "Rising", "Climbing", "Stable", "Fa
 const TYPE_OPTIONS = ["Bond", "CDI", "ETF", "Option", "Ordinary", "Other"];
 
 export default function CategoriesPage() {
-  const [selected, setSelected] = useState("");
-  const [momentumFilter, setMomentumFilter] = useState("");
-  const [typeFilter, setTypeFilter] = useState("");
-  const [stocks, setStocks] = useState([]);
-  const [hoveredStock, setHoveredStock] = useState(null);
+  const [selected, setSelected] = useState<string>("");
+  const [momentumFilter, setMomentumFilter] = useState<string>("");
+  const [typeFilter, setTypeFilter] = useState<string>("");
+  const [stocks, setStocks] = useState<any[]>([]);
+  const [hoveredStock, setHoveredStock] = useState<any>(null);
 
   const router = useRouter();
 
-  async function loadCategory(verdict) {
+  async function loadCategory(verdict: string) {
     setSelected(verdict);
     const res = await fetch(`/api/category?verdict=${encodeURIComponent(verdict)}`);
     const data = await res.json();
     setStocks(data.results || []);
   }
 
-  function goToLookup(code) {
+  function goToLookup(code: string) {
     router.push(`/lookup?code=${code}`);
   }
 
@@ -40,7 +40,7 @@ export default function CategoriesPage() {
     loadCategory("Extended");
   }, []);
 
-  function filterStocks(list) {
+  function filterStocks(list: any[]) {
     let filtered = [...list];
     if (momentumFilter) filtered = filtered.filter((s) => s.momentum === momentumFilter);
     if (typeFilter) filtered = filtered.filter((s) => s.type === typeFilter);
@@ -59,7 +59,20 @@ export default function CategoriesPage() {
 
         <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "25px", marginTop: "20px" }}>
           {VERDICTS.map((label) => (
-            <div key={label} onClick={() => loadCategory(label)} style={{ display: "flex", flexDirection: "column", alignItems: "center", color: "#e7eaef", fontSize: "14px", cursor: "pointer", padding: "10px", borderRadius: "10px" }}>
+            <div
+              key={label}
+              onClick={() => loadCategory(label)}
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                color: "#e7eaef",
+                fontSize: "14px",
+                cursor: "pointer",
+                padding: "10px",
+                borderRadius: "10px",
+              }}
+            >
               <Image src={`/${label}.png`} alt={label} width={60} height={60} style={{ borderRadius: "8px", cursor: "pointer" }} />
               <span style={{ marginTop: "8px" }}>{label}</span>
             </div>
@@ -67,31 +80,95 @@ export default function CategoriesPage() {
         </div>
       </div>
 
-      <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", alignItems: "center", gap: "20px", marginBottom: "30px", flexDirection: typeof window !== "undefined" && window.innerWidth > 768 ? "row" : "column" }}>
+      <div
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "center",
+          alignItems: "center",
+          gap: "20px",
+          marginBottom: "30px",
+          flexDirection: typeof window !== "undefined" && window.innerWidth > 768 ? "row" : "column",
+        }}
+      >
         <p style={{ fontSize: "20px", color: "#30f998", maxWidth: "800px", margin: "0 auto 20px auto", lineHeight: "1.6" }}>
           Dropdown search for Stock Categories Momentum and type.
         </p>
 
-        <select value={selected} onChange={(e) => loadCategory(e.target.value)} style={{ padding: "12px 16px", fontSize: "18px", borderRadius: "6px", border: "none", width: "260px", backgroundColor: "rgb(64, 122, 180)", color: "rgb(255, 242, 3)" }}>
+        <select
+          value={selected}
+          onChange={(e) => loadCategory(e.target.value)}
+          style={{
+            padding: "12px 16px",
+            fontSize: "18px",
+            borderRadius: "6px",
+            border: "none",
+            width: "260px",
+            backgroundColor: "rgb(64, 122, 180)",
+            color: "rgb(255, 242, 3)",
+          }}
+        >
           <option value="">Select a category...</option>
-          {VERDICTS.map((v) => <option key={v} value={v}>{v}</option>)}
+          {VERDICTS.map((v) => (
+            <option key={v} value={v}>
+              {v}
+            </option>
+          ))}
         </select>
 
-        <select value={momentumFilter} onChange={(e) => setMomentumFilter(e.target.value)} style={{ padding: "12px 16px", fontSize: "18px", borderRadius: "6px", border: "none", width: "260px", backgroundColor: "rgb(125, 238, 20)", color: "rgb(12, 85, 241)" }}>
+        <select
+          value={momentumFilter}
+          onChange={(e) => setMomentumFilter(e.target.value)}
+          style={{
+            padding: "12px 16px",
+            fontSize: "18px",
+            borderRadius: "6px",
+            border: "none",
+            width: "260px",
+            backgroundColor: "rgb(125, 238, 20)",
+            color: "rgb(12, 85, 241)",
+          }}
+        >
           <option value="">Filter by Momentum...</option>
-          {MOMENTUM_OPTIONS.map((m) => <option key={m} value={m}>{m}</option>)}
+          {MOMENTUM_OPTIONS.map((m) => (
+            <option key={m} value={m}>
+              {m}
+            </option>
+          ))}
         </select>
 
-        <select value={typeFilter} onChange={(e) => setTypeFilter(e.target.value)} style={{ padding: "12px 16px", fontSize: "18px", borderRadius: "6px", border: "none", width: "260px", backgroundColor: "rgb(95, 51, 92)", color: "rgb(125, 238, 20)" }}>
+        <select
+          value={typeFilter}
+          onChange={(e) => setTypeFilter(e.target.value)}
+          style={{
+            padding: "12px 16px",
+            fontSize: "18px",
+            borderRadius: "6px",
+            border: "none",
+            width: "260px",
+            backgroundColor: "rgb(95, 51, 92)",
+            color: "rgb(125, 238, 20)",
+          }}
+        >
           <option value="">Filter by Type...</option>
-          {TYPE_OPTIONS.map((t) => <option key={t} value={t}>{t}</option>)}
+          {TYPE_OPTIONS.map((t) => (
+            <option key={t} value={t}>
+              {t}
+            </option>
+          ))}
         </select>
 
-        <button onClick={goBack} style={{ padding: "10px 20px", fontSize: "16px", cursor: "pointer", backgroundColor: "#444", color: "white", border: "none", borderRadius: "6px" }}>
+        <button
+          onClick={goBack}
+          style={{ padding: "10px 20px", fontSize: "16px", cursor: "pointer", backgroundColor: "#444", color: "white", border: "none", borderRadius: "6px" }}
+        >
           Stock Lookup
         </button>
 
-        <button onClick={goMacro} style={{ padding: "10px 20px", fontSize: "16px", cursor: "pointer", backgroundColor: "#0070f3", color: "white", border: "none", borderRadius: "6px" }}>
+        <button
+          onClick={goMacro}
+          style={{ padding: "10px 20px", fontSize: "16px", cursor: "pointer", backgroundColor: "#0070f3", color: "white", border: "none", borderRadius: "6px" }}
+        >
           Market & Sector Data
         </button>
       </div>
@@ -100,7 +177,13 @@ export default function CategoriesPage() {
         {stocks.length === 0 && selected && <p>No stocks found for {selected}.</p>}
 
         {filterStocks(stocks).map((s) => (
-          <div key={s.code} style={{ display: "flex", flexDirection: "column", borderBottom: "1px solid #345", padding: "10px 12px", cursor: "pointer" }} onMouseEnter={() => setHoveredStock(s)} onMouseLeave={() => setHoveredStock(null)} onClick={() => goToLookup(s.code)}>
+          <div
+            key={s.code}
+            style={{ display: "flex", flexDirection: "column", borderBottom: "1px solid #345", padding: "10px 12px", cursor: "pointer" }}
+            onMouseEnter={() => setHoveredStock(s)}
+            onMouseLeave={() => setHoveredStock(null)}
+            onClick={() => goToLookup(s.code)}
+          >
             <div style={{ display: "flex", flexDirection: "row", gap: "20px" }}>
               <span style={{ fontWeight: 600, width: "80px" }}>{s.code}</span>
               <span style={{ flexGrow: 1 }}>{s.name}</span>
@@ -109,16 +192,15 @@ export default function CategoriesPage() {
             </div>
 
             {hoveredStock?.code === s.code && (
-  <div className="popup-card">
-    <h3 style={{ marginBottom: "6px" }}>{s.code}</h3>
-    <p style={{ margin: "4px 0" }}>Sector: {s.sector || "N/A"}</p>
-    <p style={{ margin: "4px 0" }}>Trend Category: {s.trendCategory || "N/A"}</p>
-    <p style={{ margin: "4px 0" }}>Overall Risk Class: {s.riskClass || "N/A"}</p>
-    <p style={{ margin: "4px 0" }}>RSI (14): {s.rsi || "N/A"}</p>
-    <p style={{ margin: "4px 0" }}>Liquidity Category: {s.liquidityCategory || "N/A"}</p>
-  </div>
-)}
-
+              <div className="popup-card">
+                <h3 style={{ marginBottom: "6px" }}>{s.code}</h3>
+                <p style={{ margin: "4px 0" }}>Sector: {s.sector || "N/A"}</p>
+                <p style={{ margin: "4px 0" }}>Trend Category: {s.trendCategory || "N/A"}</p>
+                <p style={{ margin: "4px 0" }}>Overall Risk Class: {s.riskClass || "N/A"}</p>
+                <p style={{ margin: "4px 0" }}>RSI (14): {s.rsi || "N/A"}</p>
+                <p style={{ margin: "4px 0" }}>Liquidity Category: {s.liquidityCategory || "N/A"}</p>
+              </div>
+            )}
           </div>
         ))}
       </div>
@@ -132,12 +214,18 @@ export default function CategoriesPage() {
           margin-top: 10px;
           width: 25%;
           color: yellow;
-          box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
           animation: fadeIn 0.2s ease;
         }
         @keyframes fadeIn {
-          from { opacity: 0; transform: translateY(6px); }
-          to { opacity: 1; transform: translateY(0); }
+          from {
+            opacity: 0;
+            transform: translateY(6px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
         }
       `}</style>
     </div>
