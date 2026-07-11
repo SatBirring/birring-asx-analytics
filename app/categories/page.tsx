@@ -199,6 +199,10 @@ export default function CategoriesPage() {
                 <p style={{ margin: "4px 0" }}>Overall Risk Class: {s.riskClass || "N/A"}</p>
                 <p style={{ margin: "4px 0" }}>RSI (14): {s.rsi || "N/A"}</p>
                 <p style={{ margin: "4px 0" }}>Liquidity Category: {s.liquidityCategory || "N/A"}</p>
+                 {/* ⭐ NEW LINE */}
+                 <p style={{ marginTop: "10px", fontSize: "20px", color: "#49d807" }}>
+                 Click for details
+                   </p>
               </div>
             )}
           </div>
