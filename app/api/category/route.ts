@@ -1,4 +1,4 @@
-export const dynamic = "force-dynamic";   // ⭐ REQUIRED FOR VERCEL
+export const dynamic = "force-dynamic";
 
 import { NextResponse } from "next/server";
 import fs from "fs";
@@ -16,22 +16,24 @@ export async function GET(request: Request) {
   const fileContent = fs.readFileSync(filePath, "utf8");
 
   const lines = fileContent.split("\n").map((l) => l.trim());
-  const header = lines[0].split(",").map((h) => h.trim().toLowerCase()); // normalize
+  const header = lines[0].split(",").map((h) => h.trim().toLowerCase());
 
+  // REQUIRED FIELDS
   const idxCode = header.indexOf("code");
   const idxCompany = header.indexOf("company");
   const idxVerdict = header.indexOf("final verdict");
   const idxScore = header.indexOf("final score");
-  const idxMomentum = header.indexOf("momentum category"); // ✅ matches your CSV
-  const idxType = header.indexOf("type");                  // ✅ handles TYPE uppercase
+  const idxMomentum = header.indexOf("momentum category");
+  const idxType = header.indexOf("type");
 
-  const rows: {
-    code: string;
-    name: string;
-    score: number;
-    momentum?: string;
-    type?: string;
-  }[] = [];
+  // ⭐ NEW FIELDS YOU REQUESTED
+  const idxSector = header.indexOf("sector");
+  const idxTrendCategory = header.indexOf("trend category");
+  const idxRiskClass = header.indexOf("overall risk class");
+  const idxRSI = header.indexOf("rsi (14)");
+  const idxLiquidityCategory = header.indexOf("liquidity category");
+
+  const rows: any[] = [];
 
   for (let i = 1; i < lines.length; i++) {
     const row = lines[i].split(",");
@@ -41,8 +43,15 @@ export async function GET(request: Request) {
         code: row[idxCode],
         name: row[idxCompany],
         score: parseFloat(row[idxScore]) || 0,
-        momentum: idxMomentum >= 0 ? row[idxMomentum] : "",
-        type: idxType >= 0 ? row[idxType] : "",
+        momentum: row[idxMomentum],
+        type: row[idxType],
+
+        // ⭐ NEW FIELDS ADDED
+        sector: row[idxSector],
+        trendCategory: row[idxTrendCategory],
+        riskClass: row[idxRiskClass],
+        rsi: row[idxRSI],
+        liquidityCategory: row[idxLiquidityCategory],
       });
     }
   }
