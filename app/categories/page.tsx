@@ -7,7 +7,7 @@ import Image from "next/image";
 const VERDICTS = ["Extended", "Strong", "Positive", "Monitor", "Recheck", "Weak"];
 const MOMENTUM_OPTIONS = ["Peak", "Soaring", "Rising", "Climbing", "Stable", "Fading", "Drop phase"];
 const TYPE_OPTIONS = ["Bond", "CDI", "ETF", "Option", "Ordinary", "Other"];
-
+const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
 export default function CategoriesPage() {
   const [selected, setSelected] = useState<string>("");
   const [momentumFilter, setMomentumFilter] = useState<string>("");
@@ -184,12 +184,30 @@ export default function CategoriesPage() {
             onMouseLeave={() => setHoveredStock(null)}
             onClick={() => goToLookup(s.code)}
           >
-            <div style={{ display: "flex", flexDirection: "row", gap: "20px" }}>
-              <span style={{ fontWeight: 600, width: "80px" }}>{s.code}</span>
-              <span style={{ flexGrow: 1 }}>{s.name}</span>
-              <span style={{ width: "120px", color: "#30f998" }}>{s.momentum}</span>
-              <span style={{ width: "120px", color: "#9cc9ff" }}>{s.type}</span>
-            </div>
+            <div style={{ display: "flex", flexDirection: "row", gap: "20px", alignItems: "center" }}>
+  <span style={{ fontWeight: 600, width: "80px" }}>{s.code}</span>
+  <span style={{ flexGrow: 1 }}>{s.name}</span>
+  <span style={{ width: "120px", color: "#30f998" }}>{s.momentum}</span>
+  <span style={{ width: "120px", color: "#9cc9ff" }}>{s.type}</span>
+
+  {/* ⭐ Info icon for mobile */}
+  <span
+    style={{
+      fontSize: "20px",
+      padding: "4px 8px",
+      borderRadius: "6px",
+      backgroundColor: "#1a2b4d",
+      color: "#9cc9ff",
+      cursor: "pointer",
+    }}
+    onClick={(e) => {
+      e.stopPropagation();   // ⭐ Prevent navigation
+      setHoveredStock(s);    // ⭐ Show popup card
+    }}
+  >
+    ℹ️
+  </span>
+</div>
 
             {hoveredStock?.code === s.code && (
               <div className="popup-card">
