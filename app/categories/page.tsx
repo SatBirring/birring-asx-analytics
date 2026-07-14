@@ -185,28 +185,31 @@ export default function CategoriesPage() {
             onClick={() => goToLookup(s.code)}
           >
             <div style={{ display: "flex", flexDirection: "row", gap: "20px", alignItems: "center" }}>
-  <span style={{ fontWeight: 600, width: "80px" }}>{s.code}</span>
-  <span style={{ flexGrow: 1 }}>{s.name}</span>
-  <span style={{ width: "120px", color: "#30f998" }}>{s.momentum}</span>
-  <span style={{ width: "120px", color: "#9cc9ff" }}>{s.type}</span>
+            <span style={{ fontWeight: 600, width: "80px" }}>{s.code}</span>
+            <span style={{ flexGrow: 1 }}>{s.name}</span>
+            <span style={{ width: "120px", color: "#30f998" }}>{s.momentum}</span>
+            <span style={{ width: "120px", color: "#9cc9ff" }}>{s.type}</span>
 
   {/* ⭐ Info icon for mobile */}
   <span
-    style={{
-      fontSize: "20px",
-      padding: "4px 8px",
-      borderRadius: "6px",
-      backgroundColor: "#1a2b4d",
-      color: "#9cc9ff",
-      cursor: "pointer",
-    }}
-    onClick={(e) => {
-      e.stopPropagation();   // ⭐ Prevent navigation
-      setHoveredStock(s);    // ⭐ Show popup card
-    }}
-  >
-    ℹ️
-  </span>
+  style={{
+    fontSize: "20px",
+    padding: "4px 8px",
+    borderRadius: "6px",
+    backgroundColor: "#1a2b4d",
+    color: "#9cc9ff",
+    cursor: "pointer",
+  }}
+  onClick={(e) => {
+    e.stopPropagation();        // prevent navigation
+    setHoveredStock(null);      // reset previous popup
+    setTimeout(() => {
+      setHoveredStock(s);       // open new popup
+    }, 0);
+  }}
+>
+  ℹ️
+</span>
 </div>
 
             {hoveredStock?.code === s.code && (
