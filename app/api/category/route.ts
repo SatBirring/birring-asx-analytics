@@ -55,6 +55,6 @@ export async function GET(request: Request) {
       });
     }
   }
-
+  rows.sort((a, b) => b.score - a.score);
   return NextResponse.json({ results: rows });
 }
