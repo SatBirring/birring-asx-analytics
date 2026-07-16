@@ -32,7 +32,7 @@ export async function GET(request: Request) {
   const idxRiskClass = header.indexOf("overall risk class");
   const idxRSI = header.indexOf("rsi (14)");
   const idxLiquidityCategory = header.indexOf("liquidity category");
-
+  const idxprice = header.indexOf("close price");
   const rows: any[] = [];
 
   for (let i = 1; i < lines.length; i++) {
@@ -47,6 +47,7 @@ export async function GET(request: Request) {
         type: row[idxType],
 
         // ⭐ NEW FIELDS ADDED
+        price: row[idxprice],
         sector: row[idxSector],
         trendCategory: row[idxTrendCategory],
         riskClass: row[idxRiskClass],
