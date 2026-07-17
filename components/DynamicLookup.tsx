@@ -86,7 +86,7 @@ function LookupContent() {
               </div> 
               
               <div className={styles.block500}>
-              {/* <DelayedLivePrice code={row["Code"]} /> */}
+              {<DelayedLivePrice code={row["Code"]} /> }
               </div>
 
             </div>
