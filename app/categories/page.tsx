@@ -235,8 +235,8 @@ export default function CategoriesPage() {
       window.open(`/lookup?code=${s.code}`, "_blank");
     }}
   >
-    ↗
-  </span>
+  ⧉
+</span>
 
 </div>
 
