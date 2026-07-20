@@ -12,107 +12,126 @@ export default function SupportingIndicatorsBlock({ row }: { row: any }) {
   const parseNum = (v: any) =>
     typeof v === "string" ? parseFloat(v) : Number(v);
 
-  const Bar = ({ label, value, type }: BarProps) => {
-    const num = parseNum(value);
-    const isPositive = num >= 0;
+    const Bar = ({ label, value, type }: BarProps) => {
+  const num = parseNum(value);
+  const isPositive = num >= 0;
 
-    let pct = 0;
-    let barColor = "#ccc";
-    let symmetric = false; // ⭐ NEW: symmetric bar flag
+  let pct = 0;
+  let barColor = "#ccc";
+  let symmetric = false;
 
-    // ⭐ TREND: range -3 to 3 → symmetric
-    if (type === "trend") {
-      pct = Math.min(Math.abs((num / 3) * 100), 100);
-      barColor = isPositive ? "#4CAF50" : "#d9534f";
-      symmetric = true;
-    }
+  if (type === "trend") {
+    pct = Math.min(Math.abs((num / 3) * 100), 100);
+    barColor = isPositive ? "#0db313" : "#d11c16";
+    symmetric = true;
+  }
 
-    // ⭐ MOVE: range -1 to 1 → symmetric
-    if (type === "move") {
-      pct = Math.min(Math.abs((num / 1) * 100), 100);
-      barColor = isPositive ? "#4CAF50" : "#d9534f";
-      symmetric = true;
-    }
+  if (type === "move") {
+    pct = Math.min(Math.abs((num / 1) * 100), 100);
+    barColor = isPositive ? "#202bc7" : "#c72cc7";
+    symmetric = true;
+  }
 
-    // ⭐ TMOVE: range -3 to 3 → symmetric
-    if (type === "tmove") {
-      pct = Math.min(Math.abs((num / 3) * 100), 100);
-      barColor = isPositive ? "#4CAF50" : "#d9534f";
-      symmetric = true;
-    }
+  if (type === "tmove") {
+    pct = Math.min(Math.abs((num / 3) * 100), 100);
+    barColor = isPositive ? "#05a10b" : "#d81009";
+    symmetric = true;
+  }
 
-    // ⭐ LIQUIDITY: range 1–5 → left‑anchored
-    if (type === "liq") {
-      pct = ((num - 1) / 4) * 100;
-      barColor = "#7cd992";
-    }
+  if (type === "liq") {
+    pct = ((num - 1) / 4) * 100;
+    barColor = "#d4e914";
+  }
 
-    // ⭐ VOLATILITY: range 1–5 → left‑anchored
-    if (type === "vol") {
-      pct = ((num - 1) / 4) * 100;
-      barColor = "#f0a04b";
-    }
+  if (type === "vol") {
+    pct = ((num - 1) / 4) * 100;
+    barColor = "#f09737";
+  }
 
-    // ⭐ For symmetric bars: convert pct → half‑width
-    const sideWidth = symmetric ? pct / 2 : pct;
+  const sideWidth = symmetric ? pct / 2 : pct;
 
-    return (
-      <div style={{ padding: "8px 0" }}>
-        {/* Label + Value */}
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            fontSize: "18px",
-            fontWeight: 600,
-          }}
-        >
-          <div>{label}</div>
-          <div>{value}</div>
-        </div>
+  // ⭐ Text color
+  const textColor = symmetric
+    ? isPositive
+      ? "#4CAF50"
+      : "#d9534f"
+    : "#061126";
 
-        {/* ⭐ Data Bar */}
-        <div
-          style={{
-            marginTop: "6px",
-            height: "8px",
-            width: "100%",
-            backgroundColor: "rgba(255,255,255,0.5)",
-            borderRadius: "6px",
-            overflow: "hidden",
-            position: "relative",
-          }}
-        >
-          {/* ⭐ Center line for symmetric bars */}
-          {symmetric && (
-            <div
-              style={{
-                position: "absolute",
-                left: "50%",
-                top: 0,
-                bottom: 0,
-                width: "1px",
-                backgroundColor: "rgba(0,0,0,0.25)",
-              }}
-            />
-          )}
+  // ⭐ Arrow icon
+  const arrow = symmetric
+    ? isPositive
+      ? "▲"
+      : "▼"
+    : "";
 
-          {/* ⭐ Bar */}
-          <div
-            style={{
-              height: "100%",
-              width: `${sideWidth}%`,
-              backgroundColor: barColor,
-              transition: "width 0.3s ease",
-              position: "absolute",
-              left: symmetric && isPositive ? "50%" : symmetric ? undefined : "0",
-              right: symmetric && !isPositive ? "50%" : undefined,
-            }}
-          />
+  // ⭐ Gradient bar
+  const barGradient = symmetric
+    ? isPositive
+      ? "linear-gradient(to right, #02a807fb, #369638e0)"
+      : "linear-gradient(to left, #df0d06ad, #ee7267)"
+    : type === "liq"
+    ? "linear-gradient(to right, #e7e304, #cdf16a)"
+    : type === "vol"
+    ? "linear-gradient(to right, #e27705, #f1a840)"
+    : barColor;
+
+  return (
+    <div style={{ padding: "8px 0" }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          fontSize: "18px",
+          fontWeight: 600,
+          color: textColor,
+        }}
+      >
+        <div>{label}</div>
+        <div>
+          {value} {arrow}
         </div>
       </div>
-    );
-  };
+
+      <div
+        style={{
+          marginTop: "6px",
+          height: "8px",
+          width: "100%",
+          backgroundColor: "rgba(255,255,255,0.5)",
+          borderRadius: "6px",
+          overflow: "hidden",
+          position: "relative",
+        }}
+      >
+        {symmetric && (
+          <div
+            style={{
+              position: "absolute",
+              left: "50%",
+              top: 0,
+              bottom: 0,
+              width: "1px",
+              backgroundColor: "rgba(0,0,0,0.25)",
+            }}
+          />
+        )}
+
+        <div
+          style={{
+            height: "100%",
+            width: `${sideWidth}%`,
+            background: barGradient,
+            transition: "width 0.3s ease",
+            position: "absolute",
+            left: symmetric && isPositive ? "50%" : symmetric ? undefined : "0",
+            right: symmetric && !isPositive ? "50%" : undefined,
+          }}
+        />
+      </div>
+    </div>
+  );
+};
+
 
   return (
     <div

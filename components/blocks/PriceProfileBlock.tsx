@@ -29,80 +29,96 @@ export default function PriceProfileBlock({ row }: { row: any }) {
     typeof v === "string" ? parseFloat(v) : Number(v);
 
   const PercentPriceRow = (
-    label: string,
-    pctValue: any,
-    priceValue: any
-  ) => {
-    const num = parseNum(pctValue);
-    if (isNaN(num)) return null;
+  label: string,
+  pctValue: any,
+  priceValue: any
+) => {
+  const num = parseNum(pctValue);
+  if (isNaN(num)) return null;
 
-    const isPositive = num >= 0;
-    const pct = Math.min(Math.abs(num), 100);
-    const sideWidth = pct / 2;
-    const barColor = isPositive ? "#4CAF50" : "#d9534f";
+  const isPositive = num >= 0;
+  const pct = Math.min(Math.abs(num), 100);
+  const sideWidth = pct / 2;
 
-    return (
-      <div style={{ marginTop: "12px" }}>
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr 1fr",
-            alignItems: "center",
-            fontSize: "18px",
-            fontWeight: 600,
-            gap: "10px",
-          }}
-        >
-          <div style={{ textAlign: "left" }}>
-            <strong>{label}:</strong>
-          </div>
+  // Arrow icon
+  const arrow = isPositive ? "▲" : "▼";
 
-          <div style={{ textAlign: "center" }}>
-            {pctValue}
-          </div>
+  // Text colour
+  const textColor = isPositive ? "#138d17" : "#cc110a";
 
-          <div style={{ textAlign: "right" }}>
-            {priceValue}
-          </div>
+  // Gradient bar (choose A or B)
+     const barGradient = isPositive
+     ? "linear-gradient(to right, #1c421e, #3ba03d)"
+      : "linear-gradient(to left, #e60c05, #ee4c3d)";
+
+      //3‑colour gradient option
+      //const barGradient = isPositive
+      //? "linear-gradient(to right, #4CAF50, #C8E96B, #F7E967)"
+      //: "linear-gradient(to left, #d9534f, #F7E967, #C8E96B)";
+
+  return (
+    <div style={{ marginTop: "12px" }}>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr 1fr",
+          alignItems: "center",
+          fontSize: "18px",
+          fontWeight: 600,
+          gap: "10px",
+          color: textColor,
+        }}
+      >
+        <div style={{ textAlign: "left" }}>
+          <strong>{label}:</strong>
         </div>
 
-        <div
-          style={{
-            marginTop: "6px",
-            height: "8px",
-            width: "100%",
-            backgroundColor: "rgba(255,255,255,0.5)",
-            borderRadius: "6px",
-            overflow: "hidden",
-            position: "relative",
-          }}
-        >
-          <div
-            style={{
-              position: "absolute",
-              left: "50%",
-              top: 0,
-              bottom: 0,
-              width: "1px",
-              backgroundColor: "rgba(0,0,0,0.25)",
-            }}
-          />
+        <div style={{ textAlign: "center" }}>
+          {pctValue} {arrow}
+        </div>
 
-          <div
-            style={{
-              height: "100%",
-              width: `${sideWidth}%`,
-              backgroundColor: barColor,
-              position: "absolute",
-              left: isPositive ? "50%" : undefined,
-              right: !isPositive ? "50%" : undefined,
-              transition: "width 0.3s ease",
-            }}
-          />
+        <div style={{ textAlign: "right" }}>
+          {priceValue}
         </div>
       </div>
-    );
-  };
+
+      <div
+        style={{
+          marginTop: "6px",
+          height: "8px",
+          width: "100%",
+          backgroundColor: "rgba(255,255,255,0.5)",
+          borderRadius: "6px",
+          overflow: "hidden",
+          position: "relative",
+        }}
+      >
+        <div
+          style={{
+            position: "absolute",
+            left: "50%",
+            top: 0,
+            bottom: 0,
+            width: "1px",
+            backgroundColor: "rgba(0,0,0,0.25)",
+          }}
+        />
+
+        <div
+          style={{
+            height: "100%",
+            width: `${sideWidth}%`,
+            background: barGradient,
+            position: "absolute",
+            left: isPositive ? "50%" : undefined,
+            right: !isPositive ? "50%" : undefined,
+            transition: "width 0.3s ease",
+          }}
+        />
+      </div>
+    </div>
+  );
+};
 
   return (
     <div
