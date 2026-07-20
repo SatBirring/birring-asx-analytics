@@ -182,7 +182,16 @@ export default function CategoriesPage() {
             style={{ display: "flex", flexDirection: "column", borderBottom: "1px solid #345", padding: "10px 12px", cursor: "pointer" }}
             onMouseEnter={() => setHoveredStock(s)}
             onMouseLeave={() => setHoveredStock(null)}
-            onClick={() => goToLookup(s.code)}
+            onClick={(e) => {
+             // ⭐ CTRL + click → open in new tab
+             if (e.ctrlKey) {
+             window.open(`/lookup?code=${s.code}`, "_blank");
+             return;
+             }
+
+             // ⭐ Normal click → navigate inside same tab
+             goToLookup(s.code);
+          }}
           >
             <div style={{ display: "flex", flexDirection: "row", gap: "20px", alignItems: "center" }}>
             <span style={{ fontWeight: 600, width: "80px" }}>{s.code}</span>
@@ -210,6 +219,25 @@ export default function CategoriesPage() {
 >
   ℹ️
 </span>
+
+{/* ⭐ Open in new tab icon */}
+  <span
+    style={{
+      fontSize: "20px",
+      padding: "4px 8px",
+      borderRadius: "6px",
+      backgroundColor: "#1a2b4d",
+      color: "#49d807",
+      cursor: "pointer",
+    }}
+    onClick={(e) => {
+      e.stopPropagation();
+      window.open(`/lookup?code=${s.code}`, "_blank");
+    }}
+  >
+    ↗
+  </span>
+
 </div>
 
             {hoveredStock?.code === s.code && (
