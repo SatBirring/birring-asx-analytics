@@ -3,8 +3,12 @@
 export default function PriceProfileBlock({ row }: { row: any }) {
   if (!row) return null;
 
-  const parseNum = (v: any) =>
-    typeof v === "string" ? parseFloat(v) : Number(v);
+  const parseNum = (v: any) => {
+  if (typeof v === "string") {
+    return parseFloat(v.replace(/[$,]/g, ""));
+  }
+  return Number(v);
+};
 
   const PercentPriceRow = (label: string, pctValue: any, priceValue: any) => {
     const num = parseNum(pctValue);
@@ -84,13 +88,21 @@ export default function PriceProfileBlock({ row }: { row: any }) {
   };
 
   // ⭐ 52‑Week Low/High bar — always renders
- const FiftyTwoWeekBar = () => {
+const FiftyTwoWeekBar = () => {
   const low52 = parseNum(row["52w Low"]);
   const high52 = parseNum(row["52w High"]);
+  const close = parseNum(row["Close Price"]);
+
+  let pct = 50;
+
+  if (!isNaN(low52) && !isNaN(high52) && !isNaN(close) && high52 > low52) {
+    pct = ((close - low52) / (high52 - low52)) * 100;
+    pct = Math.max(0, Math.min(100, pct));
+  }
 
   return (
     <div style={{ marginTop: "25px" }}>
-      {/* Top labels: Low / High */}
+      {/* Top labels */}
       <div
         style={{
           display: "flex",
@@ -100,23 +112,51 @@ export default function PriceProfileBlock({ row }: { row: any }) {
           marginBottom: "6px",
         }}
       >
-        <span>52 Weeks Low: {row["52w Low"]}</span>
-        <span>52 Weeks High: {row["52w High"]}</span>
+        <span>52W Low: {row["52w Low"]}</span>
+        <span>52W High: {row["52w High"]}</span>
       </div>
 
-      {/* Bar only — no pointer */}
+      {/* FULL-WIDTH WRAPPER */}
       <div
         style={{
           position: "relative",
-          height: "10px",
-          background: "linear-gradient(to right, #a80a04, #d1bd07, #07bb0d)",
-          borderRadius: "6px",
+          width: "100%",
+          height: "20px",
         }}
-      />
+      >
+        {/* Circle marker */}
+        <div
+          style={{
+            position: "absolute",
+            left: `${pct}%`,
+            top: "50%",
+            transform: "translate(-50%, -50%)",
+            width: "14px",
+            height: "14px",
+            backgroundColor: "#000",
+            borderRadius: "50%",
+            border: "2px solid white",
+            zIndex: 2,
+          }}
+        />
+
+        {/* Bar */}
+        <div
+          style={{
+            position: "absolute",
+            top: "50%",
+            left: 0,
+            width: "100%",
+            height: "10px",
+            transform: "translateY(-50%)",
+            background: "linear-gradient(to right, #b30b05, #f3e144, #04a70a)",
+            borderRadius: "6px",
+          }}
+        />
+      </div>
     </div>
   );
 };
-
 
   return (
     <div
