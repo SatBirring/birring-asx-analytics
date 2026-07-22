@@ -21,7 +21,7 @@ export default function CategoriesPage() {
 
   const [stocks, setStocks] = useState<any[]>([]);
   const [hoveredStock, setHoveredStock] = useState<any>(null);
-
+  const [categoryCount, setCategoryCount] = useState<number>(0); 
   const router = useRouter();
 
   async function loadCategory(verdict: string) {
@@ -29,6 +29,8 @@ export default function CategoriesPage() {
     const res = await fetch(`/api/category?verdict=${encodeURIComponent(verdict)}`);
     const data = await res.json();
     setStocks(data.results || []);
+    setCategoryCount(data.results?.length || 0);   // ⭐ NEW LINE
+
   }
 
   useEffect(() => {
@@ -122,7 +124,7 @@ export default function CategoriesPage() {
             fontSize: "18px",
             borderRadius: "6px",
             border: "none",
-            width: "260px",
+            width: "200px",
             backgroundColor: "rgb(64, 122, 180)",
             color: "rgb(255, 242, 3)",
           }}
@@ -134,6 +136,9 @@ export default function CategoriesPage() {
             </option>
           ))}
         </select>
+        <p style={{ color: "#30f998", fontSize: "18px" }}>
+        Total in Category: {categoryCount}
+        </p>
 
         {/* ⭐ MOMENTUM BUTTON */}
         <button
@@ -142,7 +147,7 @@ export default function CategoriesPage() {
             padding: "12px 16px",
             fontSize: "18px",
             borderRadius: "6px",
-            width: "260px",
+            width: "200px",
             backgroundColor: "rgb(125, 238, 20)",
             color: "rgb(12, 85, 241)",
             border: "none",
@@ -159,7 +164,7 @@ export default function CategoriesPage() {
             padding: "12px 16px",
             fontSize: "18px",
             borderRadius: "6px",
-            width: "260px",
+            width: "150px",
             backgroundColor: "rgb(95, 51, 92)",
             color: "rgb(125, 238, 20)",
             border: "none",
