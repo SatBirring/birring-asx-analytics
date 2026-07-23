@@ -6,7 +6,10 @@ interface StockListProps {
   goToLookup: (code: string) => void;
 }
 
-export default function StockList({ stocks, goToLookup }) {
+export default function StockList({
+  stocks,
+  goToLookup
+}: StockListProps) {
   const [hoveredStock, setHoveredStock] = useState<any>(null);
 
   return (

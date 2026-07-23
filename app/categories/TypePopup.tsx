@@ -5,14 +5,14 @@ interface TypePopupProps {
   setTypeFilter: (v: string[]) => void;
   TYPE_OPTIONS: string[];
   close: () => void;
-} 
+}
 
 export default function TypePopup({
   typeFilter,
   setTypeFilter,
   TYPE_OPTIONS,
   close
-}) {
+}: TypePopupProps) {
   return (
     <div className={styles.popupContainer}>
       <h3 style={{ marginBottom: "10px" }}>Select Type</h3>
@@ -52,4 +52,3 @@ export default function TypePopup({
     </div>
   );
 }
-

@@ -8,7 +8,7 @@ interface FilterPanelProps {
   setShowMomentumPopup: (v: boolean) => void;
   setShowTypePopup: (v: boolean) => void;
   loadCategory: (v: string) => void;
-  router: any; // or NextRouter if you want strict typing
+  router: any;
 }
 
 export default function FilterPanel({
@@ -20,7 +20,7 @@ export default function FilterPanel({
   setShowTypePopup,
   loadCategory,
   router
-}) {
+}: FilterPanelProps) {
   return (
     <div className={styles.filterPanel}>
       <p className={styles.filterText}>

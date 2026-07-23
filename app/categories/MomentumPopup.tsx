@@ -12,7 +12,7 @@ export default function MomentumPopup({
   setMomentumFilter,
   MOMENTUM_OPTIONS,
   close
-}) {
+}: MomentumPopupProps) {
   return (
     <div className={styles.popupContainer}>
       <h3 style={{ marginBottom: "10px" }}>Select Momentum</h3>
