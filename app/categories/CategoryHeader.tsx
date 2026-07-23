@@ -1,6 +1,11 @@
 import Image from "next/image";
 import styles from "./CategoriesPage.module.css";
 
+interface CategoryHeaderProps {
+  selected: string;
+  VERDICTS: string[];
+  loadCategory: (v: string) => void;
+}
 export default function CategoryHeader({ selected, VERDICTS, loadCategory }) {
   return (
     <div className={styles.header}>

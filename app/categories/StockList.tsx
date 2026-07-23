@@ -1,6 +1,11 @@
 import { useState } from "react";
 import styles from "./CategoriesPage.module.css";
 
+interface StockListProps {
+  stocks: any[];
+  goToLookup: (code: string) => void;
+}
+
 export default function StockList({ stocks, goToLookup }) {
   const [hoveredStock, setHoveredStock] = useState<any>(null);
 

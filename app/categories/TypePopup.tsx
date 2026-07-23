@@ -1,5 +1,12 @@
 import styles from "./CategoriesPage.module.css";
 
+interface TypePopupProps {
+  typeFilter: string[];
+  setTypeFilter: (v: string[]) => void;
+  TYPE_OPTIONS: string[];
+  close: () => void;
+} 
+
 export default function TypePopup({
   typeFilter,
   setTypeFilter,

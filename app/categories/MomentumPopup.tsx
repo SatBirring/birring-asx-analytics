@@ -1,5 +1,12 @@
 import styles from "./CategoriesPage.module.css";
 
+interface MomentumPopupProps {
+  momentumFilter: string[];
+  setMomentumFilter: (v: string[]) => void;
+  MOMENTUM_OPTIONS: string[];
+  close: () => void;
+}
+
 export default function MomentumPopup({
   momentumFilter,
   setMomentumFilter,

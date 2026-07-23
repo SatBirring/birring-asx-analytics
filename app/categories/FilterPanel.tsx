@@ -1,5 +1,16 @@
 import styles from "./CategoriesPage.module.css";
 
+interface FilterPanelProps {
+  selected: string;
+  categoryCount: number;
+  momentumFilter: string[];
+  typeFilter: string[];
+  setShowMomentumPopup: (v: boolean) => void;
+  setShowTypePopup: (v: boolean) => void;
+  loadCategory: (v: string) => void;
+  router: any; // or NextRouter if you want strict typing
+}
+
 export default function FilterPanel({
   selected,
   categoryCount,
