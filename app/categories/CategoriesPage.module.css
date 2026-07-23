@@ -1,0 +1,137 @@
+/* ============================
+   PAGE LAYOUT
+============================ */
+.page {
+  padding: 20px;
+  background-color: #0b1e39;
+  min-height: 100vh;
+  color: white;
+  font-family: Arial;
+}
+
+/* ============================
+   HEADER
+============================ */
+.header {
+  text-align: center;
+  margin-bottom: 40px;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #102544;
+}
+
+.title {
+  font-size: 42px;
+  margin-bottom: 10px;
+  background: linear-gradient(90deg, #e4f71d, #4db8ff, #9cc9ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 700;
+}
+
+.subtitle {
+  font-size: 24px;
+  color: #30f998;
+  max-width: 800px;
+  margin: 0 auto 30px auto;
+  line-height: 1.6;
+}
+
+/* ============================
+   CATEGORY ICONS
+============================ */
+.categoryIcon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #e7eaef;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+/* ============================
+   FILTER PANEL
+============================ */
+.filterPanel {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.filterText {
+  font-size: 20px;
+  color: #30f998;
+  max-width: 800px;
+  margin: 0 auto 20px auto;
+  line-height: 1.6;
+}
+
+/* ============================
+   POPUP CONTAINERS
+============================ */
+.popupContainer {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #102544;
+  padding: 20px;
+  border-radius: 10px;
+  width: 300px;
+  z-index: 1000;
+  border: 1px solid #345;
+}
+
+.popupList {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+/* ============================
+   STOCK LIST
+============================ */
+.stockRow {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid #345;
+  padding: 10px 12px;
+  cursor: pointer;
+}
+
+.stockRowContent {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: center;
+}
+
+/* ============================
+   POPUP CARD (HOVER INFO)
+============================ */
+.popupCard {
+  background: #030851;
+  border: 1px solid #345;
+  border-radius: 10px;
+  padding: 12px;
+  margin-top: 10px;
+  width: 25%;
+  color: yellow;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
