@@ -68,9 +68,7 @@ function LookupContent() {
               
 
               {/* AUTO-FIT REMAINING */}
-              <div className={styles.block500}>
-                <PriceLimitsBlock row={row} />
-              </div>
+              
               
 
               <div className={styles.block500}>
@@ -84,6 +82,10 @@ function LookupContent() {
               <div className={styles.block550}>
                 <MacroMicroBlock row={row} />
               </div> 
+
+              <div className={styles.block500}>
+                <PriceLimitsBlock row={row} />
+              </div>
               
               <div className={styles.block500}>
               {<DelayedLivePrice code={row["Code"]} /> }

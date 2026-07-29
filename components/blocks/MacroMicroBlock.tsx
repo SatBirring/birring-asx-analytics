@@ -28,11 +28,11 @@ export default function MacroMicroBlock({ row }: { row: any }) {
       style={{
         padding: "14px",
         borderRadius: "10px",
-        backgroundColor: "#abefd6",   // same premium blue as Price Limits
+        backgroundColor: "#abefd6",
         boxShadow: "0 1px 3px rgba(0,0,0,0.12)",
         color: "#061126",
         width: "100%",
-        maxWidth: "550px",            // button-sized
+        maxWidth: "550px",
         minWidth: "400px",
         marginBottom: "20px",
       }}
@@ -49,9 +49,13 @@ export default function MacroMicroBlock({ row }: { row: any }) {
         Macro & Micro Regime Signals
       </h2>
 
-      <Row label="Micro Regime" value={row["Micro Regime"]} />      
+      <Row label="Micro Regime" value={row["Micro Regime"]} />
       <Row label="Micro Regime Historical" value={row["Micro R Smooth"]} />
-      <Row label="Macro Voltality & Trend  Regime" value={row["Macro VT Regime"]} />
+
+      {/* ⭐ NEW ROW ADDED HERE */}
+      <Row label="Micro Regime Period" value={row["Micro Regime Period"]} />
+
+      <Row label="Macro Voltality & Trend Regime" value={row["Macro VT Regime"]} />
       <Row label="Market Regime Category" value={row["Market Regime Category"]} />
     </div>
   );
