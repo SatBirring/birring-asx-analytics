@@ -15,6 +15,7 @@ import RiskBlock from "@/components/blocks/RiskBlock";
 import MacroMicroBlock from "@/components/blocks/MacroMicroBlock";
 import SecondarySupportSignalsBlock from "@/components/blocks/SecondarySupportSignalsBlock";
 import DelayedLivePrice from "@/components/blocks/DelayedLivePrice";
+import FiftyTwoWeekChart from "@/components/FiftyTwoWeekChart";
 
 function LookupContent() {
   const [results, setResults] = useState<any[]>([]);
@@ -57,6 +58,10 @@ function LookupContent() {
                 <MainVerdictBlock row={row} />
               </div>
 
+              <div className={styles.fullWidth}>
+              <FiftyTwoWeekChart code={row["Code"]} />
+              </div>
+
               {/* FIRST PAIR */}
               <div className={styles.block550}>
                 <PriceProfileBlock row={row} />
@@ -65,6 +70,7 @@ function LookupContent() {
               <div className={styles.block550}>
                 <SupportingIndicatorsBlock row={row} />
               </div>
+
               
 
               {/* AUTO-FIT REMAINING */}
@@ -90,6 +96,8 @@ function LookupContent() {
               <div className={styles.block500}>
               {<DelayedLivePrice code={row["Code"]} /> }
               </div>
+
+              
 
             </div>
           ))}
