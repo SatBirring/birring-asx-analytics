@@ -21,7 +21,13 @@ export async function GET(req: Request) {
   const rows = parsed.data as any[];
   const row = rows.find((r) => r.Code === code);
 
-  if (!row) return NextResponse.json([]);
+  if (!row) {
+    return NextResponse.json({
+      series: [],
+      low: 0,
+      high: 0,
+    });
+  }
 
   // Detect weekly columns (DD/MM/YYYY)
   const weeklyColumns = Object.keys(row).filter((key) =>
@@ -30,12 +36,20 @@ export async function GET(req: Request) {
 
   // Convert to simple { date, close }
   const series = weeklyColumns.map((dateKey) => ({
-    date: dateKey, // keep original DD/MM/YYYY for now
+    date: dateKey,
     close: parseFloat(row[dateKey]) || 0,
   }));
 
   // Remove zeros
   const cleaned = series.filter((p) => p.close > 0);
 
-  return NextResponse.json(cleaned);
+  // Calculate 52W low/high
+  const low = Math.min(...cleaned.map((p) => p.close));
+  const high = Math.max(...cleaned.map((p) => p.close));
+
+  return NextResponse.json({
+    series: cleaned,
+    low,
+    high,
+  });
 }

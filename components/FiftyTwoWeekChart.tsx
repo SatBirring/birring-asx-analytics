@@ -12,13 +12,21 @@ import {
 
 export default function FiftyTwoWeekChart({ code }: { code: string }) {
   const [data, setData] = useState<any[]>([]);
+  const [range, setRange] = useState({ min: 0, max: 0 });
 
   useEffect(() => {
     async function fetchData() {
       const res = await fetch(`/api/load52w?code=${code}`);
       const json = await res.json();
-      setData(json);
+
+      setData(json.series);
+
+      setRange({
+        min: json.low * 0.9,
+        max: json.high * 1.1,
+      });
     }
+
     fetchData();
   }, [code]);
 
@@ -27,7 +35,7 @@ export default function FiftyTwoWeekChart({ code }: { code: string }) {
       <ResponsiveContainer>
         <LineChart data={data}>
           <XAxis dataKey="date" />
-          <YAxis />
+          <YAxis domain={[range.min, range.max]} />
           <Tooltip />
 
           <Line
