@@ -40,14 +40,32 @@ export async function GET(req: Request) {
     close: parseFloat(row[dateKey]) || 0,
   }));
 
-  // Remove zeros
-  const cleaned = series.filter((p) => p.close > 0);
+   // Remove zeros
+   const cleaned = series.filter((p) => p.close > 0);
 
-  // Calculate 52W low/high
-  const low = Math.min(...cleaned.map((p) => p.close));
-  const high = Math.max(...cleaned.map((p) => p.close));
+   // Calculate 52W low/high
+   const low = Math.min(...cleaned.map((p) => p.close));
+   const high = Math.max(...cleaned.map((p) => p.close));
 
-  return NextResponse.json({
+   // Compute slope (13-week)
+   const window = 13;
+   const withSlope = cleaned.map((point, index) => {
+   if (index >= window) {
+    const slope = point.close - cleaned[index - window].close;
+    return {
+      ...point,
+      slope,
+      slopeColor: slope > 0 ? "green" : "red",
+    };
+   }
+   return {
+    ...point,
+    slope: 0,
+    slopeColor: "gray",
+   };
+   });
+
+   return NextResponse.json({
     series: cleaned,
     low,
     high,

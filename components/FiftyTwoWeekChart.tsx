@@ -42,9 +42,19 @@ export default function FiftyTwoWeekChart({ code }: { code: string }) {
             type="monotone"
             dataKey="close"
             stroke="#0066ff"
-            strokeWidth={2}
+            strokeWidth={5}
             dot={false}
           />
+          {/* Slope line */}
+          <Line
+          type="monotone"
+           dataKey="slope"
+           stroke="#00aa00"
+         strokeWidth={3}
+         dot={false}
+         />
+
+
         </LineChart>
       </ResponsiveContainer>
     </div>
