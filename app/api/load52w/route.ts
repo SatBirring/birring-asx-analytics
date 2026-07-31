@@ -29,44 +29,37 @@ export async function GET(req: Request) {
     });
   }
 
-  // Detect weekly columns (DD/MM/YYYY)
+  // Detect weekly columns in BOTH formats
   const weeklyColumns = Object.keys(row).filter((key) =>
-    /^\d{1,2}\/\d{1,2}\/\d{4}$/.test(key)
+    /^\d{1,2}\/\d{1,2}\/\d{4}$/.test(key) || /^\d{4}-\d{2}-\d{2}$/.test(key)
   );
 
-  // Convert to simple { date, close }
-  const series = weeklyColumns.map((dateKey) => ({
-    date: dateKey,
+  // Normalize date formats to ISO YYYY-MM-DD
+  function normalizeDate(key: string) {
+    if (key.includes("/")) {
+      const [d, m, y] = key.split("/");
+      return `${y}-${m.padStart(2, "0")}-${d.padStart(2, "0")}`;
+    }
+    return key; // already ISO
+  }
+
+  // Build series
+  let series = weeklyColumns.map((dateKey) => ({
+    date: normalizeDate(dateKey),
     close: parseFloat(row[dateKey]) || 0,
   }));
 
-   // Remove zeros
-   const cleaned = series.filter((p) => p.close > 0);
+  // Sort by date ascending
+  series.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
-   // Calculate 52W low/high
-   const low = Math.min(...cleaned.map((p) => p.close));
-   const high = Math.max(...cleaned.map((p) => p.close));
+  // Clean zeros for low/high calculation
+  const cleaned = series.filter((p) => p.close > 0);
 
-   // Compute slope (13-week)
-   const window = 13;
-   const withSlope = cleaned.map((point, index) => {
-   if (index >= window) {
-    const slope = point.close - cleaned[index - window].close;
-    return {
-      ...point,
-      slope,
-      slopeColor: slope > 0 ? "green" : "red",
-    };
-   }
-   return {
-    ...point,
-    slope: 0,
-    slopeColor: "gray",
-   };
-   });
+  const low = cleaned.length ? Math.min(...cleaned.map((p) => p.close)) : 0;
+  const high = cleaned.length ? Math.max(...cleaned.map((p) => p.close)) : 0;
 
-   return NextResponse.json({
-    series: cleaned,
+  return NextResponse.json({
+    series,
     low,
     high,
   });
