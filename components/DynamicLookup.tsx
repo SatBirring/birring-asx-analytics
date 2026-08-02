@@ -55,13 +55,14 @@ function LookupContent() {
               </div>
 
               <div className={styles.fullWidth}>
-                <MainVerdictBlock row={row} />
-              </div>
-
-              <div className={styles.fullWidth}>
               <FiftyTwoWeekChart code={row["Code"]} />
               </div>
 
+              <div className={styles.fullWidth}>
+                <MainVerdictBlock row={row} />
+              </div>
+
+              
               {/* FIRST PAIR */}
               <div className={styles.block550}>
                 <PriceProfileBlock row={row} />
