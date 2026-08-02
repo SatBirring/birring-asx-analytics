@@ -58,19 +58,22 @@ export async function GET(req: Request) {
 
   series.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
-  const cleaned = series.filter((p) => p.close !== null);
+  // Clean nulls for low/high calculation (with type guard)
+const cleaned = series.filter(
+  (p): p is { date: string; close: number } => p.close !== null
+);
 
-  if (cleaned.length === 0) {
-    return NextResponse.json({
-      series: [],
-      slopeSeries: [],
-      low: 1,
-      high: 2,
-    });
-  }
+if (cleaned.length === 0) {
+  return NextResponse.json({
+    series: [],
+    slopeSeries: [],
+    low: 1,
+    high: 2,
+  });
+}
 
-  const low = Math.min(...cleaned.map((p) => p.close));
-  const high = Math.max(...cleaned.map((p) => p.close));
+const low = Math.min(...cleaned.map((p) => p.close));
+const high = Math.max(...cleaned.map((p) => p.close));
 
   const slopeSeries: any[] = [];
 
