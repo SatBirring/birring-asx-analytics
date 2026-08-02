@@ -64,16 +64,17 @@ function Top10Strong() {
               <td style={{ padding: "10px" }}>{row.momentum}</td>
               <td style={{ padding: "10px" }}>{row.finalScore}%</td>
               <td style={{ padding: "10px" }}>{row.standing}</td>
-              <td style={{ padding: "10px" }}>
-                <a
-                  href={`/lookup?code=${row.code}`}
-                  target="_blank"
+              <td style={{ padding: "10px", whiteSpace: "nowrap" }}>
+                 <a
+                 href={`/lookup?code=${row.code}`}
+                 target="_blank"
                   style={{
-                    color: "#fbdd59",
-                    textDecoration: "none",
-                    fontWeight: "600",
-                  }}
-                >
+                 color: "#fbdd59",
+                  textDecoration: "none",
+                   fontWeight: "600",
+                   fontSize: "18px",
+                     }}
+  >
                   Open →
                 </a>
               </td>
