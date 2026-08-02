@@ -111,6 +111,21 @@ export default function FilterPanel({
       >
         Market & Sector Data
       </button>
+
+      <button
+          onClick={() => router.push("/")}
+          style={{
+            padding: "10px 20px",
+            fontSize: "16px",
+            cursor: "pointer",
+            backgroundColor: "#03eeee",
+            color: "black",
+            border: "none",
+            borderRadius: "6px",
+          }}
+        >
+          Home
+        </button>
     </div>
   );
 }
