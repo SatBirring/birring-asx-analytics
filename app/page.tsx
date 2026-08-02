@@ -158,6 +158,7 @@ export default function Home() {
             <div style={{ marginTop: "10px" }}>
               <a
                 href="/lookup"
+                
                 style={{
                   display: "inline-block",
                   padding: "14px 28px",
@@ -176,7 +177,7 @@ export default function Home() {
 
               <a
                 href="/categories"
-                target="_blank"
+                
                 style={{
                   display: "inline-block",
                   padding: "14px 28px",
@@ -195,7 +196,7 @@ export default function Home() {
 
               <a
                 href="/macro"
-                target="_blank"
+                
                 style={{
                   display: "inline-block",
                   padding: "14px 28px",
