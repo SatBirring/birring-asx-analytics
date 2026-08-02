@@ -1,7 +1,7 @@
 "use client";
 export const dynamic = "force-dynamic";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import styles from "./CategoriesPage.module.css";
 
@@ -15,7 +15,7 @@ const VERDICTS = ["Extended", "Strong", "Positive", "Monitor", "Recheck", "Weak"
 const MOMENTUM_OPTIONS = ["Peak", "Soaring", "Rising", "Climbing", "Stable", "Fading", "Drop phase"];
 const TYPE_OPTIONS = ["Bond", "CDI", "ETF", "Option", "Ordinary", "Other"];
 
-export default function CategoriesPage() {
+function CategoriesPageInner() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -105,5 +105,14 @@ export default function CategoriesPage() {
         goToLookup={(code) => router.push(`/lookup?code=${code}`)}
       />
     </div>
+  );
+}
+
+// ⭐ Suspense wrapper required by Next.js for useSearchParams()
+export default function CategoriesPage() {
+  return (
+    <Suspense fallback={<div style={{ color: "#fff", padding: "20px" }}>Loading…</div>}>
+      <CategoriesPageInner />
+    </Suspense>
   );
 }
