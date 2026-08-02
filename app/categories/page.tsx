@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import styles from "./CategoriesPage.module.css";
 
 import CategoryHeader from "./CategoryHeader";
@@ -16,8 +16,14 @@ const TYPE_OPTIONS = ["Bond", "CDI", "ETF", "Option", "Ordinary", "Other"];
 
 export default function CategoriesPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
 
-  const [selected, setSelected] = useState("Extended");
+  // ⭐ Read verdict from URL
+  const verdictFromURL = searchParams.get("verdict") || "Extended";
+
+  // ⭐ Sync selected category with URL
+  const [selected, setSelected] = useState(verdictFromURL);
+
   const [stocks, setStocks] = useState<any[]>([]);
   const [categoryCount, setCategoryCount] = useState(0);
 
@@ -29,15 +35,18 @@ export default function CategoriesPage() {
 
   async function loadCategory(verdict: string) {
     setSelected(verdict);
+
     const res = await fetch(`/api/category?verdict=${encodeURIComponent(verdict)}`);
     const data = await res.json();
+
     setStocks(data.results || []);
     setCategoryCount(data.results?.length || 0);
   }
 
+  // ⭐ Load correct category when URL changes
   useEffect(() => {
-    loadCategory("Extended");
-  }, []);
+    loadCategory(verdictFromURL);
+  }, [verdictFromURL]);
 
   function filterStocks(list: any[]) {
     let filtered = [...list];

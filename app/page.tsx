@@ -104,6 +104,65 @@ function Top10Strong() {
   );
 }
 
+function CategoryCountsText() {
+  const [counts, setCounts] = useState<any>({});
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function load() {
+      try {
+        const res = await fetch("/api/categoryCounts");
+        const data = await res.json();
+        setCounts(data.counts || {});
+      } catch (err) {
+        console.error("Failed to load category counts:", err);
+      }
+      setLoading(false);
+    }
+    load();
+  }, []);
+
+  if (loading) {
+    return (
+      <p style={{ textAlign: "center", color: "#9cc9ff" }}>
+        Loading category summary…
+      </p>
+    );
+  }
+
+  return (
+    <p
+  style={{
+    textAlign: "center",
+    color: "#c9de25",
+    fontSize: "20px",
+    marginBottom: "40px",
+    lineHeight: "1.8",
+  }}
+>
+  Total Count Each Category →
+  <a href="/categories?verdict=Extended" style={{ color: "#fbdd59", textDecoration: "none", marginLeft: "8px" }}>
+    Extended = {counts.Extended}
+  </a>,{" "}
+  <a href="/categories?verdict=Strong" style={{ color: "#fbdd59", textDecoration: "none" }}>
+    Strong = {counts.Strong}
+  </a>,{" "}
+  <a href="/categories?verdict=Positive" style={{ color: "#fbdd59", textDecoration: "none" }}>
+    Positive = {counts.Positive}
+  </a>,{" "}
+  <a href="/categories?verdict=Monitor" style={{ color: "#fbdd59", textDecoration: "none" }}>
+    Monitor = {counts.Monitor}
+  </a>,{" "}
+  <a href="/categories?verdict=Recheck" style={{ color: "#fbdd59", textDecoration: "none" }}>
+    Recheck = {counts.Recheck}
+  </a>,{" "}
+  <a href="/categories?verdict=Weak" style={{ color: "#fbdd59", textDecoration: "none" }}>
+    Weak = {counts.Weak}
+  </a>
+</p>
+  );
+}
+
 export default function Home() {
   return (
     <div
@@ -315,10 +374,12 @@ export default function Home() {
             marginBottom: "20px",
           }}
         >
-          Top 10 Strong Category Leaders
+          Category Leaders - Top 10 "Strong"
         </h2>
 
         <Top10Strong />
+
+        <CategoryCountsText />
 
         {/* FOOTER */}
         <footer
