@@ -1,5 +1,6 @@
 "use client";
 
+
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 
@@ -55,7 +56,7 @@ function LookupContent() {
               </div>
 
               <div className={styles.fullWidth}>
-              <FiftyTwoWeekChart code={row["Code"]} />
+                <FiftyTwoWeekChart code={row.code || row["Code"]} />
               </div>
 
               <div className={styles.fullWidth}>
@@ -63,6 +64,7 @@ function LookupContent() {
               </div>
 
               
+
               {/* FIRST PAIR */}
               <div className={styles.block550}>
                 <PriceProfileBlock row={row} />
