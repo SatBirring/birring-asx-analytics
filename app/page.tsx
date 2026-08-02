@@ -30,59 +30,77 @@ function Top10Strong() {
 
   return (
     <div
-      style={{
-        backgroundColor: "#102544",
-        padding: "20px",
-        borderRadius: "10px",
-        border: "1px solid #1c3558",
-        marginBottom: "60px",
-      }}
-    >
-      <table style={{ width: "100%", borderCollapse: "collapse" }}>
-        <thead>
-          <tr style={{ color: "#fbdd59", textAlign: "left" }}>
-            <th style={{ padding: "10px" }}>Rank</th>
-            <th style={{ padding: "10px" }}>Code</th>
-            <th style={{ padding: "10px" }}>Momentum</th>
-            <th style={{ padding: "10px" }}>Verdict Score</th>
-            <th style={{ padding: "10px" }}>Market Standing</th>
-            <th style={{ padding: "10px" }}>Action</th>
-          </tr>
-        </thead>
+  style={{
+    backgroundColor: "#102544",
+    padding: "20px",
+    borderRadius: "10px",
+    border: "1px solid #1c3558",
+    marginBottom: "60px",
+  }}
+>
+  {/* MOBILE-FRIENDLY SCROLL WRAPPER */}
+  <div style={{ overflowX: "auto" }}>
+    <table style={{ width: "100%", borderCollapse: "collapse" }}>
+      <thead>
+        <tr style={{ color: "#fbdd59", textAlign: "left" }}>
+          <th style={{ padding: "10px" }}>Rank</th>
+          <th style={{ padding: "10px" }}>Code</th>
+          <th style={{ padding: "10px" }}>Momentum</th>
+          <th style={{ padding: "10px" }}>Final Score</th>
+          <th style={{ padding: "10px" }}>Standing</th>
+          <th style={{ padding: "10px", whiteSpace: "nowrap" }}>Action</th>
+        </tr>
+      </thead>
 
-        <tbody>
-          {rows.map((row, index) => (
-            <tr
-              key={index}
-              style={{
-                borderBottom: "1px solid #1c3558",
-                color: "#c9de25",
-              }}
-            >
-              <td style={{ padding: "10px" }}>{index + 1}</td>
-              <td style={{ padding: "10px", fontWeight: "600" }}>{row.code}</td>
-              <td style={{ padding: "10px" }}>{row.momentum}</td>
-              <td style={{ padding: "10px" }}>{row.finalScore}%</td>
-              <td style={{ padding: "10px" }}>{row.standing}</td>
-              <td style={{ padding: "10px", whiteSpace: "nowrap" }}>
-                 <a
-                 href={`/lookup?code=${row.code}`}
-                 target="_blank"
-                  style={{
-                 color: "#fbdd59",
+      <tbody>
+        {rows.map((row, index) => (
+          <tr
+            key={index}
+            style={{
+              borderBottom: "1px solid #1c3558",
+              color: "#c9de25",
+            }}
+          >
+            <td style={{ padding: "10px" }}>{index + 1}</td>
+
+            <td style={{ padding: "10px", fontWeight: "600" }}>
+              {row.code}
+            </td>
+
+            <td style={{ padding: "10px" }}>
+              {row.momentum}
+            </td>
+
+            <td style={{ padding: "10px" }}>
+              {row.finalScore}%
+            </td>
+
+            <td style={{ padding: "10px" }}>
+              {row.standing}
+            </td>
+
+            {/* COMPACT ACTION ICON — FITS ON MOBILE */}
+            <td style={{ padding: "10px", whiteSpace: "nowrap" }}>
+              <a
+                href={`/lookup?code=${row.code}`}
+                target="_blank"
+                style={{
+                  color: "#fbdd59",
                   textDecoration: "none",
-                   fontWeight: "600",
-                   fontSize: "18px",
-                     }}
-  >
-                  Open →
-                </a>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+                  fontWeight: "600",
+                  fontSize: "18px",
+                }}
+              >
+                Inspect→
+              </a>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</div>
+
   );
 }
 
