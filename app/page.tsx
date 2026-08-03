@@ -43,7 +43,7 @@ function Top10Strong() {
     <table style={{ width: "100%", borderCollapse: "collapse" }}>
       <thead>
         <tr style={{ color: "#fbdd59", textAlign: "left" }}>
-          <th style={{ padding: "10px" }}>Rank</th>
+         {/* <th style={{ padding: "10px" }}>Rank</th>*/}
           <th style={{ padding: "10px" }}>Code</th>
           <th style={{ padding: "10px" }}>Momentum</th>
           <th style={{ padding: "10px" }}>Final Score</th>
@@ -61,7 +61,7 @@ function Top10Strong() {
               color: "#c9de25",
             }}
           >
-            <td style={{ padding: "10px" }}>{index + 1}</td>
+            {/*<td style={{ padding: "10px" }}>{index + 1}</td>*/}
 
             <td style={{ padding: "10px", fontWeight: "600" }}>
               {row.code}

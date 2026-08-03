@@ -20,8 +20,8 @@ export default function StockList({
         <div
           key={s.code}
           className={styles.stockRow}
-          onMouseEnter={() => setHoveredStock(s)}
-          onMouseLeave={() => setHoveredStock(null)}
+          /*onMouseEnter={() => setHoveredStock(s)}
+          onMouseLeave={() => setHoveredStock(null)}*/
           onClick={(e) => {
             if (e.ctrlKey) {
               window.open(`/lookup?code=${s.code}`, "_blank");
@@ -33,6 +33,8 @@ export default function StockList({
           <div className={styles.stockRowContent}>
             <span style={{ fontWeight: 600, width: "80px" }}>{s.code}</span>
             <span style={{ flexGrow: 1 }}>{s.name}</span>
+            <span style={{ width: "120px", color: "#eef104"}}>{s.price}</span>
+            <span style={{ width: "120px", color: "#f17b0b"}}>{s.riskClass}</span>
             <span style={{ width: "120px", color: "#30f998" }}>{s.momentum}</span>
             <span style={{ width: "120px", color: "#9cc9ff" }}>{s.type}</span>
 
@@ -42,14 +44,22 @@ export default function StockList({
                 padding: "4px 8px",
                 borderRadius: "6px",
                 backgroundColor: "#1a2b4d",
-                color: "#9cc9ff",
+                color: "#9cebff",
                 cursor: "pointer",
               }}
               onClick={(e) => {
-                e.stopPropagation();
-                setHoveredStock(null);
-                setTimeout(() => setHoveredStock(s), 0);
-              }}
+  e.stopPropagation();
+
+  setHoveredStock(prev => {
+    // If already open → close it
+    if (prev && prev.code === s.code) {
+      return null;
+    }
+
+    // Otherwise → open it
+    return s;
+  });
+}}
             >
               ℹ️
             </span>
