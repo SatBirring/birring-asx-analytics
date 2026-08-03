@@ -1,81 +1,52 @@
 "use client";
 
-import Image from "next/image";
-
 export default function HeroBlock() {
   return (
-    <div className="heroBlock">
-      <div className="heroImage">
-        <Image
-          src="/Main Logo.png"
-          alt="Birring Data Analytics Hero"
-          width={250}
-          height={250}
-          style={{ borderRadius: "12px", width: "100%", height: "auto" }}
-        />
-      </div>
+    <div
+  style={{
+    padding: "20px 10px",
+    backgroundColor: "#0b1e39",
+    color: "white",
+    textAlign: "center"
+  }}
+>
+      <h1
+        style={{
+          fontSize: "36px",
+          fontWeight: "700",
+          marginBottom: "10px",
+          background: "linear-gradient(90deg, #07b8e9, #fe8940, #fbdd59)",
+          WebkitBackgroundClip: "text",
+          WebkitTextFillColor: "transparent"
+        }}
+      >
+        Birring Data Analytics
+      </h1>
 
-      <div className="heroText">
-        <h1>Birring Data Analytics</h1>
-        <h2>ASX Stocks Behavioural Report</h2>
-        <p>
-          Lookup any ASX stock or ticker. The system reports the stock’s
-          behavioural metrics, trend signals, volatility characteristics,
-          liquidity conditions, and macro‑micro alignment.
-        </p>
-      </div>
+      <h2
+        style={{
+          fontSize: "24px",
+          color: "#4ed103",
+          maxWidth: "700px",
+          margin: "0 auto",
+          lineHeight: "1.6"
+        }}
+      >
+        ASX Ticker Behavioural Lookup Tool 
+      </h2>
 
-      <style jsx>{`
-        .heroBlock {
-          display: flex;
-          flex-direction: column; /* MOBILE DEFAULT */
-          align-items: center;
-          gap: 30px;
-          padding: 40px 20px;
-          background-color: #010c1b;
-          border-bottom: 1px solid #123;
-        }
-
-        .heroImage {
-          width: 100%;
-          max-width: 250px;
-        }
-
-        .heroText {
-          text-align: center;
-          max-width: 400px;
-        }
-
-        .heroText h1 {
-          font-size: 42px;
-          margin-bottom: 10px;
-          color: #e4f71d;
-        }
-
-        .heroText h2 {
-          font-size: 28px;
-          margin-bottom: 20px;
-          color: #9cc9ff;
-        }
-
-        .heroText p {
-          font-size: 20px;
-          color: #e7eaef;
-        }
-
-        /* DESKTOP ONLY — applies ONLY to .heroBlock */
-        @media (min-width: 900px) {
-          .heroBlock {
-            flex-direction: row;
-            text-align: middle;
-          }
-
-          .heroText {
-            text-align: left;
-            max-width: 500px;
-          }
-        }
-      `}</style>
+      <p
+        style={{
+          fontSize: "18px",
+          color: "#c9de25",
+          maxWidth: "700px",
+          margin: "0 auto",
+          lineHeight: "1.6"
+        }}
+      >
+         
+        Trend • Momentum • Liquidity • Volatility • Macro Alignment • Risk
+      </p>
     </div>
   );
 }
