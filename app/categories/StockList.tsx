@@ -1,16 +1,26 @@
 import { useState } from "react";
 import styles from "./CategoriesPage.module.css";
 
+interface Stock {
+  code: string;
+  name: string;
+  price: number;
+  riskClass: string;
+  momentum: string;
+  type: string;
+  sector?: string;
+  trendCategory?: string;
+  rsi?: number;
+  liquidityCategory?: string;
+}
+
 interface StockListProps {
-  stocks: any[];
+  stocks: Stock[];
   goToLookup: (code: string) => void;
 }
 
-export default function StockList({
-  stocks,
-  goToLookup
-}: StockListProps) {
-  const [hoveredStock, setHoveredStock] = useState<any>(null);
+export default function StockList({ stocks, goToLookup }: StockListProps) {
+  const [hoveredStock, setHoveredStock] = useState<Stock | null>(null);
 
   return (
     <div style={{ marginTop: "10px" }}>
@@ -20,8 +30,6 @@ export default function StockList({
         <div
           key={s.code}
           className={styles.stockRow}
-          /*onMouseEnter={() => setHoveredStock(s)}
-          onMouseLeave={() => setHoveredStock(null)}*/
           onClick={(e) => {
             if (e.ctrlKey) {
               window.open(`/lookup?code=${s.code}`, "_blank");
@@ -33,11 +41,12 @@ export default function StockList({
           <div className={styles.stockRowContent}>
             <span style={{ fontWeight: 600, width: "80px" }}>{s.code}</span>
             <span style={{ flexGrow: 1 }}>{s.name}</span>
-            <span style={{ width: "120px", color: "#eef104"}}>{s.price}</span>
-            <span style={{ width: "120px", color: "#f17b0b"}}>{s.riskClass}</span>
+            <span style={{ width: "120px", color: "#eef104" }}>{s.price}</span>
+            <span style={{ width: "120px", color: "#f17b0b" }}>{s.riskClass}</span>
             <span style={{ width: "120px", color: "#30f998" }}>{s.momentum}</span>
             <span style={{ width: "120px", color: "#9cc9ff" }}>{s.type}</span>
 
+            {/* ℹ️ Info Toggle */}
             <span
               style={{
                 fontSize: "20px",
@@ -48,22 +57,20 @@ export default function StockList({
                 cursor: "pointer",
               }}
               onClick={(e) => {
-  e.stopPropagation();
+                e.stopPropagation();
 
-  setHoveredStock(prev => {
-    // If already open → close it
-    if (prev && prev.code === s.code) {
-      return null;
-    }
-
-    // Otherwise → open it
-    return s;
-  });
-}}
+                setHoveredStock((prev: Stock | null) => {
+                  if (prev && prev.code === s.code) {
+                    return null; // close card
+                  }
+                  return s; // open card
+                });
+              }}
             >
               ℹ️
             </span>
 
+            {/* ⧉ Open in new tab */}
             <span
               style={{
                 fontSize: "20px",
@@ -82,6 +89,7 @@ export default function StockList({
             </span>
           </div>
 
+          {/* Popup Card */}
           {hoveredStock?.code === s.code && (
             <div className={styles.popupCard}>
               <h3 style={{ marginBottom: "6px" }}>{s.code}</h3>
