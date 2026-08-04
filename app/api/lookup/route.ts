@@ -1,60 +1,49 @@
-// app/api/lookup/route.ts
 import { NextResponse } from "next/server";
-import fs from "fs";
-import path from "path";
 
 type StockRow = {
-  code: string;
-  name: string;
-  trend: string;
-  momentum: string;
-  risk: string;
-  liquidity: string;
-  alignment: string;
-  category: string;
   [key: string]: string;
 };
 
-function loadCsv(request: Request): Promise<StockRow[]> {
+// Load CSV from /public/asx.csv
+async function loadCsv(request: Request) {
   const csvUrl = new URL("/asx.csv", request.url);
+  const text = await fetch(csvUrl).then((res) => res.text());
 
-  return fetch(csvUrl)
-    .then(res => res.text())
-    .then(text => {
-      const lines = text
-        .split("\n")
-        .map((l) => l.trim())
-        .filter((l) => l.length > 0);
+  const lines = text
+    .split("\n")
+    .map((l) => l.trim())
+    .filter((l) => l.length > 0);
 
-      const header = lines[0].split(",");
-      const rows = lines.slice(1);
+  const header = lines[0].split(",");
+  const rows = lines.slice(1);
 
-      return rows.map((row) => {
-        const cols = row.split(",");
-        const obj: StockRow = {} as StockRow;
-        header.forEach((key, i) => {
-          obj[key] = cols[i] ?? "";
-        });
-        return obj;
-      });
+  const data = rows.map((row) => {
+    const cols = row.split(",");
+    const obj: StockRow = {};
+    header.forEach((key, i) => {
+      obj[key] = cols[i] ?? "";
     });
-}
+    return obj;
+  });
 
+  return { header, data };
+}
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
 
-  const codesParam = searchParams.get("code"); // e.g. "NAB,S32"
-  const categoryParam = searchParams.get("category"); // e.g. "Banks"
-  const trendParam = searchParams.get("trend"); // e.g. "Strong"
-  const momentumParam = searchParams.get("momentum"); // e.g. "Rising"
-  const riskParam = searchParams.get("risk"); // e.g. "Low"
-  const liquidityParam = searchParams.get("liquidity"); // e.g. "High"
-  const allParam = searchParams.get("all"); // e.g. "true"
+  const codesParam = searchParams.get("code");
+  const categoryParam = searchParams.get("category");
+  const trendParam = searchParams.get("trend");
+  const momentumParam = searchParams.get("momentum");
+  const riskParam = searchParams.get("risk");
+  const liquidityParam = searchParams.get("liquidity");
+  const allParam = searchParams.get("all");
 
-  const allStocks = await loadCsv(request);
+  // Load CSV
+  const { header, data: allStocks } = await loadCsv(request);
 
-  // If ?all=true → return full CSV as JSON
+  // If ?all=true → return full CSV
   if (allParam === "true") {
     return NextResponse.json({
       count: allStocks.length,
@@ -65,70 +54,78 @@ export async function GET(request: Request) {
 
   let result = allStocks;
 
-  // Filter by codes (single or multi-ticker)
-  if (codesParam) {
-  const codes = codesParam
-    .split(",")
-    .map((c) => c.trim().toUpperCase())
-    .filter((c) => c.length > 0);
+  // Detect correct CSV column name for Code
+  const codeField = header.find((h) => h.toLowerCase() === "code");
 
-  // Detect correct CSV column name (Code / code / CODE)
-  const codeField = header.find(h => h.toLowerCase() === "code");
+  // Multi‑ticker or single ticker lookup
+  if (codesParam && codeField) {
+    const codes = codesParam
+      .split(",")
+      .map((c) => c.trim().toUpperCase())
+      .filter((c) => c.length > 0);
 
-  result = result.filter((row) =>
-    row[codeField] &&
-    codes.includes(row[codeField].toUpperCase())
-  );
-}
+    result = result.filter(
+      (row) =>
+        row[codeField] &&
+        codes.includes(row[codeField].toUpperCase())
+    );
+  }
 
-
-  // Filter by category
+  // Category filter
   if (categoryParam) {
     const cat = categoryParam.trim().toLowerCase();
     result = result.filter(
-      (row) => row.category?.toLowerCase() === cat
+      (row) => row["Sector"]?.toLowerCase() === cat ||
+               row["TYPE"]?.toLowerCase() === cat ||
+               row["Company"]?.toLowerCase() === cat ||
+               row["Category"]?.toLowerCase() === cat
     );
   }
 
-  // Filter by trend
+  // Trend filter
   if (trendParam) {
     const t = trendParam.trim().toLowerCase();
     result = result.filter(
-      (row) => row.trend?.toLowerCase() === t
+      (row) => row["Trend Category"]?.toLowerCase() === t
     );
   }
 
-  // Filter by momentum
+  // Momentum filter
   if (momentumParam) {
     const m = momentumParam.trim().toLowerCase();
     result = result.filter(
-      (row) => row.momentum?.toLowerCase() === m
+      (row) => row["Momentum Category"]?.toLowerCase() === m
     );
   }
 
-  // Filter by risk
+  // Risk filter
   if (riskParam) {
     const r = riskParam.trim().toLowerCase();
     result = result.filter(
-      (row) => row.risk?.toLowerCase() === r
+      (row) => row["Overall Risk Class"]?.toLowerCase() === r
     );
   }
 
-  // Filter by liquidity
+  // Liquidity filter
   if (liquidityParam) {
     const l = liquidityParam.trim().toLowerCase();
     result = result.filter(
-      (row) => row.liquidity?.toLowerCase() === l
+      (row) => row["Liquidity Category"]?.toLowerCase() === l
     );
   }
 
+  // No results
   if (!result.length) {
     return NextResponse.json(
-      { error: "No matching stocks found", filters: Object.fromEntries(searchParams) },
+      {
+        error: "No matching stocks found",
+        filters: Object.fromEntries(searchParams),
+      },
       { status: 404 }
     );
   }
 
+  // Final response
   return NextResponse.json({
     count: result.length,
     updated: new Date().toISOString(),
