@@ -6,7 +6,7 @@ type StockRow = {
 
 // Load CSV from /public/asx.csv
 async function loadCsv(request: Request) {
-  const csvUrl = new URL("/asx.csv", request.url);
+  const csvUrl = new URL("/WEB%20Data.csv", request.url);
   const text = await fetch(csvUrl).then((res) => res.text());
 
   const lines = text
