@@ -67,14 +67,19 @@ export async function GET(request: Request) {
 
   // Filter by codes (single or multi-ticker)
   if (codesParam) {
-    const codes = codesParam
-      .split(",")
-      .map((c) => c.trim().toUpperCase())
-      .filter((c) => c.length > 0);
+  const codes = codesParam
+    .split(",")
+    .map((c) => c.trim().toUpperCase())
+    .filter((c) => c.length > 0);
 
-    result = result.filter((row) =>
-      codes.includes(row.code.toUpperCase())
-    );
+  // Detect correct CSV column name (Code / code / CODE)
+  const codeField = header.find(h => h.toLowerCase() === "code");
+
+  result = result.filter((row) =>
+    row[codeField] &&
+    codes.includes(row[codeField].toUpperCase())
+  );
+}
   }
 
   // Filter by category
