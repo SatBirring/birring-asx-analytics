@@ -15,27 +15,31 @@ type StockRow = {
   [key: string]: string;
 };
 
-function loadCsv(): StockRow[] {
-  const csvPath = path.join(process.cwd(), "data", "asx.csv");
-  const csvData = fs.readFileSync(csvPath, "utf8");
+function loadCsv(request: Request): Promise<StockRow[]> {
+  const csvUrl = new URL("/asx.csv", request.url);
 
-  const lines = csvData
-    .split("\n")
-    .map((l) => l.trim())
-    .filter((l) => l.length > 0);
+  return fetch(csvUrl)
+    .then(res => res.text())
+    .then(text => {
+      const lines = text
+        .split("\n")
+        .map((l) => l.trim())
+        .filter((l) => l.length > 0);
 
-  const header = lines[0].split(",");
-  const rows = lines.slice(1);
+      const header = lines[0].split(",");
+      const rows = lines.slice(1);
 
-  return rows.map((row) => {
-    const cols = row.split(",");
-    const obj: StockRow = {} as StockRow;
-    header.forEach((key, i) => {
-      obj[key] = cols[i] ?? "";
+      return rows.map((row) => {
+        const cols = row.split(",");
+        const obj: StockRow = {} as StockRow;
+        header.forEach((key, i) => {
+          obj[key] = cols[i] ?? "";
+        });
+        return obj;
+      });
     });
-    return obj;
-  });
 }
+
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -48,7 +52,7 @@ export async function GET(request: Request) {
   const liquidityParam = searchParams.get("liquidity"); // e.g. "High"
   const allParam = searchParams.get("all"); // e.g. "true"
 
-  const allStocks = loadCsv();
+  const allStocks = await loadCsv(request);
 
   // If ?all=true → return full CSV as JSON
   if (allParam === "true") {
