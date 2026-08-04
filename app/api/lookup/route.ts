@@ -80,7 +80,7 @@ export async function GET(request: Request) {
     codes.includes(row[codeField].toUpperCase())
   );
 }
-  }
+
 
   // Filter by category
   if (categoryParam) {
