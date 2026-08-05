@@ -30,7 +30,7 @@ export default function LookupCodePage({ params }: PageProps) {
             color: "#0019a5"
           }}
         >
-          {code?.toUpperCase() || ""} — Lookup Result
+          {code?.toUpperCase() || ""} Type ASX Stock Code to Search
         </h1>
 
         <DynamicLookup />
