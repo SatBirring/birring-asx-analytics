@@ -1,4 +1,4 @@
-export const ASX100 = [
+export const ASX_CODES = [
   "AGL", "ALD", "ALL", "ALQ", "AMC", "AMP", "ANN", "ANZ", "APA",
   "ARB", "ASX", "AZJ", "BHP", "BPT", "BRG", "BSL", "BWP", "BXB",
   "CAR", "CBA", "CCL", "CGC", "CHC", "CIM", "CLW", "CMW", "COL",
