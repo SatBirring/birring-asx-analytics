@@ -1,8 +1,14 @@
 import HeroBlock from "@/components/HeroBlock";
 import DynamicLookup from "@/components/DynamicLookup";
 
-export default function LookupCodePage({ params }) {
-  const code = params?.code;
+interface PageProps {
+  params: {
+    code: string;
+  };
+}
+
+export default function LookupCodePage({ params }: PageProps) {
+  const code = params.code;
 
   return (
     <div
@@ -13,12 +19,8 @@ export default function LookupCodePage({ params }) {
         flexDirection: "column"
       }}
     >
-      {/* TOP SECTION */}
-      <div>
-        <HeroBlock />
-      </div>
+      <HeroBlock />
 
-      {/* MAIN CONTENT */}
       <div style={{ padding: "30px", flex: 1 }}>
         <h1
           style={{
@@ -28,14 +30,12 @@ export default function LookupCodePage({ params }) {
             color: "#0019a5"
           }}
         >
-          {code?.toUpperCase() || ""} Type ASX Stock Code to Search
+          {code?.toUpperCase() || ""} — Lookup Result
         </h1>
 
-        {/* Dynamic lookup engine */}
         <DynamicLookup />
       </div>
 
-      {/* FOOTER */}
       <footer
         style={{
           padding: "20px",
