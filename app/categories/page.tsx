@@ -20,7 +20,7 @@ function CategoriesPageInner() {
   const searchParams = useSearchParams();
 
   // ⭐ Read verdict from URL
-  const verdictFromURL = searchParams.get("verdict") || "Extended";
+  const verdictFromURL = searchParams.get("verdict") || "Positive";
 
   // ⭐ Sync selected category with URL
   const [selected, setSelected] = useState(verdictFromURL);

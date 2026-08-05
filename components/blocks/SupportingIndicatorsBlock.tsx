@@ -158,17 +158,6 @@ export default function SupportingIndicatorsBlock({ row }: { row: any }) {
       >
         Supporting Indicators — Calculated & Measured
       </h2>
-
-      {/* ⭐ Symmetric bars */}
-      <Bar label="Trend Score" value={row["Trend Score"]} type="trend" />
-      <Bar label="Trend Move" value={row["Trend Move"]} type="tmove" />
-      <Bar label="Liquidity Move" value={row["Liquidity Move"]} type="move" />
-
-      {/* ⭐ Left‑anchored bars */}
-      <Bar label="Liquidity Score" value={row["Liquidity Score"]} type="liq" />
-      <Bar label="Volatility Score" value={row["Volatility Score"]} type="vol" />
-
-      {/* Categories (no bars) */}
       <div style={{ padding: "8px 0", fontSize: "18px", fontWeight: 600 }}>
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <div>Trend Category</div>
@@ -176,19 +165,36 @@ export default function SupportingIndicatorsBlock({ row }: { row: any }) {
         </div>
       </div>
 
+      {/* ⭐ Symmetric bars */}
+      <Bar label="Trend Score" value={row["Trend Score"]} type="trend" />
+      <Bar label="Trend Move" value={row["Trend Move"]} type="tmove" />
+
       <div style={{ padding: "8px 0", fontSize: "18px", fontWeight: 600 }}>
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <div>Liquidity Category</div>
           <div>{row["Liquidity Category"]}</div>
         </div>
       </div>
+        <Bar label="Liquidity Score" value={row["Liquidity Score"]} type="liq" />
 
+      <Bar label="Liquidity Move" value={row["Liquidity Move"]} type="move" />
+
+      {/* ⭐ Left‑anchored bars */}
       <div style={{ padding: "8px 0", fontSize: "18px", fontWeight: 600 }}>
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <div>Volatility Category</div>
           <div>{row["Volatility Category"]}</div>
         </div>
       </div>
+    
+      <Bar label="Volatility Score" value={row["Volatility Score"]} type="vol" />
+
+      {/* Categories (no bars) */}
+      
+
+      
+
+      
     </div>
   );
 }
