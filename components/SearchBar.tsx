@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { ASX_CODES } from "@/data/asxCodes";
 
 export default function SearchBar({
   onResult,
@@ -12,47 +13,67 @@ export default function SearchBar({
   prefill?: string;
 }) {
   const [query, setQuery] = useState(prefill);
+  const [suggestions, setSuggestions] = useState<string[]>([]);
   const router = useRouter();
 
- async function handleSearch() {
-  if (!query.trim()) return;
+  function handleChange(e: any) {
+    const input = e.target.value.toUpperCase();
+    setQuery(input);
 
-  const res = await fetch(`/api/stock?query=${encodeURIComponent(query.trim())}`);
-  const data = await res.json();
+    if (!input) {
+      setSuggestions([]);
+      return;
+    }
 
-  const results: Array<{ code?: string; Code?: string }> = Array.isArray(data.results)
-    ? data.results
-    : [];
+    const filtered = ASX_CODES.filter((code) =>
+      code.startsWith(input)
+    );
 
-  const q = query.trim().toUpperCase();
+    setSuggestions(filtered.slice(0, 10)); // limit to 10
+  }
 
-  const sorted = results.slice().sort((a: any, b: any) => {
-    const aRaw = typeof a.code === "string" ? a.code : typeof a.Code === "string" ? a.Code : "";
-    const bRaw = typeof b.code === "string" ? b.code : typeof b.Code === "string" ? b.Code : "";
+  function handleSelect(code: string) {
+    setQuery(code);
+    setSuggestions([]);
+    router.push(`/${code}`); // navigate to dynamic page
+  }
 
-    const aCode = aRaw.toUpperCase();
-    const bCode = bRaw.toUpperCase();
+  async function handleSearch() {
+    if (!query.trim()) return;
 
-    // 1) Exact match first
-    const aExact = aCode === q;
-    const bExact = bCode === q;
-    if (aExact !== bExact) return aExact ? -1 : 1;
+    const res = await fetch(`/api/stock?query=${encodeURIComponent(query.trim())}`);
+    const data = await res.json();
 
-    // 2) Then codes starting with query
-    const aStarts = aCode.startsWith(q);
-    const bStarts = bCode.startsWith(q);
-    if (aStarts !== bStarts) return aStarts ? -1 : 1;
+    const results: Array<{ code?: string; Code?: string }> = Array.isArray(data.results)
+      ? data.results
+      : [];
 
-    // 3) Alphabetical fallback
-    return aCode.localeCompare(bCode);
-  });
+    const q = query.trim().toUpperCase();
 
-  onResult(sorted);
-}
+    const sorted = results.slice().sort((a: any, b: any) => {
+      const aRaw = typeof a.code === "string" ? a.code : typeof a.Code === "string" ? a.Code : "";
+      const bRaw = typeof b.code === "string" ? b.code : typeof b.Code === "string" ? b.Code : "";
 
+      const aCode = aRaw.toUpperCase();
+      const bCode = bRaw.toUpperCase();
+
+      const aExact = aCode === q;
+      const bExact = bCode === q;
+      if (aExact !== bExact) return aExact ? -1 : 1;
+
+      const aStarts = aCode.startsWith(q);
+      const bStarts = bCode.startsWith(q);
+      if (aStarts !== bStarts) return aStarts ? -1 : 1;
+
+      return aCode.localeCompare(bCode);
+    });
+
+    onResult(sorted);
+  }
 
   function handleReset() {
     setQuery("");
+    setSuggestions([]);
     onResult([]);
   }
 
@@ -61,20 +82,12 @@ export default function SearchBar({
   }
 
   return (
-    <div
-      style={{
-        marginBottom: "20px",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "flex-start",
-        width: "100%",
-      }}
-    >
+    <div style={{ marginBottom: "20px", width: "100%", position: "relative" }}>
       <input
         type="text"
         placeholder="Search ASX stock (Code)"
         value={query}
-        onChange={(e) => setQuery(e.target.value)}
+        onChange={handleChange}
         onKeyDown={(e) => {
           if (e.key === "Enter") handleSearch();
           if (e.key === "Escape") handleReset();
@@ -90,13 +103,41 @@ export default function SearchBar({
         }}
       />
 
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          gap: "10px",
-        }}
-      >
+      {/* ⭐ Auto-suggest dropdown */}
+      {suggestions.length > 0 && (
+        <ul
+          style={{
+            position: "absolute",
+            top: "48px",
+            left: 0,
+            width: "300px",
+            background: "white",
+            border: "1px solid #ccc",
+            borderRadius: "6px",
+            listStyle: "none",
+            margin: 0,
+            padding: 0,
+            zIndex: 10,
+          }}
+        >
+          {suggestions.map((code) => (
+            <li
+              key={code}
+              onClick={() => handleSelect(code)}
+              style={{
+                padding: "10px",
+                cursor: "pointer",
+                borderBottom: "1px solid #eee",
+              }}
+            >
+              {code}
+            </li>
+          ))}
+        </ul>
+      )}
+
+      {/* Buttons */}
+      <div style={{ display: "flex", flexWrap: "wrap", gap: "10px", marginTop: "10px" }}>
         <button
           onClick={handleSearch}
           style={{
@@ -112,7 +153,6 @@ export default function SearchBar({
           Search
         </button>
 
-        {/* ⭐ CLEAR BUTTON RESTORED */}
         <button
           onClick={handleReset}
           style={{
@@ -125,7 +165,6 @@ export default function SearchBar({
           }}
         >
           Clear
-
         </button>
 
         <button
