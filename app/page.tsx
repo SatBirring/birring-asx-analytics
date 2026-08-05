@@ -91,7 +91,7 @@ function Top10Strong() {
                   fontSize: "18px",
                 }}
               >
-                Inspect→
+                Inspect ⧉
               </a>
             </td>
           </tr>
