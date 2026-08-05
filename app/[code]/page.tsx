@@ -7,6 +7,47 @@ interface PageProps {
   };
 }
 
+/* ⭐ Dynamic SEO metadata + JSON‑LD schema */
+export async function generateMetadata({ params }: PageProps) {
+  const raw = params?.code;
+  const code = raw ? raw.toUpperCase() : "ASX Stock";
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FinancialProduct",
+    "name": code,
+    "tickerSymbol": `ASX:${code}`,
+    "url": `https://birringanalytics.com/${code}`,
+    "description": `Behavioural, trend, momentum, risk and liquidity analytics for ${code} from Birring Analytics.`,
+    "provider": {
+      "@type": "Organization",
+      "name": "Birring Analytics",
+      "url": "https://birringanalytics.com"
+    }
+  };
+
+  return {
+    title: `${code} — Birring Analytics`,
+    description: `Behavioural, trend, momentum, risk and liquidity analytics for ${code} from Birring Analytics.`,
+    openGraph: {
+      title: `${code} — Birring Analytics`,
+      description: `Behavioural, trend, momentum, risk and liquidity analytics for ${code}.`,
+      url: `https://birringanalytics.com/${code}`,
+      siteName: "Birring Analytics",
+      type: "website"
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${code} — Birring Analytics`,
+      description: `Behavioural analytics for ${code}.`
+    },
+    other: {
+      /* Inject JSON‑LD into <head> */
+      "script:ld+json": JSON.stringify(jsonLd)
+    }
+  };
+}
+
 export default function LookupCodePage({ params }: PageProps) {
   const code = params.code;
 
