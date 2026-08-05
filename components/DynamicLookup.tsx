@@ -1,8 +1,7 @@
 "use client";
 
-
 import { useState, useEffect, Suspense } from "react";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useParams } from "next/navigation";
 
 import styles from "./LookupGrid.module.css";
 
@@ -20,18 +19,29 @@ import FiftyTwoWeekChart from "@/components/FiftyTwoWeekChart";
 
 function LookupContent() {
   const [results, setResults] = useState<any[]>([]);
+
+  // NEW: read both URL path params AND search params
+  const params = useParams();
   const searchParams = useSearchParams();
-  const autoCode = searchParams.get("code");
+
+  const autoCode =
+    (params?.code as string) ||
+    searchParams.get("code") ||
+    "";
 
   useEffect(() => {
     async function autoSearch() {
       if (!autoCode) return;
+
       const res = await fetch(`/api/stock?query=${autoCode}`);
       const data = await res.json();
+
       const best =
         data.results && data.results.length > 0 ? [data.results[0]] : [];
+
       setResults(best);
     }
+
     autoSearch();
   }, [autoCode]);
 
@@ -63,8 +73,6 @@ function LookupContent() {
                 <MainVerdictBlock row={row} />
               </div>
 
-              
-
               {/* FIRST PAIR */}
               <div className={styles.block550}>
                 <PriceProfileBlock row={row} />
@@ -74,12 +82,7 @@ function LookupContent() {
                 <SupportingIndicatorsBlock row={row} />
               </div>
 
-              
-
               {/* AUTO-FIT REMAINING */}
-              
-              
-
               <div className={styles.block500}>
                 <SecondarySupportSignalsBlock row={row} />
               </div>
@@ -97,10 +100,8 @@ function LookupContent() {
               </div>
               
               <div className={styles.block500}>
-              {<DelayedLivePrice code={row["Code"]} /> }
+                <DelayedLivePrice code={row["Code"]} />
               </div>
-
-              
 
             </div>
           ))}
