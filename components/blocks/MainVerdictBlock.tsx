@@ -82,7 +82,7 @@ export default function MainVerdictBlock({ row }: { row: any }) {
       />
 
       <Row
-        label="EMA Verdict, Score and Move"
+        label="Last week Verdict, Score and Move"
         score={`${row["CFS Smooth"]} | ${row["CFS Move"]}`}
         verdict={row["EMA Final Verdict"]}
       />
