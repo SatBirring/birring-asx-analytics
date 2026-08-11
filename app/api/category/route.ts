@@ -33,6 +33,7 @@ export async function GET(request: Request) {
   const idxRSI = header.indexOf("rsi (14)");
   const idxLiquidityCategory = header.indexOf("liquidity category");
   const idxprice = header.indexOf("close price");
+  const idxConfidence = header.indexOf("Confidence State");
   const rows: any[] = [];
 
   for (let i = 1; i < lines.length; i++) {
@@ -53,6 +54,7 @@ export async function GET(request: Request) {
         riskClass: row[idxRiskClass],
         rsi: row[idxRSI],
         liquidityCategory: row[idxLiquidityCategory],
+        Confidencestate: row[idxConfidence],
       });
     }
   }

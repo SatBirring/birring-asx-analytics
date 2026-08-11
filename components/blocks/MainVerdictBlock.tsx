@@ -76,13 +76,13 @@ export default function MainVerdictBlock({ row }: { row: any }) {
 
       <Row
         big={true}
-        label="Final Verdict & Score"
+        label="Final Score & Verdict Category"
         score={row["Final Score"]}
         verdict={row["Final Verdict"]}
       />
 
       <Row
-        label="Last week Verdict, Score and Move"
+        label="Last Week Verdict, Score and Move"
         score={`${row["CFS Smooth"]} | ${row["CFS Move"]}`}
         verdict={row["EMA Final Verdict"]}
       />
@@ -93,9 +93,16 @@ export default function MainVerdictBlock({ row }: { row: any }) {
         verdict={row["Momentum Category"]}
       />
 
+
+      <Row
+        label="Category Confidence"
+        
+        verdict={row["Confidence State"]}
+      />
+
       <Row
         label="Behavioural Classifier"
-        score="—"
+        
         verdict={row["Behavioural Classifier"]}
       />
     </div>
