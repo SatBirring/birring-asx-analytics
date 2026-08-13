@@ -15,34 +15,50 @@ export default function MainVerdictBlock({ row }: { row: any }) {
     typeof rawScore === "string" ? parseFloat(rawScore) : Number(rawScore);
 
   // CATEGORY → COLOUR FAMILY → SHADE BY SCORE
-  const getCategoryColor = (category: string, score: number) => {
-    const pct = Math.max(0, Math.min(100, score)) / 100;
+ const getCategoryColor = (category: string, score: number) => {
+  const pct = Math.max(0, Math.min(100, score)) / 100;
 
-    const families: Record<string, { hue: number; sat: number }> = {
-      extended: { hue: 290, sat: 50},   // purple
-      weak: { hue: 1, sat: 80 },         // red
-      recheck: { hue: 25, sat: 100 },     // orange
-      monitor: { hue: 60, sat: 85 },     // yellow
-      positive: { hue: 75, sat: 70 },    // yellow-green
-      strong: { hue: 96, sat: 70 },     // green
-    };
-
-    const key = category?.toLowerCase();
-    const fam = families[key];
-
-    if (!fam) {
-      // fallback to old score-based green-red scale
-      const hue = 120 * pct;
-      return `hsl(${hue}, 90%, 70%)`;
-    }
-
-    // Shade logic: higher score = deeper colour
-    const baseLight = 78;
-    const range = 25;
-    const lightness = baseLight - pct * range;
-
-    return `hsl(${fam.hue}, ${fam.sat}%, ${lightness}%)`;
+  const families: Record<
+    string,
+    { hueMin: number; hueMax: number; sat: number; negative?: boolean }
+  > = {
+    weak: { hueMin: 5, hueMax: 18, sat: 60, negative: true },
+    recheck: { hueMin: 19, hueMax: 40, sat: 85, negative: true },
+    monitor: { hueMin: 41, hueMax: 58, sat: 90 },
+    positive: { hueMin: 59, hueMax: 75, sat: 75 },
+    strong: { hueMin: 76, hueMax: 100, sat: 75 },
+    extended: { hueMin: 250, hueMax: 270, sat: 60},
   };
+
+  const key = category?.toLowerCase();
+  const fam = families[key];
+
+  if (!fam) {
+    // fallback
+    const fallbackHue = 120 * pct;
+    return `hsl(${fallbackHue}, 90%, 70%)`;
+  }
+
+  // Hue inside category band
+  const hue = fam.hueMin + pct * (fam.hueMax - fam.hueMin);
+
+  // Expanded shade range
+  const baseLight = 90;
+  const range = 50;
+
+  let lightness;
+
+  if (fam.negative) {
+    // Negative categories: lower score = darker
+    lightness = baseLight - (1 - pct) * range;
+  } else {
+    // Positive categories: higher score = darker
+    lightness = baseLight - pct * range;
+  }
+
+  return `hsl(${hue}, ${fam.sat}%, ${lightness}%)`;
+};
+
 
   const category = row["Final Verdict"];
   const bgColor = getCategoryColor(category, numericScore);
