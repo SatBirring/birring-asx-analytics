@@ -14,22 +14,38 @@ export default function MainVerdictBlock({ row }: { row: any }) {
   const numericScore =
     typeof rawScore === "string" ? parseFloat(rawScore) : Number(rawScore);
 
-  const getBackgroundColor = (score: number) => {
+  // CATEGORY → COLOUR FAMILY → SHADE BY SCORE
+  const getCategoryColor = (category: string, score: number) => {
     const pct = Math.max(0, Math.min(100, score)) / 100;
-    const hue = 0 + 120 * pct;
 
-    const saturation = 90;
-    const lightness = 70;
+    const families: Record<string, { hue: number; sat: number }> = {
+      extended: { hue: 290, sat: 50},   // purple
+      weak: { hue: 1, sat: 80 },         // red
+      recheck: { hue: 25, sat: 100 },     // orange
+      monitor: { hue: 60, sat: 85 },     // yellow
+      positive: { hue: 75, sat: 70 },    // yellow-green
+      strong: { hue: 96, sat: 70 },     // green
+    };
 
-    return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+    const key = category?.toLowerCase();
+    const fam = families[key];
+
+    if (!fam) {
+      // fallback to old score-based green-red scale
+      const hue = 120 * pct;
+      return `hsl(${hue}, 90%, 70%)`;
+    }
+
+    // Shade logic: higher score = deeper colour
+    const baseLight = 78;
+    const range = 25;
+    const lightness = baseLight - pct * range;
+
+    return `hsl(${fam.hue}, ${fam.sat}%, ${lightness}%)`;
   };
 
-  const extendedPurple = "hsl(270, 60%, 70%)";
-
-  const bgColor =
-    row["Final Verdict"]?.toLowerCase() === "extended"
-      ? extendedPurple
-      : getBackgroundColor(numericScore);
+  const category = row["Final Verdict"];
+  const bgColor = getCategoryColor(category, numericScore);
 
   const Row = ({ label, score, verdict, big = false }: RowProps) => (
     <div
@@ -93,16 +109,13 @@ export default function MainVerdictBlock({ row }: { row: any }) {
         verdict={row["Momentum Category"]}
       />
 
-
       <Row
         label="Category Confidence"
-        
         verdict={row["Confidence State"]}
       />
 
       <Row
         label="Behavioural Classifier"
-        
         verdict={row["Behavioural Classifier"]}
       />
     </div>
