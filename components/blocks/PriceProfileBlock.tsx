@@ -196,8 +196,8 @@ const FiftyTwoWeekBar = () => {
           <span>{row["Close Price"]}</span>
         </div>
 
-        {PercentPriceRow("Price 2 Week", row["2 Week"], row["Price 2 Weeks"])}
-        {PercentPriceRow("Price 3 Week", row["3 Week"], row["Price 3 Weeks"])}
+        {PercentPriceRow("Price 2 Week", row["RR Week 2"], row["Price 2 Weeks"])}
+        {PercentPriceRow("Price 3 Week", row["RR Week 3"], row["Price 3 Weeks"])}
         {PercentPriceRow("Price 1 Month", row["1 Month"], row["Price 1 Month"])}
         {PercentPriceRow("Price 3 Month", row["3 Month"], row["Price 3 Month"])}
         {PercentPriceRow("Price 6 Month", row["6 Month"], row["Price 6 Month"])}
