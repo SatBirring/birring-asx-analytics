@@ -91,7 +91,7 @@ export default function PriceProfileBlock({ row }: { row: any }) {
 const FiftyTwoWeekBar = () => {
   const low52 = parseNum(row["52w Low"]);
   const high52 = parseNum(row["52w High"]);
-  const close = parseNum(row["Close Price"]);
+  const close = parseNum(row["Price Last Friday"]);
 
   let pct = 50;
 
@@ -193,15 +193,15 @@ const FiftyTwoWeekBar = () => {
       >
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <strong>Price Friday close:</strong>
-          <span>{row["Close Price"]}</span>
+          <span>{row["Price Last Friday"]}</span>
         </div>
 
-        {PercentPriceRow("Price 1 Week", row["RR Week 1"], row["Price 1 Week"])}
-        {PercentPriceRow("Price 2 Week", row["RR Week 2"], row["Price 2 Weeks"])}
-        {PercentPriceRow("Price 1 Month", row["1 Month"], row["Price 1 Month"])}
-        {PercentPriceRow("Price 3 Month", row["3 Month"], row["Price 3 Month"])}
-        {PercentPriceRow("Price 6 Month", row["6 Month"], row["Price 6 Month"])}
-        {PercentPriceRow("Price 1 Year", row["1 Year"], row["Price 1 Year"])}
+        {PercentPriceRow("Price 1 Week", row["RR Week 1"], row["Price Week 1"])}
+        {PercentPriceRow("Price 2 Week", row["RR Week 2"], row["Price Week 2"])}
+        {PercentPriceRow("Price 1 Month", row["RR Week 4"], row["Price Week 4"])}
+        {PercentPriceRow("Price 3 Month", row["RR Week 13"], row["Price Week 13"])}
+        {PercentPriceRow("Price 6 Month", row["RR Week 26"], row["Price Week 26"])}
+        {PercentPriceRow("Price 1 Year", row["RR Week 52"], row["Price Week 52"])}
 
         {FiftyTwoWeekBar()}
       </div>
