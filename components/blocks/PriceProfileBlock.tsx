@@ -198,10 +198,10 @@ const FiftyTwoWeekBar = () => {
 
         {PercentPriceRow("Price 1 Week", row["RR Week 1"], row["Price Week 1"])}
         {PercentPriceRow("Price 2 Week", row["RR Week 2"], row["Price Week 2"])}
-        {PercentPriceRow("Price 1 Month", row["RR Week 4"], row["Price Week 4"])}
-        {PercentPriceRow("Price 3 Month", row["RR Week 13"], row["Price Week 13"])}
-        {PercentPriceRow("Price 6 Month", row["RR Week 26"], row["Price Week 26"])}
-        {PercentPriceRow("Price 1 Year", row["RR Week 52"], row["Price Week 52"])}
+        {PercentPriceRow("Price 4 Week", row["RR Week 4"], row["Price Week 4"])}
+        {PercentPriceRow("Price 13 Week", row["RR Week 13"], row["Price Week 13"])}
+        {PercentPriceRow("Price 26 Week", row["RR Week 26"], row["Price Week 26"])}
+        {PercentPriceRow("Price 52 Week", row["RR Week 52"], row["Price Week 52"])}
 
         {FiftyTwoWeekBar()}
       </div>
