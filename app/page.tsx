@@ -85,7 +85,7 @@ function Top10Strong() {
                 href={`/lookup?code=${row.code}`}
                 target="_blank"
                 style={{
-                  color: "#fbdd59",
+                  color: "#92da0c",
                   textDecoration: "none",
                   fontWeight: "600",
                   fontSize: "18px",
@@ -141,22 +141,22 @@ function CategoryCountsText() {
   }}
 >
   Total Count Each Category →
-  <a href="/categories?verdict=Extended" style={{ color: "#fbdd59", textDecoration: "none", marginLeft: "8px" }}>
+  <a href="/categories?verdict=Extended" style={{ color: "#e625e6", textDecoration: "none", marginLeft: "8px" }}>
     Extended = {counts.Extended}
   </a>,{" "}
-  <a href="/categories?verdict=Strong" style={{ color: "#fbdd59", textDecoration: "none" }}>
+  <a href="/categories?verdict=Strong" style={{ color: "#1a8d03", textDecoration: "none" }}>
     Strong = {counts.Strong}
   </a>,{" "}
-  <a href="/categories?verdict=Positive" style={{ color: "#fbdd59", textDecoration: "none" }}>
+  <a href="/categories?verdict=Positive" style={{ color: "#a3f362", textDecoration: "none" }}>
     Positive = {counts.Positive}
   </a>,{" "}
-  <a href="/categories?verdict=Monitor" style={{ color: "#fbdd59", textDecoration: "none" }}>
+  <a href="/categories?verdict=Monitor" style={{ color: "#fad83f", textDecoration: "none" }}>
     Monitor = {counts.Monitor}
   </a>,{" "}
-  <a href="/categories?verdict=Recheck" style={{ color: "#fbdd59", textDecoration: "none" }}>
+  <a href="/categories?verdict=Recheck" style={{ color: "#f58f3c", textDecoration: "none" }}>
     Recheck = {counts.Recheck}
   </a>,{" "}
-  <a href="/categories?verdict=Weak" style={{ color: "#fbdd59", textDecoration: "none" }}>
+  <a href="/categories?verdict=Weak" style={{ color: "#f55d16", textDecoration: "none" }}>
     Weak = {counts.Weak}
   </a>
 </p>
