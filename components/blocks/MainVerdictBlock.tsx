@@ -103,7 +103,7 @@ export default function MainVerdictBlock({ row }: { row: any }) {
           color: "#061126",
         }}
       >
-        Core Signals – Multiple Horizons & Data Sets
+        Measured Core Signals – Multiple Horizons & Data Sets
       </h2>
 
       <Row

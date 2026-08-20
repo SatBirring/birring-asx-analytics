@@ -83,7 +83,7 @@ export default function RiskBlock({ row }: { row: any }) {
           textAlign: "center",
         }}
       >
-        Risk Indicators
+       Measured Risk Indicators
       </h2>
 
       <RiskRow

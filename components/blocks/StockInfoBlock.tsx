@@ -86,7 +86,7 @@ export default function StockInfoBlock({ row }: { row: any }) {
         </div>
 
         <div>
-          <strong>Market Standing Score:</strong> {row["Market Standing Score"]}
+          <strong>Measured Market Standing Score:</strong> {row["Market Standing Score"]}
         </div>
 
         {row["Ranking"] && (

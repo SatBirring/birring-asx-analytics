@@ -180,7 +180,7 @@ const FiftyTwoWeekBar = () => {
           textAlign: "center",
         }}
       >
-        Price Profile
+        Market Price Profile
       </div>
 
       <div

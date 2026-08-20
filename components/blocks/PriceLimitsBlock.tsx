@@ -52,7 +52,7 @@ export default function PriceLimitsBlock({ row }: { row: any }) {
           textAlign: "center",
         }}
       >
-        Price Limits
+        Measured Price Limits
       </div>
 
       {/* Original rows with updated text colors */}
