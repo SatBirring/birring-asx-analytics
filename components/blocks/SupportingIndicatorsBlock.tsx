@@ -166,8 +166,8 @@ export default function SupportingIndicatorsBlock({ row }: { row: any }) {
       </div>
 
       {/* ⭐ Symmetric bars */}
-      <Bar label="Trend Score" value={row["Trend Score"]} type="trend" />
-      <Bar label="Trend Move" value={row["Trend Move"]} type="tmove" />
+      <Bar label="Trend Score (-3 to 3)" value={row["Trend Score"]} type="trend" />
+      <Bar label="Trend Move (-3 to 3)" value={row["Trend Move"]} type="tmove" />
 
       <div style={{ padding: "8px 0", fontSize: "18px", fontWeight: 600 }}>
         <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -175,7 +175,7 @@ export default function SupportingIndicatorsBlock({ row }: { row: any }) {
           <div>{row["Liquidity Category"]}</div>
         </div>
       </div>
-        <Bar label="Liquidity Score" value={row["Liquidity Score"]} type="liq" />
+        <Bar label="Liquidity Score (1 to 5)" value={row["Liquidity Score"]} type="liq" />
 
       <Bar label="Liquidity Move" value={row["Liquidity Move"]} type="move" />
 
@@ -187,7 +187,7 @@ export default function SupportingIndicatorsBlock({ row }: { row: any }) {
         </div>
       </div>
     
-      <Bar label="Volatility Score" value={row["Volatility Score"]} type="vol" />
+      <Bar label="Volatility Score (1 to 5)" value={row["Volatility Score"]} type="vol" />
 
       {/* Categories (no bars) */}
       
