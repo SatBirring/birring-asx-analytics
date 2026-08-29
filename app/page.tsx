@@ -45,9 +45,11 @@ function Top10Strong() {
         <tr style={{ color: "#fbdd59", textAlign: "left" }}>
          {/* <th style={{ padding: "10px" }}>Rank</th>*/}
           <th style={{ padding: "10px" }}>Code</th>
+          <th style={{ padding: "10px" }}>Price</th>
           <th style={{ padding: "10px" }}>Momentum</th>
           <th style={{ padding: "10px" }}>Final Score</th>
-          <th style={{ padding: "10px" }}>Standing</th>
+          {/*<th style={{ padding: "10px" }}>Standing</th> */}
+          <th style={{ padding: "10px" }}>PE Valuation</th>
           <th style={{ padding: "10px", whiteSpace: "nowrap" }}>Action</th>
         </tr>
       </thead>
@@ -67,6 +69,10 @@ function Top10Strong() {
               {row.code}
             </td>
 
+             <td style={{ padding: "10px"}}>
+              {row.price}
+            </td>
+
             <td style={{ padding: "10px" }}>
               {row.momentum}
             </td>
@@ -76,7 +82,7 @@ function Top10Strong() {
             </td>
 
             <td style={{ padding: "10px" }}>
-              {row.standing}
+              {row.pevalue}
             </td>
 
             {/* COMPACT ACTION ICON — FITS ON MOBILE */}
@@ -167,7 +173,7 @@ export default function Home() {
   return (
     <div
       style={{
-        background: "linear-gradient(180deg, #0b1e39, #071427)",
+        background: "linear-gradient(180deg, #0e1535, #071427)",
         color: "white",
         minHeight: "100vh",
         padding: "40px 20px",

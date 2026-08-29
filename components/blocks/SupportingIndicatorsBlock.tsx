@@ -166,8 +166,8 @@ export default function SupportingIndicatorsBlock({ row }: { row: any }) {
       </div>
 
       {/* ⭐ Symmetric bars */}
-      <Bar label="Trend Score (-3 to 3)" value={row["Trend Score"]} type="trend" />
-      <Bar label="Trend Move (-3 to 3)" value={row["Trend Move"]} type="tmove" />
+      <Bar label="Trend Score (-3 to +3)" value={row["Trend Score"]} type="trend" />
+      <Bar label="Trend Move (-3 to +3)" value={row["Trend Move"]} type="tmove" />
 
       <div style={{ padding: "8px 0", fontSize: "18px", fontWeight: 600 }}>
         <div style={{ display: "flex", justifyContent: "space-between" }}>

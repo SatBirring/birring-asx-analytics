@@ -19,6 +19,9 @@ export async function GET() {
     const idxFinalScore = header.indexOf("final score");
     const idxStanding = header.indexOf("market standing score");
     const idxCategory = header.indexOf("final verdict");
+    const idxprice = header.indexOf("close price");
+    const idxpevalue = header.indexOf("pe valuation");
+
 
     const rows: any[] = [];
 
@@ -31,9 +34,11 @@ export async function GET() {
           code: row[idxCode],
           name: row[idxCompany],
           momentum: row[idxMomentum],
+          pevalue: row[idxpevalue],
           finalScore: parseFloat(row[idxFinalScore]) || 0,
           standing: parseFloat(row[idxStanding]) || 0,
           category: row[idxCategory],
+          price: parseFloat(row[idxprice]) || 0,
         });
       }
     }
