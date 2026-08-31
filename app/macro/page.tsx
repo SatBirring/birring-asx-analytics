@@ -47,6 +47,42 @@ export default function MacroPage() {
         }}
       />
 
+<img
+        src="/macro-chart 1.png"
+        alt="Macro Chart 1"
+        style={{
+          width: "100%",
+          maxWidth: "1000px",
+          height: "auto",
+          margin: "20px auto",
+          display: "block",
+        }}
+      />
+
+      <img
+        src="/macro-chart 2.png"
+        alt="Macro Chart 2"
+        style={{
+          width: "100%",
+          maxWidth: "1000px",
+          height: "auto",
+          margin: "20px auto",
+          display: "block",
+        }}
+      />
+
+      <img
+        src="/macro-chart 3.png"
+        alt="Macro Chart 3"
+        style={{
+          width: "100%",
+          maxWidth: "1000px",
+          height: "auto",
+          margin: "20px auto",
+          display: "block",
+        }}
+      />
+
       {/* Responsive Buttons */}
       <div
         style={{
