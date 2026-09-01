@@ -78,6 +78,10 @@ function LookupContent() {
                 <PriceProfileBlock row={row} />
               </div>
 
+              <div className={styles.block500}>
+                <PriceLimitsBlock row={row} />
+              </div>
+
               <div className={styles.block550}>
                 <SupportingIndicatorsBlock row={row} />
               </div>
@@ -95,9 +99,7 @@ function LookupContent() {
                 <MacroMicroBlock row={row} />
               </div> 
 
-              <div className={styles.block500}>
-                <PriceLimitsBlock row={row} />
-              </div>
+              
               
               <div className={styles.block500}>
                 <DelayedLivePrice code={row["Code"]} />

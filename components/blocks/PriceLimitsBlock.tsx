@@ -4,7 +4,7 @@ export default function PriceLimitsBlock({ row }: { row: any }) {
   if (!row) return null;
 
   const clean = (v: any) => parseFloat(String(v).replace(/[^0-9.-]/g, ""));
-
+  
   const lower = clean(row["Lower Price Limit"]);
   const upper = clean(row["Upper Price Limit"]);
   const target = clean(row["Target Price Limit"]);
@@ -64,6 +64,7 @@ export default function PriceLimitsBlock({ row }: { row: any }) {
           fontSize: "18px",
         }}
       >
+        
         <div style={{ display: "flex", justifyContent: "space-between", color: "#4CAF50" }}>
           <strong>Upper Price Limit:</strong>
           <span>{row["Upper Price Limit"]}</span>
