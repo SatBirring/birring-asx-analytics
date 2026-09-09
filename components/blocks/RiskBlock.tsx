@@ -77,7 +77,7 @@ export default function RiskBlock({ row }: { row: any }) {
       <h2
         style={{
           marginBottom: "12px",
-          fontSize: "20px",
+          fontSize: "28px",
           fontWeight: "700",
           color: "#270311",
           textAlign: "center",
@@ -87,13 +87,13 @@ export default function RiskBlock({ row }: { row: any }) {
       </h2>
 
       <RiskRow
-        label="Over Extension Risk"
+        label="Upside Exhaustion Risk"
         value={row["Over Extention Risk"]}
         showBar={true}
       />
 
       <RiskRow
-        label="Upside Pressure Risk"
+        label="Selling Pressure Risk"
         value={row["Upside Pressure Risk"]}
         showBar={true}
       />

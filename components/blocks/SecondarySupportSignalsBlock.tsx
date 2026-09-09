@@ -40,7 +40,7 @@ export default function SecondarySupportSignalsBlock({ row }: { row: any }) {
       <h2
         style={{
           marginBottom: "12px",
-          fontSize: "20px",
+          fontSize: "28px",
           fontWeight: "700",
           color: "#061126",
           textAlign: "center",
