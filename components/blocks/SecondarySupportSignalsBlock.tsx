@@ -52,7 +52,7 @@ export default function SecondarySupportSignalsBlock({ row }: { row: any }) {
       <Row label="RSI (14)" value={row["RSI (14)"]} />
       <Row label="MACD" value={row["MACD"]} />
       <Row label="Long Term Trend" value={row["Long-Term Trend"]} />
-      <Row label="Breakout classifier" value={row["Breakout  classifier "]} />
+      <Row label="Probability Regime" value={row["Breakout  classifier "]} />
       <Row label="Measured Exit Reason" value={row["Exit Reason"]} />
       <Row label="Measured PE Valuation" value={row["PE Valuation"]} />
     </div>
