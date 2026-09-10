@@ -112,8 +112,8 @@ const FiftyTwoWeekBar = () => {
           marginBottom: "6px",
         }}
       >
-        <span>52W Low: {row["52w Low"]}</span>
-        <span>52W High: {row["52w High"]}</span>
+        <span>52W Low: ${row["52w Low"]}</span>
+        <span>52W High: ${row["52w High"]}</span>
       </div>
 
       {/* FULL-WIDTH WRAPPER */}
@@ -188,6 +188,7 @@ const FiftyTwoWeekBar = () => {
           display: "flex",
           flexDirection: "column",
           gap: "10px",
+          color: "#0816d3fb",
           fontSize: "24px",
         }}
       >

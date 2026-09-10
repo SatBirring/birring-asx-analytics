@@ -67,16 +67,19 @@ export default function PriceLimitsBlock({ row }: { row: any }) {
         
         <div style={{ display: "flex", justifyContent: "space-between", color: "#11ad16" }}>
           <strong>Upper Price Limit:</strong>
+          <span>{row["Expected Move Up"]}</span>
           <span>{row["Upper Price Limit"]}</span>
         </div>
 
         <div style={{ display: "flex", justifyContent: "space-between", color: "#d32f2a" }}>
           <strong>Lower Price Limit:</strong>
+          <span>-{row["Expected Move Down"]}</span>
           <span>{row["Lower Price Limit"]}</span>
         </div>
 
         <div style={{ display: "flex", justifyContent: "space-between", color: "#085ebb" }}>
           <strong>Target Price Limit:</strong>
+          <span>{row["Directional Expected Move"]}</span>
           <span>{row["Target Price Limit"]}</span>
         </div>
 
