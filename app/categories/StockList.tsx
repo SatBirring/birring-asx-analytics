@@ -41,7 +41,7 @@ export default function StockList({ stocks, goToLookup }: StockListProps) {
           <div className={styles.stockRowContent}>
             <span style={{ fontWeight: 600, width: "80px" }}>{s.code}</span>
             <span style={{ flexGrow: 1 }}>{s.name}</span>
-            <span style={{ width: "120px", color: "#eef104" }}>{s.price}</span>
+            <span style={{ width: "120px", color: "#eef104" }}>$ {s.price}</span>
             <span style={{ width: "120px", color: "#f17b0b" }}>{s.riskClass}</span>
             <span style={{ width: "120px", color: "#30f998" }}>{s.momentum}</span>
             <span style={{ width: "120px", color: "#9cc9ff" }}>{s.type}</span>
@@ -93,7 +93,7 @@ export default function StockList({ stocks, goToLookup }: StockListProps) {
           {hoveredStock?.code === s.code && (
             <div className={styles.popupCard}>
               <h3 style={{ marginBottom: "6px" }}>{s.code}</h3>
-              <p style={{ margin: "4px 0" }}>Price Friday Close: {s.price || "N/A"}</p>
+              <p style={{ margin: "4px 0" }}>Price Friday Close:$ {s.price || "N/A"}</p>
               <p style={{ margin: "4px 0" }}>Sector: {s.sector || "N/A"}</p>
               <p style={{ margin: "4px 0" }}>Trend Category: {s.trendCategory || "N/A"}</p>
               <p style={{ margin: "4px 0" }}>Overall Risk Class: {s.riskClass || "N/A"}</p>
