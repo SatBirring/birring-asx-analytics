@@ -1,8 +1,13 @@
 /* ============================================================
+   IMPORT TYPES
+   ============================================================ */
+import type { CSSProperties, MouseEvent } from "react";
+
+/* ============================================================
    BASE BUTTON + HOVER ANIMATION
    ============================================================ */
 
-export const baseButton: React.CSSProperties = {
+export const baseButton: CSSProperties = {
   display: "inline-block",
   padding: "16px 32px",
   borderRadius: "12px",
@@ -15,93 +20,95 @@ export const baseButton: React.CSSProperties = {
   boxShadow: "0 6px 16px rgba(0,0,0,0.45)",
 };
 
-export const hoverEnter = (e: React.MouseEvent<HTMLAnchorElement>) => {
-  e.currentTarget.style.transform = "translateY(-4px)";
-  e.currentTarget.style.boxShadow = "0 10px 22px rgba(0,0,0,0.55)";
+export const hoverEnter = (e: MouseEvent<HTMLAnchorElement>) => {
+  const el = e.currentTarget as HTMLAnchorElement;
+  el.style.transform = "translateY(-4px)";
+  el.style.boxShadow = "0 10px 22px rgba(0,0,0,0.55)";
 };
 
-export const hoverLeave = (e: React.MouseEvent<HTMLAnchorElement>) => {
-  e.currentTarget.style.transform = "translateY(0)";
-  e.currentTarget.style.boxShadow = "0 6px 16px rgba(0,0,0,0.45)";
+export const hoverLeave = (e: MouseEvent<HTMLAnchorElement>) => {
+  const el = e.currentTarget as HTMLAnchorElement;
+  el.style.transform = "translateY(0)";
+  el.style.boxShadow = "0 6px 16px rgba(0,0,0,0.45)";
 };
 
 /* ============================================================
-   COLOR VARIANTS (10+ BUTTON COLORS)
+   COLOR VARIANTS (14 BUTTON COLORS)
    ============================================================ */
 
-export const btnBlue = {
+export const btnBlue: CSSProperties = {
   ...baseButton,
   backgroundColor: "#0aa0ff",
   color: "white",
 };
 
-export const btnOrange = {
+export const btnOrange: CSSProperties = {
   ...baseButton,
   backgroundColor: "#fe8940",
   color: "black",
 };
 
-export const btnYellow = {
+export const btnYellow: CSSProperties = {
   ...baseButton,
   backgroundColor: "#fbdd59",
   color: "#0b1e39",
 };
 
-export const btnGreen = {
+export const btnGreen: CSSProperties = {
   ...baseButton,
   backgroundColor: "#1a8d03",
   color: "white",
 };
 
-export const btnPink = {
+export const btnPink: CSSProperties = {
   ...baseButton,
   backgroundColor: "#e625e6",
   color: "white",
 };
 
-export const btnLime = {
+export const btnLime: CSSProperties = {
   ...baseButton,
   backgroundColor: "#a3f362",
   color: "#0b1e39",
 };
 
-export const btnGold = {
+export const btnGold: CSSProperties = {
   ...baseButton,
   backgroundColor: "#fad83f",
   color: "#0b1e39",
 };
 
-export const btnOrangeRed = {
+export const btnOrangeRed: CSSProperties = {
   ...baseButton,
   backgroundColor: "#f58f3c",
   color: "white",
 };
 
-export const btnRed = {
+export const btnRed: CSSProperties = {
   ...baseButton,
   backgroundColor: "#f55d16",
   color: "white",
 };
 
-export const btnTeal = {
+export const btnTeal: CSSProperties = {
   ...baseButton,
   backgroundColor: "#0cc9b8",
   color: "white",
 };
 
-export const btnNavy = {
+export const btnNavy: CSSProperties = {
   ...baseButton,
   backgroundColor: "#102544",
   color: "#fbdd59",
 };
 
-export const btnGrey = {
+export const btnGrey: CSSProperties = {
   ...baseButton,
   backgroundColor: "#3a3a3a",
   color: "white",
 };
 
-export const btnWhiteOutline = {
+export const btnWhiteOutline: CSSProperties = {
   ...baseButton,
   backgroundColor: "transparent",
   color: "white",

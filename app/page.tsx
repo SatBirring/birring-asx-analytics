@@ -2,43 +2,32 @@
 
 import { useEffect, useState } from "react";
 
-/* ============================================================
-   REUSABLE BUTTON SYSTEM
-   ============================================================ */
-
-const baseButton = {
-  display: "inline-block",
-  padding: "16px 32px",
-  borderRadius: "12px",
-  fontSize: "20px",
-  fontWeight: "700",
-  textDecoration: "none",
-  marginRight: "16px",
-  marginBottom: "16px",
-  transition: "all 0.25s ease",
-  boxShadow: "0 6px 16px rgba(0,0,0,0.45)",
-};
-
-const hoverEnter = (e) => {
-  e.currentTarget.style.transform = "translateY(-4px)";
-  e.currentTarget.style.boxShadow = "0 10px 22px rgba(0,0,0,0.55)";
-};
-
-const hoverLeave = (e) => {
-  e.currentTarget.style.transform = "translateY(0)";
-  e.currentTarget.style.boxShadow = "0 6px 16px rgba(0,0,0,0.45)";
-};
-
-const btnBlue = { ...baseButton, backgroundColor: "#0aa0ff", color: "white" };
-const btnOrange = { ...baseButton, backgroundColor: "#fe8940", color: "black" };
-const btnYellow = { ...baseButton, backgroundColor: "#fbdd59", color: "#0b1e39" };
+// IMPORT YOUR BUTTON SYSTEM
+import {
+  btnBlue,
+  btnOrange,
+  btnYellow,
+  btnGreen,
+  btnPink,
+  btnLime,
+  btnGold,
+  btnOrangeRed,
+  btnRed,
+  btnTeal,
+  btnNavy,
+  btnGrey,
+  btnWhiteOutline,
+  hoverEnter,
+  hoverLeave,
+  baseButton
+} from "@/components/ButtonStyles";
 
 /* ============================================================
    TOP 10 STRONG TABLE
    ============================================================ */
 
 function Top10Strong() {
-  const [rows, setRows] = useState([]);
+  const [rows, setRows] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -138,7 +127,7 @@ function Top10Strong() {
    ============================================================ */
 
 function CategoryCountsText() {
-  const [counts, setCounts] = useState({});
+  const [counts, setCounts] = useState<any>({});
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -255,17 +244,16 @@ export default function Home() {
             <div style={{ marginTop: "10px" }}>
               <a
                 href="/lookup"
-                style={btnOrange}
+                style={btnBlue}
                 onMouseEnter={hoverEnter}
                 onMouseLeave={hoverLeave}
               >
-                🔍 Search ASX code results
-
+                🔍 Search a ASX code →
               </a>
 
               <a
                 href="/categories"
-                style={btnBlue}
+                style={btnOrange}
                 onMouseEnter={hoverEnter}
                 onMouseLeave={hoverLeave}
               >
