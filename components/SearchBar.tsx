@@ -5,18 +5,6 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { ASX_CODES } from "@/data/asxCodes";
 
-// IMPORT BUTTON SYSTEM
-import {
-  btnBlue,
-  btnGrey,
-  btnNavy,
-  btnYellow,
-  btnOrange,
-  hoverEnter,
-  hoverLeave,
-  baseButton
-} from "@/components/ButtonStyles";
-
 export default function SearchBar({
   onResult,
   prefill = "",
@@ -28,7 +16,7 @@ export default function SearchBar({
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const router = useRouter();
 
-  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+  function handleChange(e: any) {
     const input = e.target.value.toUpperCase();
     setQuery(input);
 
@@ -41,13 +29,13 @@ export default function SearchBar({
       code.startsWith(input)
     );
 
-    setSuggestions(filtered.slice(0, 10));
+    setSuggestions(filtered.slice(0, 10)); // limit to 10
   }
 
   function handleSelect(code: string) {
     setQuery(code);
     setSuggestions([]);
-    router.push(`/${code}`);
+    router.push(`/${code}`); // navigate to dynamic page
   }
 
   async function handleSearch() {
@@ -115,7 +103,7 @@ export default function SearchBar({
         }}
       />
 
-      {/* Auto-suggest dropdown */}
+      {/* ⭐ Auto-suggest dropdown */}
       {suggestions.length > 0 && (
         <ul
           style={{
@@ -148,61 +136,83 @@ export default function SearchBar({
         </ul>
       )}
 
-      {/* BUTTONS */}
+      {/* Buttons */}
       <div style={{ display: "flex", flexWrap: "wrap", gap: "10px", marginTop: "10px" }}>
-
-        {/* SEARCH BUTTON */}
         <button
           onClick={handleSearch}
-          style={{ ...btnBlue, padding: "12px 26px", fontSize: "20px" }}
-          onMouseEnter={hoverEnter}
-          onMouseLeave={hoverLeave}
+          style={{
+            padding: "10px 20px",
+            fontSize: "24px",
+            cursor: "pointer",
+            backgroundColor: "#caff37",
+            color: "blue",
+            border: "none",
+            borderRadius: "6px",
+          }}
         >
-          🔍 Search
+          Search
         </button>
 
-        {/* CLEAR BUTTON */}
         <button
           onClick={handleReset}
-          style={{ ...btnGrey, padding: "12px 26px", fontSize: "20px" }}
-          onMouseEnter={hoverEnter}
-          onMouseLeave={hoverLeave}
+          style={{
+            padding: "10px 20px",
+            fontSize: "24px",
+            cursor: "pointer",
+            backgroundColor: "#ddd",
+            border: "3px solid #ccc",
+            borderRadius: "6px",
+          }}
         >
           Clear
         </button>
 
-        {/* HOME BUTTON */}
         <button
           onClick={goHome}
-          style={{ ...btnNavy, padding: "12px 26px", fontSize: "20px" }}
-          onMouseEnter={hoverEnter}
-          onMouseLeave={hoverLeave}
+          style={{
+            padding: "10px 20px",
+            fontSize: "24px",
+            cursor: "pointer",
+            backgroundColor: "#444",
+            color: "white",
+            border: "none",
+            borderRadius: "6px",
+          }}
         >
           Home
         </button>
 
-        {/* MACRO BUTTON */}
         <Link href="/macro">
           <button
-            style={{ ...btnYellow, padding: "12px 26px", fontSize: "18px" }}
-            onMouseEnter={hoverEnter}
-            onMouseLeave={hoverLeave}
+            style={{
+              padding: "10px 20px",
+              fontSize: "20px",
+              cursor: "pointer",
+              backgroundColor: "#ebf300",
+              color: "blue",
+              border: "none",
+              borderRadius: "6px",
+            }}
           >
-            📊 Market & Sector Data
+            Market & Sector Data
           </button>
         </Link>
 
-        {/* CATEGORIES BUTTON */}
         <Link href="/categories">
           <button
-            style={{ ...btnOrange, padding: "12px 26px", fontSize: "18px" }}
-            onMouseEnter={hoverEnter}
-            onMouseLeave={hoverLeave}
+            style={{
+              padding: "10px 20px",
+              fontSize: "20px",
+              cursor: "pointer",
+              backgroundColor: "#f79f23",
+              color: "black",
+              border: "none",
+              borderRadius: "6px",
+            }}
           >
-            📁 Stock Categories
+            Stock Categories
           </button>
         </Link>
-
       </div>
     </div>
   );
