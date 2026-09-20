@@ -110,7 +110,7 @@ function Top10Strong() {
                     onMouseEnter={hoverEnter}
                     onMouseLeave={hoverLeave}
                   >
-                    Inspect ⧉
+                    Report ⧉
                   </a>
                 </td>
               </tr>
@@ -235,9 +235,9 @@ export default function Home() {
                 marginBottom: "30px",
               }}
             >
-              Structured behavioural analytics for ASX‑listed stocks.  
+              Structured, Quantative behavioural analytics for all ASX‑listed stocks.  
               Multi‑layer signals. Weekly consistency.  
-              No forecasts — only observable market behaviour.
+              No forecasts — only measured Market behaviour.
             </p>
 
             {/* CTA BUTTONS */}
@@ -248,7 +248,8 @@ export default function Home() {
                 onMouseEnter={hoverEnter}
                 onMouseLeave={hoverLeave}
               >
-                🔍 Search a ASX code →
+                🔍 Search Report (ASX code)
+
               </a>
 
               <a
