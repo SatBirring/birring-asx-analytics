@@ -2,8 +2,43 @@
 
 import { useEffect, useState } from "react";
 
+/* ============================================================
+   REUSABLE BUTTON SYSTEM
+   ============================================================ */
+
+const baseButton = {
+  display: "inline-block",
+  padding: "16px 32px",
+  borderRadius: "12px",
+  fontSize: "20px",
+  fontWeight: "700",
+  textDecoration: "none",
+  marginRight: "16px",
+  marginBottom: "16px",
+  transition: "all 0.25s ease",
+  boxShadow: "0 6px 16px rgba(0,0,0,0.45)",
+};
+
+const hoverEnter = (e) => {
+  e.currentTarget.style.transform = "translateY(-4px)";
+  e.currentTarget.style.boxShadow = "0 10px 22px rgba(0,0,0,0.55)";
+};
+
+const hoverLeave = (e) => {
+  e.currentTarget.style.transform = "translateY(0)";
+  e.currentTarget.style.boxShadow = "0 6px 16px rgba(0,0,0,0.45)";
+};
+
+const btnBlue = { ...baseButton, backgroundColor: "#0aa0ff", color: "white" };
+const btnOrange = { ...baseButton, backgroundColor: "#fe8940", color: "black" };
+const btnYellow = { ...baseButton, backgroundColor: "#fbdd59", color: "#0b1e39" };
+
+/* ============================================================
+   TOP 10 STRONG TABLE
+   ============================================================ */
+
 function Top10Strong() {
-  const [rows, setRows] = useState<any[]>([]);
+  const [rows, setRows] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -30,88 +65,80 @@ function Top10Strong() {
 
   return (
     <div
-  style={{
-    backgroundColor: "#102544",
-    padding: "20px",
-    borderRadius: "10px",
-    border: "1px solid #1c3558",
-    marginBottom: "60px",
-  }}
->
-  {/* MOBILE-FRIENDLY SCROLL WRAPPER */}
-  <div style={{ overflowX: "auto" }}>
-    <table style={{ width: "100%", borderCollapse: "collapse" }}>
-      <thead>
-        <tr style={{ color: "#fbdd59", textAlign: "left" }}>
-         {/* <th style={{ padding: "10px" }}>Rank</th>*/}
-          <th style={{ padding: "10px" }}>Code</th>
-          <th style={{ padding: "10px" }}>Price</th>
-          <th style={{ padding: "10px" }}>Momentum</th>
-          <th style={{ padding: "10px" }}>Final Score</th>
-          {/*<th style={{ padding: "10px" }}>Standing</th> */}
-          <th style={{ padding: "10px" }}>PE Valuation</th>
-          <th style={{ padding: "10px", whiteSpace: "nowrap" }}>Action</th>
-        </tr>
-      </thead>
+      style={{
+        backgroundColor: "#102544",
+        padding: "20px",
+        borderRadius: "10px",
+        border: "1px solid #1c3558",
+        marginBottom: "60px",
+      }}
+    >
+      <div style={{ overflowX: "auto" }}>
+        <table style={{ width: "100%", borderCollapse: "collapse" }}>
+          <thead>
+            <tr style={{ color: "#fbdd59", textAlign: "left" }}>
+              <th style={{ padding: "10px" }}>Code</th>
+              <th style={{ padding: "10px" }}>Price</th>
+              <th style={{ padding: "10px" }}>Momentum</th>
+              <th style={{ padding: "10px" }}>Final Score</th>
+              <th style={{ padding: "10px" }}>PE Valuation</th>
+              <th style={{ padding: "10px" }}>Action</th>
+            </tr>
+          </thead>
 
-      <tbody>
-        {rows.map((row, index) => (
-          <tr
-            key={index}
-            style={{
-              borderBottom: "1px solid #1c3558",
-              color: "#c9de25",
-            }}
-          >
-            {/*<td style={{ padding: "10px" }}>{index + 1}</td>*/}
-
-            <td style={{ padding: "10px", fontWeight: "600" }}>
-              {row.code}
-            </td>
-
-             <td style={{ padding: "10px"}}>
-              {row.price}
-            </td>
-
-            <td style={{ padding: "10px" }}>
-              {row.momentum}
-            </td>
-
-            <td style={{ padding: "10px" }}>
-              {row.finalScore}%
-            </td>
-
-            <td style={{ padding: "10px" }}>
-              {row.pevalue}
-            </td>
-
-            {/* COMPACT ACTION ICON — FITS ON MOBILE */}
-            <td style={{ padding: "10px", whiteSpace: "nowrap" }}>
-              <a
-                href={`/lookup?code=${row.code}`}
-                target="_blank"
+          <tbody>
+            {rows.map((row, index) => (
+              <tr
+                key={index}
                 style={{
-                  color: "#92da0c",
-                  textDecoration: "none",
-                  fontWeight: "600",
-                  fontSize: "18px",
+                  borderBottom: "1px solid #1c3558",
+                  color: "#c9de25",
                 }}
               >
-                Inspect ⧉
-              </a>
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
-</div>
+                <td style={{ padding: "10px", fontWeight: "600" }}>
+                  {row.code}
+                </td>
 
+                <td style={{ padding: "10px" }}>{row.price}</td>
+
+                <td style={{ padding: "10px" }}>{row.momentum}</td>
+
+                <td style={{ padding: "10px" }}>{row.finalScore}%</td>
+
+                <td style={{ padding: "10px" }}>{row.pevalue}</td>
+
+                <td style={{ padding: "10px" }}>
+                  <a
+                    href={`/lookup?code=${row.code}`}
+                    target="_blank"
+                    style={{
+                      ...baseButton,
+                      padding: "10px 18px",
+                      fontSize: "16px",
+                      backgroundColor: "#92da0c",
+                      color: "black",
+                    }}
+                    onMouseEnter={hoverEnter}
+                    onMouseLeave={hoverLeave}
+                  >
+                    Inspect ⧉
+                  </a>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
   );
 }
 
+/* ============================================================
+   CATEGORY COUNTS
+   ============================================================ */
+
 function CategoryCountsText() {
-  const [counts, setCounts] = useState<any>({});
+  const [counts, setCounts] = useState({});
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -138,36 +165,40 @@ function CategoryCountsText() {
 
   return (
     <p
-  style={{
-    textAlign: "center",
-    color: "#c9de25",
-    fontSize: "20px",
-    marginBottom: "40px",
-    lineHeight: "1.8",
-  }}
->
-  Total Count Each Category →
-  <a href="/categories?verdict=Extended" style={{ color: "#e625e6", textDecoration: "none", marginLeft: "8px" }}>
-    Extended = {counts.Extended}
-  </a>,{" "}
-  <a href="/categories?verdict=Strong" style={{ color: "#1a8d03", textDecoration: "none" }}>
-    Strong = {counts.Strong}
-  </a>,{" "}
-  <a href="/categories?verdict=Positive" style={{ color: "#a3f362", textDecoration: "none" }}>
-    Positive = {counts.Positive}
-  </a>,{" "}
-  <a href="/categories?verdict=Monitor" style={{ color: "#fad83f", textDecoration: "none" }}>
-    Monitor = {counts.Monitor}
-  </a>,{" "}
-  <a href="/categories?verdict=Recheck" style={{ color: "#f58f3c", textDecoration: "none" }}>
-    Recheck = {counts.Recheck}
-  </a>,{" "}
-  <a href="/categories?verdict=Weak" style={{ color: "#f55d16", textDecoration: "none" }}>
-    Weak = {counts.Weak}
-  </a>
-</p>
+      style={{
+        textAlign: "center",
+        color: "#c9de25",
+        fontSize: "20px",
+        marginBottom: "40px",
+        lineHeight: "1.8",
+      }}
+    >
+      Total Count Each Category →
+      <a href="/categories?verdict=Extended" style={{ color: "#e625e6" }}>
+        Extended = {counts.Extended}
+      </a>,{" "}
+      <a href="/categories?verdict=Strong" style={{ color: "#1a8d03" }}>
+        Strong = {counts.Strong}
+      </a>,{" "}
+      <a href="/categories?verdict=Positive" style={{ color: "#a3f362" }}>
+        Positive = {counts.Positive}
+      </a>,{" "}
+      <a href="/categories?verdict=Monitor" style={{ color: "#fad83f" }}>
+        Monitor = {counts.Monitor}
+      </a>,{" "}
+      <a href="/categories?verdict=Recheck" style={{ color: "#f58f3c" }}>
+        Recheck = {counts.Recheck}
+      </a>,{" "}
+      <a href="/categories?verdict=Weak" style={{ color: "#f55d16" }}>
+        Weak = {counts.Weak}
+      </a>
+    </p>
   );
 }
+
+/* ============================================================
+   HOME PAGE
+   ============================================================ */
 
 export default function Home() {
   return (
@@ -220,62 +251,34 @@ export default function Home() {
               No forecasts — only observable market behaviour.
             </p>
 
+            {/* CTA BUTTONS */}
             <div style={{ marginTop: "10px" }}>
               <a
                 href="/lookup"
-                
-                style={{
-                  display: "inline-block",
-                  padding: "14px 28px",
-                  backgroundColor: "#0070f3",
-                  color: "yellow",
-                  borderRadius: "8px",
-                  fontSize: "18px",
-                  fontWeight: "600",
-                  textDecoration: "none",
-                  marginRight: "12px",
-                  marginBottom: "12px",
-                }}
+                style={btnOrange}
+                onMouseEnter={hoverEnter}
+                onMouseLeave={hoverLeave}
               >
-                Start Stock Lookup →
+                🔍 Search ASX code results
+
               </a>
 
               <a
                 href="/categories"
-                
-                style={{
-                  display: "inline-block",
-                  padding: "14px 28px",
-                  backgroundColor: "#fe8940",
-                  color: "black",
-                  borderRadius: "8px",
-                  fontSize: "18px",
-                  fontWeight: "600",
-                  textDecoration: "none",
-                  marginRight: "12px",
-                  marginBottom: "12px",
-                }}
+                style={btnBlue}
+                onMouseEnter={hoverEnter}
+                onMouseLeave={hoverLeave}
               >
-                Stock Categories
+                📁 Browse Measured Categories
               </a>
 
               <a
                 href="/macro"
-                
-                style={{
-                  display: "inline-block",
-                  padding: "14px 28px",
-                  backgroundColor: "#fbdd59",
-                  color: "#0b1e39",
-                  borderRadius: "8px",
-                  fontSize: "18px",
-                  fontWeight: "600",
-                  textDecoration: "none",
-                  marginRight: "12px",
-                  marginBottom: "12px",
-                }}
+                style={btnYellow}
+                onMouseEnter={hoverEnter}
+                onMouseLeave={hoverLeave}
               >
-                Market Macro Snapshot
+                📊 ASX Market Macro Snapshot
               </a>
             </div>
           </div>
@@ -316,58 +319,38 @@ export default function Home() {
             marginBottom: "60px",
           }}
         >
-          <div
-            style={{
-              flex: "1 1 300px",
-              backgroundColor: "#102544",
-              padding: "20px",
-              borderRadius: "10px",
-              border: "1px solid #1c3558",
-            }}
-          >
-            <h3 style={{ color: "#fbdd59", marginBottom: "10px" }}>
-              Trend Behaviour
-            </h3>
-            <p style={{ color: "#c9de25", lineHeight: "1.6" }}>
-              Directional movement, slope quality, and trend stability across
-              52 weeks.
-            </p>
-          </div>
-
-          <div
-            style={{
-              flex: "1 1 300px",
-              backgroundColor: "#102544",
-              padding: "20px",
-              borderRadius: "10px",
-              border: "1px solid #1c3558",
-            }}
-          >
-            <h3 style={{ color: "#fbdd59", marginBottom: "10px" }}>
-              Price Structure
-            </h3>
-            <p style={{ color: "#c9de25", lineHeight: "1.6" }}>
-              Weekly movement quality, volatility regimes, and liquidity
-              conditions.
-            </p>
-          </div>
-
-          <div
-            style={{
-              flex: "1 1 300px",
-              backgroundColor: "#102544",
-              padding: "20px",
-              borderRadius: "10px",
-              border: "1px solid #1c3558",
-            }}
-          >
-            <h3 style={{ color: "#fbdd59", marginBottom: "10px" }}>
-              Macro Alignment
-            </h3>
-            <p style={{ color: "#c9de25", lineHeight: "1.6" }}>
-              Macro‑micro consistency measured against ASX sector flows.
-            </p>
-          </div>
+          {[
+            {
+              title: "Trend Behaviour",
+              text: "Directional movement, slope quality, and trend stability across 52 weeks.",
+            },
+            {
+              title: "Price Structure",
+              text: "Weekly movement quality, volatility regimes, and liquidity conditions.",
+            },
+            {
+              title: "Macro Alignment",
+              text: "Macro‑micro consistency measured against ASX sector flows.",
+            },
+          ].map((item, idx) => (
+            <div
+              key={idx}
+              style={{
+                flex: "1 1 300px",
+                backgroundColor: "#102544",
+                padding: "20px",
+                borderRadius: "10px",
+                border: "1px solid #1c3558",
+              }}
+            >
+              <h3 style={{ color: "#fbdd59", marginBottom: "10px" }}>
+                {item.title}
+              </h3>
+              <p style={{ color: "#c9de25", lineHeight: "1.6" }}>
+                {item.text}
+              </p>
+            </div>
+          ))}
         </div>
 
         {/* TOP 10 STRONG */}
