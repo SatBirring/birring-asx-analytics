@@ -11,6 +11,15 @@ import MomentumPopup from "./MomentumPopup";
 import TypePopup from "./TypePopup";
 import StockList from "./StockList";
 
+// GLOBAL BUTTON SYSTEM
+import {
+  btnBlue,
+  btnYellow,
+  btnNavy,
+  hoverEnter,
+  hoverLeave
+} from "@/components/ButtonStyles";
+
 const VERDICTS = ["Extended", "Strong", "Positive", "Monitor", "Recheck", "Weak"];
 const MOMENTUM_OPTIONS = ["Peak", "Soaring", "Rising", "Climbing", "Stable", "Fading", "Drop phase"];
 const TYPE_OPTIONS = ["Bond", "CDI", "ETF", "Option", "Ordinary", "Other"];
@@ -19,10 +28,7 @@ function CategoriesPageInner() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  // ⭐ Read verdict from URL
   const verdictFromURL = searchParams.get("verdict") || "Positive";
-
-  // ⭐ Sync selected category with URL
   const [selected, setSelected] = useState(verdictFromURL);
 
   const [stocks, setStocks] = useState<any[]>([]);
@@ -44,7 +50,6 @@ function CategoriesPageInner() {
     setCategoryCount(data.results?.length || 0);
   }
 
-  // ⭐ Load correct category when URL changes
   useEffect(() => {
     loadCategory(verdictFromURL);
   }, [verdictFromURL]);
@@ -65,12 +70,54 @@ function CategoriesPageInner() {
 
   return (
     <div className={styles.page}>
+
+      {/* HEADER */}
       <CategoryHeader
-        selected={selected}
-        VERDICTS={VERDICTS}
-        loadCategory={loadCategory}
+      selected={selected}
+      VERDICTS={VERDICTS}
+      loadCategory={loadCategory}
       />
 
+      {/* ⭐ TOP NAVIGATION BUTTONS */}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          gap: "12px",
+          marginBottom: "20px",
+          flexWrap: "wrap",
+        }}
+      >
+        <button
+          onClick={() => router.push("/")}
+          style={{ ...btnNavy, padding: "12px 24px", fontSize: "18px" }}
+          onMouseEnter={hoverEnter}
+          onMouseLeave={hoverLeave}
+        >
+          🏠 Home
+        </button>
+
+        <button
+          onClick={() => router.push("/lookup")}
+          style={{ ...btnBlue, padding: "12px 24px", fontSize: "18px" }}
+          onMouseEnter={hoverEnter}
+          onMouseLeave={hoverLeave}
+        >
+          🔍 Stock Lookup
+        </button>
+
+        <button
+          onClick={() => router.push("/macro")}
+          style={{ ...btnYellow, padding: "12px 24px", fontSize: "18px" }}
+          onMouseEnter={hoverEnter}
+          onMouseLeave={hoverLeave}
+        >
+          📊 Market & Sector Data
+        </button>
+      </div>
+
+      
+      {/* FILTER PANEL */}
       <FilterPanel
         selected={selected}
         categoryCount={categoryCount}
@@ -82,6 +129,7 @@ function CategoriesPageInner() {
         router={router}
       />
 
+      {/* POPUPS */}
       {showMomentumPopup && (
         <MomentumPopup
           momentumFilter={momentumFilter}
@@ -100,15 +148,53 @@ function CategoriesPageInner() {
         />
       )}
 
+      {/* STOCK LIST */}
       <StockList
         stocks={filterStocks(stocks)}
         goToLookup={(code) => router.push(`/lookup?code=${code}`)}
       />
+
+      {/* ⭐ BOTTOM NAVIGATION BUTTONS */}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          gap: "12px",
+          marginTop: "30px",
+          flexWrap: "wrap",
+        }}
+      >
+        <button
+          onClick={() => router.push("/")}
+          style={{ ...btnNavy, padding: "12px 24px", fontSize: "18px" }}
+          onMouseEnter={hoverEnter}
+          onMouseLeave={hoverLeave}
+        >
+          🏠 Home
+        </button>
+
+        <button
+          onClick={() => router.push("/lookup")}
+          style={{ ...btnBlue, padding: "12px 24px", fontSize: "18px" }}
+          onMouseEnter={hoverEnter}
+          onMouseLeave={hoverLeave}
+        >
+          🔍 Stock Lookup
+        </button>
+
+        <button
+          onClick={() => router.push("/macro")}
+          style={{ ...btnYellow, padding: "12px 24px", fontSize: "18px" }}
+          onMouseEnter={hoverEnter}
+          onMouseLeave={hoverLeave}
+        >
+          📊 Market & Sector Data
+        </button>
+      </div>
     </div>
   );
 }
 
-// ⭐ Suspense wrapper required by Next.js for useSearchParams()
 export default function CategoriesPage() {
   return (
     <Suspense fallback={<div style={{ color: "#fff", padding: "20px" }}>Loading…</div>}>

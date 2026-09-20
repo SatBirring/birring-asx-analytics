@@ -1,5 +1,21 @@
 import styles from "./CategoriesPage.module.css";
 
+// GLOBAL BUTTON SYSTEM
+import {
+  btnBlue,
+  btnOrange,
+  btnYellow,
+  btnGreen,
+  btnGrey,
+  btnNavy,
+  btnPink,
+  btnLime,
+  btnOrangeRed,
+  btnRed,
+  hoverEnter,
+  hoverLeave
+} from "@/components/ButtonStyles";
+
 interface FilterPanelProps {
   selected: string;
   categoryCount: number;
@@ -21,23 +37,47 @@ export default function FilterPanel({
   loadCategory,
   router
 }: FilterPanelProps) {
+
+  // ⭐ Category → Colour mapping
+  const categoryColors: Record<string, any> = {
+    Extended: btnPink,
+    Strong: btnGreen,
+    Positive: btnLime,
+    Monitor: btnYellow,
+    Recheck: btnOrangeRed,
+    Weak: btnRed
+  };
+
+  const dropdownStyle = categoryColors[selected] || btnBlue;
+
   return (
     <div className={styles.filterPanel}>
-      <p className={styles.filterText}>
+
+      {/* ⭐ TOP TEXT */}
+      <p
+        style={{
+          fontSize: "20px",
+          color: "#9cebff",
+          marginBottom: "20px",
+          fontWeight: 600,
+        }}
+      >
         Dropdown search for Stock Categories Momentum and type.
       </p>
 
+      {/* ⭐ CATEGORY SELECT — dynamic colour */}
       <select
         value={selected}
         onChange={(e) => loadCategory(e.target.value)}
+        onMouseEnter={hoverEnter}
+        onMouseLeave={hoverLeave}
         style={{
+          ...dropdownStyle,
           padding: "12px 16px",
           fontSize: "18px",
+          width: "240px",
+          cursor: "pointer",
           borderRadius: "6px",
-          border: "none",
-          width: "200px",
-          backgroundColor: "rgb(64, 122, 180)",
-          color: "rgb(255, 242, 3)",
         }}
       >
         <option value="">Select a category...</option>
@@ -46,86 +86,31 @@ export default function FilterPanel({
         ))}
       </select>
 
-      <p style={{ color: "#30f998", fontSize: "18px" }}>
+      {/* CATEGORY COUNT */}
+      <p style={{ color: "#30f998", fontSize: "18px", marginTop: "10px" }}>
         Total in Category: {categoryCount}
       </p>
 
+      {/* ⭐ MOMENTUM BUTTON */}
       <button
         onClick={() => setShowMomentumPopup(true)}
-        style={{
-          padding: "12px 16px",
-          fontSize: "18px",
-          borderRadius: "6px",
-          width: "200px",
-          backgroundColor: "rgb(125, 238, 20)",
-          color: "rgb(12, 85, 241)",
-          border: "none",
-          cursor: "pointer",
-        }}
+        style={{ ...btnGreen, padding: "12px 16px", width: "240px", fontSize: "18px" }}
+        onMouseEnter={hoverEnter}
+        onMouseLeave={hoverLeave}
       >
         Momentum {momentumFilter.length > 0 ? `(${momentumFilter.join(", ")})` : ""}
       </button>
 
+      {/* ⭐ TYPE BUTTON */}
       <button
         onClick={() => setShowTypePopup(true)}
-        style={{
-          padding: "12px 16px",
-          fontSize: "18px",
-          borderRadius: "6px",
-          width: "150px",
-          backgroundColor: "rgb(95, 51, 92)",
-          color: "rgb(125, 238, 20)",
-          border: "none",
-          cursor: "pointer",
-        }}
+        style={{ ...btnOrange, padding: "12px 16px", width: "200px", fontSize: "18px" }}
+        onMouseEnter={hoverEnter}
+        onMouseLeave={hoverLeave}
       >
         Type {typeFilter.length > 0 ? `(${typeFilter.join(", ")})` : ""}
       </button>
 
-      <button
-        onClick={() => router.push("/lookup")}
-        style={{
-          padding: "10px 20px",
-          fontSize: "16px",
-          cursor: "pointer",
-          backgroundColor: "#444",
-          color: "white",
-          border: "none",
-          borderRadius: "6px",
-        }}
-      >
-        Stock Lookup
-      </button>
-
-      <button
-        onClick={() => router.push("/macro")}
-        style={{
-          padding: "10px 20px",
-          fontSize: "16px",
-          cursor: "pointer",
-          backgroundColor: "#0070f3",
-          color: "white",
-          border: "none",
-          borderRadius: "6px",
-        }}
-      >
-        Market & Sector Data
-      </button>
-
-      <button
-          onClick={() => router.push("/")}
-          style={{
-            padding: "10px 20px",
-            fontSize: "16px",
-            cursor: "pointer",
-            backgroundColor: "#03eeee",
-            color: "black",
-            border: "none",
-            borderRadius: "6px",
-          }}
-        >
-          Home
-        </button>
     </div>
   );
 }
