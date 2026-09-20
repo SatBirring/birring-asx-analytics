@@ -2,27 +2,38 @@
 
 import { useRouter } from "next/navigation";
 
+// GLOBAL BUTTON SYSTEM
+import {
+  btnBlue,
+  btnOrange,
+  btnNavy,
+  hoverEnter,
+  hoverLeave
+} from "@/components/ButtonStyles";
+
 export default function MacroPage() {
   const router = useRouter();
 
   return (
     <div
       style={{
-        backgroundColor: "#e8ebff",   // ⭐ Light blue background
-        minHeight: "100vh",           // ⭐ Full page height
+        backgroundColor: "#e8ebff",
+        minHeight: "100vh",
         padding: "20px",
         textAlign: "center",
       }}
     >
+      {/* PAGE TITLE */}
       <h1 style={{ marginBottom: "20px", fontSize: "32px", fontWeight: "bold" }}>
         Macro Data Overview
       </h1>
 
       <h2 style={{ marginBottom: "20px", fontSize: "20px", fontWeight: "bold" }}>
-        Macro data is systematically measured and compiled across the market and individual sectors, providing a unified view of directional momentum, trend development, and volatility behaviour.
+        Macro data is systematically measured and compiled across the market and individual sectors,
+        providing a unified view of directional momentum, trend development, and volatility behaviour.
       </h2>
 
-      {/* Responsive Macro Image */}
+      {/* FIRST IMAGE */}
       <img
         src="/macro-signal.png"
         alt="Macro Signal"
@@ -35,55 +46,66 @@ export default function MacroPage() {
         }}
       />
 
-      <img
-        src="/macro-chart.png"
-        alt="Macro Chart"
+      {/* ⭐ TOP BUTTON BAR — moved under macro-signal */}
+      <div
         style={{
-          width: "100%",
-          maxWidth: "1000px",
-          height: "auto",
-          margin: "20px auto",
-          display: "block",
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "center",
+          gap: "10px",
+          margin: "20px 0",
         }}
-      />
+      >
+        <button
+          onClick={() => router.push("/")}
+          style={{ ...btnNavy, padding: "12px 26px", fontSize: "18px" }}
+          onMouseEnter={hoverEnter}
+          onMouseLeave={hoverLeave}
+        >
+          Home
+        </button>
 
-<img
-        src="/macro-chart 1.png"
-        alt="Macro Chart 1"
-        style={{
-          width: "100%",
-          maxWidth: "1000px",
-          height: "auto",
-          margin: "20px auto",
-          display: "block",
-        }}
-      />
+        <button
+          onClick={() => router.push("/lookup")}
+          style={{ ...btnBlue, padding: "12px 26px", fontSize: "18px" }}
+          onMouseEnter={hoverEnter}
+          onMouseLeave={hoverLeave}
+        >
+          🔍 Stock Lookup
+        </button>
 
-      <img
-        src="/macro-chart 2.png"
-        alt="Macro Chart 2"
-        style={{
-          width: "100%",
-          maxWidth: "1000px",
-          height: "auto",
-          margin: "20px auto",
-          display: "block",
-        }}
-      />
+        <button
+          onClick={() => router.push("/categories")}
+          style={{ ...btnOrange, padding: "12px 26px", fontSize: "18px" }}
+          onMouseEnter={hoverEnter}
+          onMouseLeave={hoverLeave}
+        >
+          📁 Stock Categories
+        </button>
+      </div>
 
-      <img
-        src="/macro-chart 3.png"
-        alt="Macro Chart 3"
-        style={{
-          width: "100%",
-          maxWidth: "1000px",
-          height: "auto",
-          margin: "20px auto",
-          display: "block",
-        }}
-      />
+      {/* REMAINING IMAGES */}
+      {[
+        "/macro-chart.png",
+        "/macro-chart 1.png",
+        "/macro-chart 2.png",
+        "/macro-chart 3.png",
+      ].map((src, idx) => (
+        <img
+          key={idx}
+          src={src}
+          alt={`Macro Chart ${idx}`}
+          style={{
+            width: "100%",
+            maxWidth: "1000px",
+            height: "auto",
+            margin: "20px auto",
+            display: "block",
+          }}
+        />
+      ))}
 
-      {/* Responsive Buttons */}
+      {/* ⭐ BOTTOM BUTTON BAR — also without macro button */}
       <div
         style={{
           display: "flex",
@@ -95,48 +117,29 @@ export default function MacroPage() {
       >
         <button
           onClick={() => router.push("/")}
-          style={{
-            padding: "10px 20px",
-            fontSize: "16px",
-            cursor: "pointer",
-            backgroundColor: "#272727",
-            color: "white",
-            border: "none",
-            borderRadius: "6px",
-          }}
+          style={{ ...btnNavy, padding: "12px 26px", fontSize: "18px" }}
+          onMouseEnter={hoverEnter}
+          onMouseLeave={hoverLeave}
         >
           Home
         </button>
 
         <button
           onClick={() => router.push("/lookup")}
-          style={{
-            padding: "10px 20px",
-            fontSize: "16px",
-            cursor: "pointer",
-            backgroundColor: "#0070f3",
-            color: "yellow",
-            border: "none",
-            borderRadius: "6px",
-          }}
+          style={{ ...btnBlue, padding: "12px 26px", fontSize: "18px" }}
+          onMouseEnter={hoverEnter}
+          onMouseLeave={hoverLeave}
         >
-          Stock Lookup
+          🔍 Stock Lookup
         </button>
 
-        {/* ⭐ NEW BUTTON — Go to Categories */}
         <button
           onClick={() => router.push("/categories")}
-          style={{
-            padding: "10px 20px",
-            fontSize: "16px",
-            cursor: "pointer",
-            backgroundColor: "#fe8940",
-            color: "blue",
-            border: "none",
-            borderRadius: "6px",
-          }}
+          style={{ ...btnOrange, padding: "12px 26px", fontSize: "18px" }}
+          onMouseEnter={hoverEnter}
+          onMouseLeave={hoverLeave}
         >
-          Stock Categories
+          📁 Stock Categories
         </button>
       </div>
     </div>
