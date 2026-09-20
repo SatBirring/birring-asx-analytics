@@ -62,7 +62,7 @@ export default function MacroPage() {
           onMouseEnter={hoverEnter}
           onMouseLeave={hoverLeave}
         >
-          Home
+         🏠 Home
         </button>
 
         <button
@@ -121,7 +121,7 @@ export default function MacroPage() {
           onMouseEnter={hoverEnter}
           onMouseLeave={hoverLeave}
         >
-          Home
+          🏠 Home
         </button>
 
         <button

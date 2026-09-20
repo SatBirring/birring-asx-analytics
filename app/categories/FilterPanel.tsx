@@ -57,7 +57,7 @@ export default function FilterPanel({
       <p
         style={{
           fontSize: "20px",
-          color: "#9cebff",
+          color: "#d6d311",
           marginBottom: "20px",
           fontWeight: 600,
         }}
