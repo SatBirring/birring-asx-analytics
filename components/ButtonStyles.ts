@@ -20,14 +20,14 @@ export const baseButton: CSSProperties = {
   boxShadow: "0 6px 16px rgba(0,0,0,0.45)",
 };
 
-export const hoverEnter = (e: MouseEvent<HTMLAnchorElement>) => {
-  const el = e.currentTarget as HTMLAnchorElement;
+eexport const hoverEnter = (e: MouseEvent<HTMLElement>) => {
+  const el = e.currentTarget as HTMLElement;
   el.style.transform = "translateY(-4px)";
   el.style.boxShadow = "0 10px 22px rgba(0,0,0,0.55)";
 };
 
-export const hoverLeave = (e: MouseEvent<HTMLAnchorElement>) => {
-  const el = e.currentTarget as HTMLAnchorElement;
+export const hoverLeave = (e: MouseEvent<HTMLElement>) => {
+  const el = e.currentTarget as HTMLElement;
   el.style.transform = "translateY(0)";
   el.style.boxShadow = "0 6px 16px rgba(0,0,0,0.45)";
 };
