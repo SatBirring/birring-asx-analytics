@@ -235,9 +235,9 @@ export default function Home() {
                 marginBottom: "30px",
               }}
             >
-              Structured, Quantative behavioural analytics for all ASX‑listed stocks.  
-              Multi‑layer signals. Weekly consistency.  
-              No forecasts — only measured Market behaviour.
+              Structured, Quantative behavioural analytics for all ASX‑listed Tickers.  
+              Multi‑layer signals. Weekly data consistency.  
+              No forecasts — only measured current Market behaviour.
             </p>
 
             {/* CTA BUTTONS */}
