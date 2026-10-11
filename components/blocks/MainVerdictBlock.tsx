@@ -131,6 +131,11 @@ export default function MainVerdictBlock({ row }: { row: any }) {
       />
 
       <Row
+        label="Current State"
+        verdict={row["Market State"]}
+      />
+
+      <Row
         label="Behavioural Classifier"
         verdict={row["Behavioural Classifier"]}
       />
