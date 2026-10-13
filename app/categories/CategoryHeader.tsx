@@ -17,7 +17,7 @@ export default function CategoryHeader({
       <h1 className={styles.title}>ASX Behavioural Categories</h1>
 
       <p className={styles.subtitle}>
-        The FINAL VERDICT Signals are derived from multi‑angle analytics.
+        The FINAL VERDICT Signals are derived from Multi‑Dimention analytics.
       </p>
 
       <div
