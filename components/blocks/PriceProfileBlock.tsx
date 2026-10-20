@@ -197,6 +197,11 @@ const FiftyTwoWeekBar = () => {
           <span>{row["Price Last Friday"]}</span>
         </div>
 
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <strong>Smoothed Price 15 Days:</strong>
+          <span>{row["EMA Price"]}</span>
+        </div>
+
         {PercentPriceRow("Price 1 Week", row["RR Week 1"], row["Price Week 1"])}
         {PercentPriceRow("Price 2 Week", row["RR Week 2"], row["Price Week 2"])}
         {PercentPriceRow("Price 4 Week", row["RR Week 4"], row["Price Week 4"])}
