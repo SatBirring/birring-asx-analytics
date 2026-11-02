@@ -242,15 +242,43 @@ export default function Home() {
 
             {/* CTA BUTTONS */}
             <div style={{ marginTop: "10px" }}>
-              <a
-                href="/lookup"
-                style={btnBlue}
-                onMouseEnter={hoverEnter}
-                onMouseLeave={hoverLeave}
-              >
-                🔍 Search Report (ASX code)
+              <form
+  action="/lookup"
+  method="GET"
+  style={{
+    display: "flex",
+    flexWrap: "wrap",
+    gap: "10px",
+    alignItems: "center",
+    marginBottom: "10px",
+  }}
+>
+  <input
+    type="text"
+    name="code"
+    placeholder="Enter ASX Code"
+    style={{
+      padding: "12px",
+      fontSize: "12px",
+      borderRadius: "8px",
+      border: "1px solid #1c3558",
+      backgroundColor: "#115c33",
+      color: "white",
+      width: "220px",
+      textTransform: "uppercase",
+    }}
+  />
 
-              </a>
+  <button
+    type="submit"
+    style={btnBlue}
+    onMouseEnter={hoverEnter}
+    onMouseLeave={hoverLeave}
+  >
+    🔍 Search Report
+  </button>
+</form>
+
 
               <a
                 href="/categories"
