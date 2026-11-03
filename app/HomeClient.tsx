@@ -259,7 +259,7 @@ export default function Home() {
     placeholder="Enter ASX Code"
     style={{
       padding: "12px",
-      fontSize: "12px",
+      fontSize: "16px",
       borderRadius: "8px",
       border: "1px solid #1c3558",
       backgroundColor: "#115c33",
